@@ -140,7 +140,7 @@ function page_footer($saveuser=true){
 	}else{
 		$session['needtoviewmotd']=false;
 	}
-	$pre_headscript = "<LINK REL=\"shortcut icon\" HREF=\"favicon.ico\" TYPE=\"image/x-icon\"/>";
+	$pre_headscript = "<LINK REL=\"shortcut icon\" HREF=\"avalon.ico\" TYPE=\"image/x-icon\"/>";
 	if ($headscript>""){
 		$header=str_replace("{headscript}",$pre_headscript."<script language='JavaScript'>".$headscript."</script>",$header);
 	}else{
