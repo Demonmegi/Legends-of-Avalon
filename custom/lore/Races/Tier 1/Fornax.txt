@@ -1,0 +1,21 @@
+Choose Race Text:
+
+In deiner Vergangenheit als `)Fornaxier`0 warst du Teil einer mysteriösen Rasse mit unübertroffenen Fähigkeiten in Zauberei, Magie und Alchemie. Obwohl von Gerüchten verabscheut, wurden die Fornaxierier von den Bewohnern Eurales für ihre herausragenden Zauberer und Heiler sehr geschätzt.
+
+Set Race Text
+
+In den fernen Landen des Eurale-Kontinents existiert eine Rasse, die als Fornaxier bekannt ist. Diese mysteriösen Wesen beherrschen die Künste der Zauberei, Magie und Alchemie in einer Weise, die sie zu einer herausragenden und faszinierenden Gemeinschaft macht. Die Fornaxier sind jedoch nicht nur für ihre magischen Fähigkeiten berühmt, sondern auch für ihre Abneigung gegenüber jeglichen Gerüchten und unnötigen Klatschgeschichten.
+
+In der Legendenwelt heißt es, dass die Fornaxier die Macht haben, das Wetter zu manipulieren. Doch diese Behauptungen sind oft umstritten und viele bezweifeln ihre Wahrhaftigkeit. Ungeachtet dessen haben die Fornaxier den Ruf, die geheimnisvollsten und mächtigsten Zauberer zu sein, die je das Licht der Welt erblickt haben.
+
+Diese außergewöhnlichen Fähigkeiten und ihre unnahbare Natur machen die Fornaxier zu einer faszinierenden, aber auch misstraünswürdigen Rasse in den Augen der anderen Völker des Eurale-Kontinents. Manchmal herrscht eine gewisse Distanz und Vorsicht gegenüber den Fornaxier, da sie anders sind und unbekannte Mächte beherrschen.
+
+Trotz des gelegentlichen Misstrauens schätzen die Bewohner des Eurale-Kontinents die Fornaxier für ihre Beiträge als begabte Zauberer und Heiler. Die Fähigkeiten dieser geheimnisvollen Rasse sind von unschätzbarem Wert und haben bereits vielen Menschen in Not geholfen.
+
+Die Legenden und Geschichten über die Fornaxier sind zahlreich und doch bleibt ihr wahres Wesen stets in Nebel gehüllt. Ihr tiefes Wissen über die arkanen Künste und ihre Geheimnisse machen sie zu einer wahrlich faszinierenden und einzigartigen Rasse in der reichen Lore des Eurale-Kontinents.
+
+Newday Race Text
+
+Als Angehöriger einer Rasse die bekannt für Ihre fähigen Magier ist erhälst du 2x Angriff und +3 Regeneration!
+
+Buff Name: `)Naturtalent der `^Arkanen Künste

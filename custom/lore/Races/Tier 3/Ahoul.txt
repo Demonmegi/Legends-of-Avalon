@@ -1,0 +1,23 @@
+Choose Race Text:
+
+In deiner Kindheit als `qAhoul`0 in den weiten Steppen, verbrachtest du unbeschwerte Tage inmitten einer kraftvollen Gesellschaft von orc-ähnlichen Kriegern. Obwohl du vielleicht nicht mit dem gleichen Intellekt wie die Sha'men gesegnet warst, entdecktest du deine wahre Stärke als eine unerschütterliche Kriegerseele, die das Rückgrat der Sha'Ahoul-Armee darstellte und auf dem Schlachtfeld unaufhaltsam war.
+
+Set Race Text:
+
+In diesen Schier endlosen Steppen existiert eine Rasse namens Ahoul, wesenähnliche Kreaturen von beeindruckender orc-ähnlicher Erscheinung. Doch die Geschichte der Ahoul ist untrennbar mit einer schicksalhaften Verbindung verwoben, die ihre Existenz prägte.
+
+Vor langer Zeit gab es zwei Gruppen in dieser Welt: die Sha'men, Weisen mit uralter Weisheit und mystischen Kräften, sowie die Ahoul, kraftvolle Krieger mit beeindruckender physischer Stärke, aber begrenzten geistigen Fähigkeiten. Während viele sie wegen ihrer intellektüllen Beschränkungen unterschätzt haben mögen, sollte man ihre Bedeutung niemals gering schätzen.
+
+Es war ein unerwartetes Ereignis, das die Wende brachte – ein Zusammentreffen, das das Schicksal der beiden Rassen für immer verändern sollte. Eines Tages kreuzten die Pfade der Sha'men und der Ahoul sich, und eine unerwartete Verbundenheit entstand zwischen ihnen. Diese Verbindung erweckte eine neü Macht, die bis dahin unbekannt war: die Sha'Ahoul. Aus dieser Verschmelzung entstand eine einzigartige hybride Rasse, die das Beste beider Welten vereinte.
+
+Die Ahoul, nun ein Teil der Sha'Ahoul, wurden zu unerschütterlichen Kriegern auf dem Schlachtfeld. Ihre physische Kraft und Ausdaür waren legendär, und sie dienten als die wahren Bannerträger der brachialen Kraft in der Sha'Ahoul-Armee. In den heftigsten Kämpfen waren es die Ahoul, die als unaufhaltsame Streitmacht voranschritten und ihre Feinde mit beeindruckender Gewalt besiegten.
+
+Obwohl ihre Intelligenz im Vergleich zu den Sha'men begrenzt war, führte ihre Loyalität und ihre unerschütterliche Entschlossenheit dazu, dass die Sha'Ahoul als Ganzes noch stärker wurden. Die Weisen der Sha'men leiteten die Ahoul in Schlachten und strategischen Entscheidungen, und die Ahoul gehorchten ohne zu zögern, weil sie wussten, dass sie zusammen unschlagbar waren.
+
+So mögen die Ahoul vielleicht nicht mit dem gleichen Intellekt wie die Sha'men gesegnet sein, doch ihr unbeirrbarer Kampfgeist, ihre Loyalität und ihre pure, rohe Stärke machten sie zu den unersetzlichen Säulen der Sha'Ahoul-Gesellschaft. Sie mögen als die Brute Force der Armee bekannt sein, aber ihre Rolle und Bedeutung in der Sha'Ahoul-Welt gehen weit darüber hinaus.
+
+Newday Race Text
+
+Als Angehöriger einer Rasse die bekannt ist für Ihre Brutalität im Kampf erhälst du 1.25x Angriff!
+
+Buff Name: `qKräftiger `hRohling

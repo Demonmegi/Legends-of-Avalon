@@ -1,0 +1,20 @@
+Choose Race Text:
+
+In deiner Vergangenheit als `GElfe`0 fandest du dich in den Wäldern nördlich von Avalon wieder, als anmutiger Bewohner dieser mystischen Region. Du erwiesst dich als talentierter Bogenschütze und Meister der Tarnung, doch die Zerbrechlichkeit deiner Gestalt forderte ihren Tribut.
+
+
+Set Race Text:
+
+Die Elfen sind eine uralte Rasse, die seit jeher die majestätischen Wälder im Norden von Avalon bewohnt. Ihre Anmut und Schönheit sind legendär, und ihre Bewegungen gleichen einem sanften Tanz durch das Unterholz. Mit tiefem Respekt und einer innigen Verbundenheit zur Natur schätzen sie alles, was sie ihnen bietet, von den mächtigen Baumriesen bis zu den winzigen Blüten am Waldboden. Diese Liebe zur Natur zeigt sich auch in ihrem Lebensstil, denn im Einklang mit den Wäldern bevorzugen sie es, keine festen Strukturen zu baün, sondern sich den Gegebenheiten der Natur anzupassen.
+
+Im Zentrum des Waldes, nördlich von Avalon, haben die Elfen jedoch einen Außenposten errichtet. Von diesem strategisch wichtigen Ort aus sind sie die Hüter der Wälder und wachen über ihr geliebtes Land. Als die bedrohliche Vereinigung der Sha'Ahoul auftauchte und eine Gefahr für die gesamte Region darstellte, zögerten die Elfen nicht, den Menschen von Avalon ihre Hilfe anzubieten. Mit ihrer überragenden Geschicklichkeit als Bogenschützen erwiesen sie sich als die besten ihrer Zunft und trugen maßgeblich dazu bei, die Sha'Ahoul zu besiegen.
+
+Doch ihre Fähigkeiten beschränken sich nicht nur auf den Umgang mit dem Bogen. Die Elfen sind auch Meister der Tarnung und Heimlichkeit, was sie zu furchtlosen Kämpfern in der Kunst des Schleichens macht. In den undurchdringlichen Wäldern sind sie nahezu unsichtbar und nutzen diese Fertigkeiten, um ihre Gegner aus dem Hinterhalt zu überraschen. Allerdings ist diese Kunst der Unsichtbarkeit auch ein Hinweis auf ihre Zerbrechlichkeit, denn im direkten Kampf sind sie anfälliger als andere Rassen.
+
+Trotz ihrer Fragilität sind die Elfen unerschütterlich in ihrem Entschluss, ihre Heimat und die Menschen von Avalon zu beschützen. Ihre Geschichte ist geprägt von heldenhaften Taten und der Bereitschaft, sich für das Wohl anderer einzusetzen. Als Hüter der Wälder und Beschützer der Natur verkörpern die Elfen eine zeitlose Weisheit, die durch die Jahrhunderte hindurch leuchtet und ihr Volk zu einem unverzichtbaren Teil der Geschichte von Avalon macht.
+
+Newday Race Text
+
+Als Angehöriger einer Rasse die bekannt für Ihre genauen Bogenschützen ist erhälst du 1.5x Angriff!
+
+Buff Name: `2Beschützer `&des `@Waldes

@@ -1,0 +1,28 @@
+Choose Race Text:
+
+Als `2Elythrianer`0 verschmilzt du mit der erhabenen Schmiedekunst und dem Rittertum, während du deine Wurzeln in den majestätischen Landschaften und tiefen Hügeln von Elythria zelebrierst.
+
+Set Race Text:
+
+Im Land Elythria, einst ein blühendes Reich, das zwischen saftigen Hügeln und alten Wäldern lag, gedieh ein stolzes und edles Volk, das als die Elythrianer bekannt war. Seit Generationen hatten sie die Kunst der Schmiedekunst zur Perfektion gebracht, ihre geschickten Hände schufen glänzende Waffen und robuste Rüstungen, die im ganzen Land bekannt waren. Sie waren verehrte Ritter, Hüter von Gerechtigkeit und Ritterlichkeit, deren Tapferkeit und Mut Ehrfurcht und Respekt hervorriefen.
+
+Doch die Winde des Schicksals nahmen eine düstere Wendung, als die bösen Mächte der Sha'Ahoul über Eurale hereinbrachen. Ein kataklysmischer Krieg brach aus und verschlang die einst friedlichen Landschaften in Flammen und Schatten. Die Schmieden der Elythrianer, einst belebt vom rhythmischen Klang der Hämmer, lagen nun in Trümmern, verzehrt vom feurigen Zorn der invadierenden Horde.
+
+Mitten im Chaos stürmten die edlen Ritter von Elythria mutig in die Schlacht, ihre Schwerter leuchteten wie Leuchtfeuer der Hoffnung. Doch der Feind kannte keine Gnade, und die einst mächtigen Krieger erlitten herzzerreißende Verluste. Viele ihrer Brüder fielen im Kampf, ihre heldenhaften Geister für immer in den Annalen der Geschichte verewigt.
+
+Die Handwerker, die Meisterschmiede, einst der Stolz des Reiches, standen nun zwischen den Trümmern ihres Handwerks. Die Lieder ihrer Vorfahren, die ihr Wissen über die Jahrhunderte weitergegeben hatten, schienen in der Ferne zu verklingen, während sie darum kämpften, das Verlorene wieder aufzubaün. Die Kunst der Schmiedekunst, einst Ausdruck ihrer Identität, hing nun am seidenen Faden und drohte für immer verloren zu gehen.
+
+Jenseits der physischen Verwüstung trugen die Elythrianer die Last emotionaler Narben. Die Kameradschaft, die einst sie untrennbar verband, sah sich einer gewaltigen Herausforderung gegenüber. Das Vertraün, das unter Brüdern einst selbstverständlich war, bedurfte der Heilung. Der Weg zur Versöhnung war mühsam, doch der unbeugsame Geist der Elythrianer hielt stand.
+
+Mit jedem Morgengraün flackerte die Hoffnung inmitten der Dunkelheit auf. Die Elythrianer, ein Volk, das durch die Flammen der Widrigkeiten geschmiedet wurde, begannen den ersten Schritt auf einer Reise, um ihr Erbe zurückzugewinnen. Langsam, aber entschlossen, restaurierten sie die Schmieden und entfachten die Glut ihres Handwerks, indem sie die Entschlossenheit ihrer Vorfahren kanalisierten.
+
+Angesichts unüberwindbarer Hindernisse schlossen sich die Elythrianer zusammen, und ihre Bindung wurde mit jedem geteilten Triumph und Rückschlag stärker. Mit jedem neu geschmiedeten Schwert und jeder glänzenden Rüstung schlug das Herz Elythrias trotzig weiter.
+
+Als die Sonne über einem Reich unterging, das den Sturm der Dunkelheit überstanden hatte, standen die Elythrianer hoch aufgerichtet, ihre Schwerter geschultert und ihre Geister neu entfacht. Das Erbe ihrer einst großen Zivilisation lebte weiter, eingeprägt in dem Eisen, das sie führten, und den ritterlichen Tugenden, die sie hochhielten. Die Echos ihrer Widerstandskraft und Ehre hallten durch die Zeiten, ein Zeugnis des unbeugsamen Geistes der Elythrianer.
+
+
+Newday Race Text
+
+Als Angehöriger einer Handwerklich geschickten und ritterlichen Rasse  erhälst du 1.5x Verteidigung!
+
+Buff Name: `2Der Retter `7Avalons

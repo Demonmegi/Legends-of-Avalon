@@ -1,0 +1,23 @@
+Choose Race Text:
+
+Als `@Catheaner`0 verbrachtest du sorglose Tage auf den weiten Weiden, umgeben von sanften Rindern und dem beruhigenden Rhythmus des Landlebens, während das leise Rascheln der Blätter und das Zwitschern der Vögel deine Seele erfüllten.
+
+Set Race Text:
+
+Die Catheaner sind ein Volk, das in den Weiten von Avalon zu Hause ist und sich auf die Viehzucht spezialisiert hat. Ihre enge Verbindung zur Natur und die Fähigkeit, das Land zu bebauen, machen sie zu talentierten Tierzüchtern und Landwirten.
+
+Die Catheaner haben ein tiefes Verständnis für die Bedürfnisse ihrer Tiere entwickelt und pflegen eine harmonische Beziehung zu ihnen. Durch ihre sanfte Handhabung und liebevolle Pflege gedeihen die Herden in ihrer Obhut, und sie wahren das Gleichgewicht zwischen Mensch und Tier.
+
+In den grünen Weiden von Avalon findet man die Catheaner inmitten ihrer prächtigen Herden. Ihr Wissen über die Pflanzenwelt und die natürlichen Rhythmen des Landes ermöglicht es ihnen, die Tiere mit gesundem Futter zu versorgen und ihre Lebensbedingungen optimal zu gestalten.
+
+Die Catheaner sind stolz auf ihre Fähigkeiten und betrachten die Viehzucht als eine Kunst, die von Generation zu Generation weitergegeben wird. Ihre kulturellen Traditionen und Rituale ehren die Verbindung zwischen Mensch und Tier, und sie feiern jedes Mal, wenn ein neues Leben geboren wird.
+
+Obwohl die Catheaner eher ein friedliches Volk sind, zögern sie nicht, ihre Herden und ihr Land mit Entschlossenheit zu verteidigen, wenn sie von äußeren Bedrohungen angegriffen werden. Ihre geschickten Fähigkeiten im Umgang mit Tieren machen sie zu überraschend fähigen Verteidigern, die ihre Herden mit Leidenschaft beschützen.
+
+Die Catheaner leben in Einklang mit der Natur und schätzen die Schönheit der Landschaft um sie herum. Ihre Lebensweise als Viehzüchter und ihr tiefes Verständnis für die Tierwelt haben sie zu einem wichtigen Teil des Lebens in Avalon gemacht, und ihre Bindung zur Erde und ihren Kreaturen macht sie zu einem faszinierenden und respektierten Volk.
+
+Newday Race Text
+
+Als Angehöriger in der Viehzucht geschickten Rasse erhälst du 1.25x Verteidigung!
+
+Buff Name: `@Viehzüchter `&aus dem Hochland

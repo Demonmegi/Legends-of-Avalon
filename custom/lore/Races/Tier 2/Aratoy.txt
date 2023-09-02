@@ -1,0 +1,23 @@
+Choose Race Text:
+
+In deiner Vergangenheit als `LAratoyaner`0 gehörtest du zu einem naturverbundenen Volk, das in den Wäldern von Eurale beheimatet war. Du beherrschtest die Kunst des Bogenschießens mit beeindruckender Präzision und folgtest der weisen Führung der Sippenmutter, die dich und deine Sippe auf dem Pfad der Harmonie mit der Natur leitete.
+
+Set Race Text:
+
+Die Aratoyaner sind ein Volk, das in den tiefen Wäldern von Eurale lebt und eine enge Verbindung zur Natur hat. Sie sind Meister des Waldes und beherrschen die Kunst des Lebens in Harmonie mit der Umgebung. Mit geschickter Handhabung der Natur sind sie in der Lage, das Beste aus den Ressourcen des Waldes zu nutzen und ihr Wissen über Kräuter und Pflanzen für Heilung und Wohlergehen einzusetzen.
+
+Ihre beeindruckenden Fähigkeiten als Bogenschützen sind legendär. Mit Präzision und Eleganz spannen sie ihre Bögen und lassen ihre Pfeile zielsicher fliegen. Ihr Können im Bogenschießen ist unübertroffen, und sie sind in der Lage, ihre Feinde aus der Ferne zu besiegen, während sie selbst geschickt in den Tiefen des Waldes verschwinden.
+
+Im Gegensatz zu anderen Königreichen in Eurale, wo der König die höchste Autorität ist, haben die Aratoyaner eine einzigartige Hierarchie. An der Spitze steht die Sippenmutter, eine weise und erfahrene Führerin, die nicht nur das Wohl des Volkes im Auge behält, sondern auch die Verbindung zur Natur und den Geist des Waldes pflegt. Der König hat in ihrem Reich eher eine symbolische Rolle, die sich auf Beziehungen und Diplomatie konzentriert, während die tatsächliche Macht in den Händen der weisen Sippenmutter liegt.
+
+Die Aratoyaner leben in Einklang mit der Natur und respektieren die Geheimnisse des Waldes. Sie verehren die Naturgeister und glauben fest an den Kreislauf des Lebens. Ihre kulturellen Bräuche und Rituale sind eng mit der Natur verbunden und spiegeln ihre tiefe Verbundenheit mit der Umwelt wider.
+
+Als Bewohner der Wälder sind die Aratoyaner geschickte Jäger und Sammler. Sie haben ein tiefes Verständnis für die Flora und Fauna ihres Landes und wissen, wie sie das ökosystem im Einklang halten können. Durch ihre Weisheit und ihre natürlichen Fähigkeiten sind sie zu einem wichtigen Bestandteil von Eurale geworden, und ihr Volk wird in der ganzen Region für seine Eleganz, Tapferkeit und Weisheit bewundert.
+
+
+Newday Race Text
+
+
+Als Angehöriger einer Rasse die bekannt für Ihren starken zusammenhalt ist erhälst du +1 Begleiter!
+
+Buff Name: `LKind der `&Sippenmutter
