@@ -41,7 +41,7 @@ $serverRuntimeHours = floor(($serverRuntime % 86400) / 3600); // 3600 seconds in
 $serverRuntimeMinutes = floor(($serverRuntime % 3600) / 60);
 $serverRuntimeSeconds = $serverRuntime % 60;
 
-output("`@Serverlaufzeit: `&%d days %dh %dm %ds`0`n", $serverRuntimeDays, $serverRuntimeHours, $serverRuntimeMinutes, $serverRuntimeSeconds);
+output("`@Serverlaufzeit: `&%d Tage %dh %dm %ds`0`n", $serverRuntimeDays, $serverRuntimeHours, $serverRuntimeMinutes, $serverRuntimeSeconds);
 
 if (getsetting("homenewdaytime", 1)) {
 	$secstonewday = secondstonextgameday();
