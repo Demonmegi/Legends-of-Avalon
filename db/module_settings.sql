@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 02, 2023 at 11:43 AM
+-- Generation Time: Sep 02, 2023 at 02:02 PM
 -- Server version: 10.5.19-MariaDB-0+deb11u2
 -- PHP Version: 8.1.13
 
@@ -38,12 +38,22 @@ CREATE TABLE `module_settings` (
 --
 
 INSERT INTO `module_settings` (`modulename`, `setting`, `value`) VALUES
+('cities', 'allowance', '65000'),
+('cities', 'coward', '1'),
+('cities', 'dangerchance', '66'),
+('cities', 'safechance', '0'),
+('cities', 'travelspecialchance', '0'),
 ('dpafterdk', 'maxdp1', '20'),
 ('dpafterdk', 'maxdp2', '35'),
 ('dpafterdk', 'maxdp3', '75'),
 ('expbar', 'showbar', '1'),
 ('expbar', 'showexpnumber', '1'),
 ('expbar', 'shownextgoal', '1'),
+('findgold', 'maxgold', '50'),
+('findgold', 'mingold', '10'),
+('goldmine', 'alwaystether', '10'),
+('goldmine', 'percentgemloss', '0'),
+('goldmine', 'percentgoldloss', '0'),
 ('healthbar', 'showbar', '1'),
 ('healthbar', 'showcurrent', '1'),
 ('healthbar', 'showmax', '1'),

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 02, 2023 at 11:42 AM
+-- Generation Time: Sep 02, 2023 at 02:02 PM
 -- Server version: 10.5.19-MariaDB-0+deb11u2
 -- PHP Version: 8.1.13
 
@@ -40,6 +40,20 @@ CREATE TABLE `module_objprefs` (
 --
 
 INSERT INTO `module_objprefs` (`modulename`, `objtype`, `setting`, `objid`, `value`) VALUES
+('cityimages', 'city', 'cityimg', 1, 'images/village.jpg'),
+('cityimages', 'city', 'cityimg', 2, 'images/southgate.jpg'),
+('cityimages', 'city', 'cityimg', 3, 'images/outerbailey.jpg'),
+('cityimages', 'city', 'cityimg', 4, 'images/peasantsbailey.jpg'),
+('cityimages', 'city', 'cityimg', 5, 'images/outerkeep.jpg'),
+('cityimages', 'city', 'cityimg', 6, 'images/innerbailey.jpg'),
+('cityimages', 'city', 'cityimg', 7, 'images/innerkeep.jpg'),
+('cityimages', 'city', 'cityimgtags', 1, ''),
+('cityimages', 'city', 'cityimgtags', 2, ''),
+('cityimages', 'city', 'cityimgtags', 3, ''),
+('cityimages', 'city', 'cityimgtags', 4, ''),
+('cityimages', 'city', 'cityimgtags', 5, ''),
+('cityimages', 'city', 'cityimgtags', 6, ''),
+('cityimages', 'city', 'cityimgtags', 7, ''),
 ('race_customisetext', 'races', 'disable', 0, '1'),
 ('race_customisetext', 'races', 'tradeinarm', 3, '100'),
 ('race_customisetext', 'races', 'tradeinweap', 3, '100'),
