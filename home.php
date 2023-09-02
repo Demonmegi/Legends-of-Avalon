@@ -26,15 +26,15 @@ tlschema("home");
 $op = httpget('op');
 
 page_header();
-output("`cWelcome to Legend of the Green Dragon, a browser based role playing game, based on Seth Able's Legend of the Red Dragon.`n");
+output("`cWillkommen bei Legend of the Green Dragon, einem browserbasierten Rollenspiel, basierend auf Seth Ables Legend of the Red Dragon und Siege of Avalon von Digital Tome.`n");
 
 if (getsetting("homecurtime", 1)) {
-	output("`@The current time in %s is `%%s`@.`0`n", getsetting("villagename", LOCATION_FIELDS), getgametime());
+	output("`@Die aktuelle Uhrzeit in %s ist `%%s`@.`0`n", getsetting("villagename", LOCATION_FIELDS), getgametime());
 }
 
 if (getsetting("homenewdaytime", 1)) {
 	$secstonewday = secondstonextgameday();
-	output("`@Next new game day in: `\$%s (real time)`0`n`n",
+	output("`@Naechster neuer Spieltag in: `\$%s (Echtzeit)`0`n`n",
 			date("G\\".translate_inline("h","datetime").", i\\".translate_inline("m","datetime").", s\\".translate_inline("s","datetime"),
 				$secstonewday));
 }
@@ -51,21 +51,21 @@ if (getsetting("homenewestplayer", 1)) {
 		$name = $newplayer;
 	}
 	if ($name != "") {
-		output("`QThe newest resident of the realm is: `&%s`0`n`n", $name);
+		output("`QDer neueste Bewohner des Reiches ist: `&%s`0`n`n", $name);
 	}
 }
 
 clearnav();
-addnav("New to LoGD?");
-addnav("Create a character","create.php");
-addnav("Game Functions");
-addnav("Forgotten Password","create.php?op=forgot");
-addnav("List Warriors","list.php");
-addnav("Daily News", "news.php");
-addnav("Other Info");
-addnav("About LoGD","about.php");
-addnav("Game Setup Info", "about.php?op=setup");
-addnav("LoGD Net","logdnet.php?op=list");
+addnav("Neu bei LoA?");
+addnav("Charakter erstellen","create.php");
+addnav("Spiel-Funktionen");
+addnav("Passwort vergessen","create.php?op=forgot");
+addnav("Krieger auflisten","list.php");
+addnav("Taegliche Nachrichten", "news.php");
+addnav("Weitere Informationen");
+addnav("Ueber LoGD","about.php");
+addnav("Spiel-Setup-Informationen", "about.php?op=setup");
+addnav("LoGD Netz","logdnet.php?op=list");
 
 modulehook("index", array());
 
@@ -80,7 +80,7 @@ if (abs(getsetting("OnlineCountLast",0) - strtotime("now")) > 60){
 	$onlinecount = getsetting("OnlineCount",0);
 }
 if ($onlinecount<getsetting("maxonline",0) || getsetting("maxonline",0)==0){
-	output("Enter your name and password to enter the realm.`n");
+	output("Geben Sie Ihren Namen und Ihr Passwort ein, um das Reich zu betreten.`n");
 	if ($op=="timeout"){
 		$session['message'].= translate_inline(" Your session has timed out, you must log in again.`n");
 	}
@@ -102,9 +102,9 @@ if ($onlinecount<getsetting("maxonline",0) || getsetting("maxonline",0)==0){
 	}
 	//-->
 	</script>");
-	$uname = translate_inline("<u>U</u>sername");
-	$pass = translate_inline("<u>P</u>assword");
-	$butt = translate_inline("Log in");
+	$uname = translate_inline("<u>B</u>enutzername");
+	$pass = translate_inline("<u>P</u>asswort");
+	$butt = translate_inline("Einloggen");
 	rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
 	output_notl("`c");
 	addnav("","login.php");
