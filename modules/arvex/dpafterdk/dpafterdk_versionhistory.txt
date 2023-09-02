@@ -1,0 +1,11 @@
+DonationPoints nach einem Drachenkill
+
+Nach einer Idee von BellaYasmina
+Umgesetzt von Sir Arvex; © 2005
+Erstmalig auf Anagromataf.de erschienen
+Bugs und Fehler an arvex@anagromataf.de
+
+Version-Infos:
+ 	V1.0 - Erster Offizieller Release
+ 	V1.1 - Maximale DonationPoints für die 3 Bereiche Einstellbar
+ 	V1.2 - Aufsplittung in einzelne Dateien
