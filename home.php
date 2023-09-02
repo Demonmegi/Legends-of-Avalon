@@ -26,7 +26,7 @@ tlschema("home");
 $op = httpget('op');
 
 page_header();
-output("`cWillkommen bei Legend of the Green Dragon, einem browserbasierten Rollenspiel, basierend auf Seth Ables Legend of the Red Dragon und Siege of Avalon von Digital Tome.`n");
+output("`cWillkommen bei Legends of Avalon, einem browserbasierten Rollenspiel, basierend auf Seth Ables Legend of the Red Dragon und Siege of Avalon von Digital Tome.`n");
 
 if (getsetting("homecurtime", 1)) {
     output("`@Die aktuelle Uhrzeit in %s ist `%%s`@.`0`n", getsetting("villagename", LOCATION_FIELDS), getgametime());
