@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 02, 2023 at 02:06 PM
+-- Generation Time: Sep 02, 2023 at 04:49 PM
 -- Server version: 10.5.19-MariaDB-0+deb11u2
 -- PHP Version: 8.1.13
 
@@ -106,7 +106,7 @@ INSERT INTO `settings` (`setting`, `value`) VALUES
 ('last_char_expire', '2023-09-02 02:38:53'),
 ('logdnet', '0'),
 ('logdnetserver', 'http://logdnet.logd.com/'),
-('loginbanner', 'Version 0.4 (https://github.com/Yakut58/Legends-of-Avalon)'),
+('loginbanner', 'Version 0.5 (https://github.com/Yakut58/Legends-of-Avalon)'),
 ('LOGINTIMEOUT', '900'),
 ('mailsizelimit', '1024'),
 ('maxattacks', '4'),
@@ -143,7 +143,7 @@ INSERT INTO `settings` (`setting`, `value`) VALUES
 ('officermoderate', '0'),
 ('oldmail', '14'),
 ('OnlineCount', '0'),
-('OnlineCountLast', '1693656018'),
+('OnlineCountLast', '1693665764'),
 ('onlyunreadmails', '1'),
 ('paypalcountry-code', 'US'),
 ('paypalcurrency', 'USD'),

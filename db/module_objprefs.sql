@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 02, 2023 at 02:02 PM
+-- Generation Time: Sep 02, 2023 at 04:49 PM
 -- Server version: 10.5.19-MariaDB-0+deb11u2
 -- PHP Version: 8.1.13
 
@@ -54,6 +54,14 @@ INSERT INTO `module_objprefs` (`modulename`, `objtype`, `setting`, `objid`, `val
 ('cityimages', 'city', 'cityimgtags', 5, ''),
 ('cityimages', 'city', 'cityimgtags', 6, ''),
 ('cityimages', 'city', 'cityimgtags', 7, ''),
+('city_weather', 'city', 'chance', 1, '0'),
+('city_weather', 'city', 'chance', 2, '0'),
+('city_weather', 'city', 'chance', 3, '0'),
+('city_weather', 'city', 'chance', 4, '0'),
+('city_weather', 'city', 'chance', 5, '0'),
+('city_weather', 'city', 'chance', 6, '0'),
+('city_weather', 'city', 'chance', 7, '0'),
+('darkhorse', 'mounts', 'findtavern', 0, '0'),
 ('race_customisetext', 'races', 'disable', 0, '1'),
 ('race_customisetext', 'races', 'tradeinarm', 3, '100'),
 ('race_customisetext', 'races', 'tradeinweap', 3, '100'),
