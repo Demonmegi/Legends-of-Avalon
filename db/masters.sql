@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 02, 2023 at 11:05 PM
+-- Generation Time: Sep 02, 2023 at 11:08 PM
 -- Server version: 10.5.19-MariaDB-0+deb11u2
 -- PHP Version: 8.1.13
 
@@ -58,7 +58,7 @@ INSERT INTO `masters` (`creatureid`, `creaturename`, `creaturelevel`, `creaturew
 (10, '`ESir Caerlorn', 10, 'Schwert des Eustace', 'Dein Stil war überlegen, deine Form größer. Ich verneige mich vor dir.', 'Lerne, deinen Stil anzupassen, und du wirst siegen.', NULL, NULL, 110, 20, 20),
 (11, '`2Sir Kyner', 11, 'Schwert des Ezra', 'Wow, wie hast du all diesen Halos ausweichen können?', 'Pass auf den letzten Halo auf, er kommt zurück!', NULL, NULL, 121, 22, 22),
 (12, '`)Icharas', 12, '`3Frostmagie', 'Ich kann akzeptieren, dass du mich besiegt hast, denn schließlich sind Elfen unsterblich, während du es nicht bist, also', 'Vergiss nicht, dass Elfen unsterblich sind. Sterbliche werden wahrscheinlich nie einen der Feen besiegen.', NULL, NULL, 132, 24, 24),
-(13, '`XSir Dinadon', 13, 'Occums Klinge', 'Wenn ich dieses Schwert hätte aufheben können, hätte ich wahrscheinlich besser abgeschnitten!', 'Haha, ich konnte das Schwert nicht einmal aufheben, und ich habe trotzdem gewonnen!', NULL, NULL, 143, 26, 26),
+(13, '`XSir Dinadon', 13, '`jOccums Klinge', 'Wenn ich dieses Schwert hätte aufheben können, hätte ich wahrscheinlich besser abgeschnitten!', 'Haha, ich konnte das Schwert nicht einmal aufheben, und ich habe trotzdem gewonnen!', NULL, NULL, 143, 26, 26),
 (14, '`4Amori', 14, '`^Schockmagie', 'Nun, du hast meiner Berührung ausgewichen. Ich verneige mich vor dir!', 'Pass das nächste Mal auf meine Berührung auf!', NULL, NULL, 154, 28, 28);
 
 --
