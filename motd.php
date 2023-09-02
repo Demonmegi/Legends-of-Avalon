@@ -16,7 +16,7 @@ $op = httpget('op');
 $id = httpget('id');
 
 addcommentary();
-popup_header("LoGD Message of the Day (MoTD)");
+popup_header("LoA Message of the Day (MoTD)");
 
 if ($session['user']['superuser'] & SU_POST_MOTD) {
 	$addm = translate_inline("Add MoTD");
