@@ -733,7 +733,7 @@ function charstats(){
 				}
 				db_free_result($result);
 				if ($onlinecount==0)
-					$ret.=appoencode(translate_inline("`iNone`i"));
+					$ret.=appoencode(translate_inline("`iNiemand`i"));
 			}
 			savesetting("OnlineCount",$onlinecount);
 			savesetting("OnlineCountLast",strtotime("now"));
