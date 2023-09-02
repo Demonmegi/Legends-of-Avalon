@@ -150,7 +150,7 @@ INSERT INTO `creatures` (`creatureid`, `creaturename`, `creaturelevel`, `creatur
 (97, 'Butter der Elfe', 12, 'Zauberhafter Pixie-Staub', 'Butter? Was für ein Name ist das denn?', NULL, 435, 141, 125, 23, 17, NULL, 'Appleshiner', 1, 0, NULL),
 (98, 'Vater Zeit', 12, 'Alter', 'Dein Sieg tröstet nicht. Du weißt, er wird trotzdem zu dir aufschließen.', '', 435, 141, 125, 23, 17, '', 'Appleshiner', 1, 0, NULL),
 (99, 'Bogenschützen aus dem Dorf Eythgim', 12, 'Flammende Pfeile', 'Der Baum brennt, du solltest versuchen, ihn zu löschen.', NULL, 435, 141, 125, 23, 17, NULL, 'foilwench', 1, 0, NULL),
-(100, 'Lebendige Gewitterwolke', 12, 'Blitze', 'Das Gewitter ist vorbei. Du kannst das Tageslicht durch die letzten Wolken scheinen sehen.', '', 435, 141, 125, 23, 17, '', 'Appleshiner', 1, 0, NULL);
+(100, 'Lebendige Gewitterwolke', 12, 'Blitze', 'Das Gewitter ist vorbei. Du kannst das Tageslicht durch die letzten Wolken scheinen sehen.', '', 435, 141, 125, 23, 17, '', 'Appleshiner', 1, 0, NULL),
 (101, 'Dreizehige Faultier', 12, 'Langsame Reaktionen', 'Deine schnellen Bewegungen waren zu schnell für dieses Faultier.', '', 435, 141, 125, 23, 17, '', 'Appleshiner', 1, 0, NULL),
 (102, 'Tod', 12, 'Kalter Griff', 'Da ist er! Der Tod!!!!!', NULL, 435, 141, 125, 23, 17, NULL, 'Appleshiner', 1, 1, NULL),
 (103, 'Zerberus', 13, 'Drei sabbernde Mäuler', 'Der Atem eines jeden war schlimmer als der vorherige.', '', 467, 156, 135, 25, 18, '', 'Appleshiner', 1, 1, NULL),
@@ -196,7 +196,7 @@ INSERT INTO `creatures` (`creatureid`, `creaturename`, `creaturelevel`, `creatur
 (146, 'Ulysses Wulfgang', 14, 'Absurde Lügen', 'Tod den Lügen! Tod für Ulysses Wulfgang!', '', 499, 172, 145, 27, 20, '', 'Joe', 1, 0, NULL),
 (147, 'Crazy Audrey', 9, 'Räuberische Kätzchen', 'Mit einem gezielten Tritt sind Audrey und die Kätzchen nicht mehr.', NULL, 336, 101, 94, 17, 13, NULL, 'Appleshiner', 1, 0, NULL),
 (148, 'Strahlend fröhliche Menschen', 5, 'Hand-haltender Schrecken', 'Sie wollten nur dein Freund sein. Du Schurke.', NULL, 198, 55, 53, 9, 7, NULL, 'foilwench', 1, 0, NULL),
-(149, 'Elsabutt', 8, 'Gravitationskraft', 'Dies ist in der Tat eine ernste Situation.', '', 302, 89, 84, 15, 11, '', 'foilwench', 1, 0, NULL);
+(149, 'Elsabutt', 8, 'Gravitationskraft', 'Dies ist in der Tat eine ernste Situation.', '', 302, 89, 84, 15, 11, '', 'foilwench', 1, 0, NULL),
 (150, 'Herr Bär', 2, 'Überwältigende Schläfrigkeit', 'Herr Bär war zu müde, um mit dir zu spielen, und ging zurück zum Nickerchen.', '', 97, 24, 21, 3, 3, '', 'foilwench', 1, 0, NULL),
 (151, 'Everquest-Junkie', 12, '1337 Sp34k', 'D00d U hast diesen Kerl pwned!', NULL, 435, 141, 125, 23, 17, NULL, 'foilwench', 1, 0, NULL),
 (152, 'Kleiner Cocobean', 4, 'Ihr besonderer Braten', 'Sie hat wirklich dein Herz rasen und pochen lassen, aber jetzt ist sie zu Boden gefallen', NULL, 162, 45, 43, 7, 6, NULL, 'Appleshiner', 1, 0, NULL),
@@ -221,7 +221,7 @@ INSERT INTO `creatures` (`creatureid`, `creaturename`, `creaturelevel`, `creatur
 (171, 'Anfänger Drachenzähmer', 11, '10-Fuß-Drachenstab', 'Gut, dass dieser Stab nur bei 10-Fuß-Drachen funktioniert!', NULL, 402, 127, 115, 21, 15, NULL, 'Apfelschimmer', 1, 0, NULL),
 (172, 'Junior Drachenzähmer', 12, 'Große Peitsche', 'Wenn er den Unterschied zwischen dir und einem Drachen nicht erkennen kann, hat er noch viel zu tun.', '', 435, 141, 125, 23, 17, '', 'Apfelschimmer', 1, 0, NULL),
 (173, 'Senior Drachenzähmer', 13, 'Sehr großer Reifen', 'Du bereust es, ihn getötet zu haben. Du wolltest ihn durch diesen Reifen springen sehen.', '', 467, 156, 135, 25, 18, '', 'Apfelschimmer', 1, 0, NULL),
-(174, 'Meister Drachenzähmer', 14, 'Zahmer Drache', 'Nachdem du den Meister getötet hast, ist der Drache weggelaufen', NULL, 499, 172, 145, 27, 20, NULL, 'Apfelschimmer', 1, 0, NULL);
+(174, 'Meister Drachenzähmer', 14, 'Zahmer Drache', 'Nachdem du den Meister getötet hast, ist der Drache weggelaufen', NULL, 499, 172, 145, 27, 20, NULL, 'Apfelschimmer', 1, 0, NULL),
 (175, 'Drachenreiter in Ausbildung', 15, 'Mechanischer Stier', 'Lernen sie, Drachen auf einem mechanischen Stier zu reiten?', NULL, 531, 189, 155, 29, 21, NULL, 'Appleshiner', 1, 0, NULL),
 (176, 'Drachenreiter', 16, 'Fliegender Drache', 'Ein gezielter Schlag bringt den fliegenden Drachen und seinen Reiter zu Boden.', '', 563, 207, 166, 31, 22, '', 'Appleshiner', 1, 0, NULL),
 (177, 'Flederbat', 1, 'Winzige Flügelklappen', 'Dumme Flederbat!', '', 36, 14, 10, 1, 1, '', 'Appleshiner', 1, 1, NULL),
@@ -337,7 +337,7 @@ INSERT INTO `creatures` (`creatureid`, `creaturename`, `creaturelevel`, `creatur
 (316, 'Eisengolem', 9, 'Rostige Fäuste', 'Der Golem verkrampft sich und du stößt ihn um.', '', 336, 101, 94, 17, 13, '', 'Hank', 1, 0, NULL),
 (317, 'Höllischer Hund', 9, 'Feuriger Atem', 'Er geht in Flammen auf und wird in die Erde gesogen.', NULL, 336, 101, 94, 17, 13, NULL, 'Hank', 1, 1, NULL),
 (318, 'Firmenlakai', 7, 'Buzzwords', 'Nun, du hast sicher seine Umstrukturierung priorisiert.', NULL, 268, 77, 74, 13, 10, NULL, 'Moonchilde', 1, 0, NULL),
-(319, 'SCO-Anwalt', 8, 'Gerichtsunterlagen', 'Es gibt einen Anwalt, der dich nie wieder belästigen wird!', NULL, 302, 89, 84, 15, 11, NULL, 'Moonchilde', 1, 1, NULL);
+(319, 'SCO-Anwalt', 8, 'Gerichtsunterlagen', 'Es gibt einen Anwalt, der dich nie wieder belästigen wird!', NULL, 302, 89, 84, 15, 11, NULL, 'Moonchilde', 1, 1, NULL),
 (320, 'Zigeunerbandit', 14, 'Edelsteinbesetzter Dolch', 'Das wird seinem Diebstahlsleben ein Ende setzen.', 'Du bist tot, er ist frei, zu nehmen, was er will.', 499, 172, 145, 27, 20, 'global $badguy, $session;\r\n\r\nif (!isset($badguy[\'spellpoints\'])) {\r\n	$badguy[\'spellpoints\'] = 1;\r\n}\r\n\r\n$gold = round($session[\'user\'][\'gold\'] * 0.2);\r\nif (e_rand(0,7) == 0 && $gold > 200 && $badguy[\'spellpoints\'] == 1) {\r\n	rawoutput(\"<br /><b><span style=\'color: white\'>The pickpocket takes <span style=\'color: gold\'>$gold gold</span>!</span></b><br /><br />\");\r\n	$session[\'user\'][\'gold\'] -= $gold;\r\n	$badguy[\'creaturegold\'] += $gold;\r\n	$badguy[\'spellpoints\']--;\r\n}', 'Talisman', 1, 0, NULL);
 
 --
