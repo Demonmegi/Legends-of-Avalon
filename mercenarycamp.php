@@ -276,4 +276,11 @@ function healnav($companions, $texts, $schemas) {
 		tlschema();
 	}
 }
+
+// Display the image with center alignment
+$imageOutput = '<div style="text-align: center;">';
+$imageOutput .= '<img src="images/mercenarycamp.jpg" alt="Image description" style="display: block; margin: auto;">';
+$imageOutput .= '</div>';
+echo $imageOutput;
+
 ?>

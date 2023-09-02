@@ -270,5 +270,12 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 	output("You remain a moment longer, and look at the warriors in training before you turn to return to the village.");
 	villagenav();
 }
+
+// Display the image with center alignment
+$imageOutput = '<div style="text-align: center;">';
+$imageOutput .= '<img src="images/train.jpg" alt="Image description" style="display: block; margin: auto;">';
+$imageOutput .= '</div>';
+echo $imageOutput;
+
 page_footer();
 ?>

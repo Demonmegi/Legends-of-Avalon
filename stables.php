@@ -296,5 +296,11 @@ if ($confirm == 0) {
 	}
 }
 
+// Display the image with center alignment
+$imageOutput = '<div style="text-align: center;">';
+$imageOutput .= '<img src="images/stables.jpg" alt="Image description" style="display: block; margin: auto;">';
+$imageOutput .= '</div>';
+echo $imageOutput;
+
 page_footer();
 ?>

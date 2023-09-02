@@ -58,4 +58,11 @@ function clanform(){
 	$apply = translate_inline("Apply");
 	rawoutput("<input type='submit' class='button' value='$apply'></form>");
 }
+
+// Display the image with center alignment
+$imageOutput = '<div style="text-align: center;">';
+$imageOutput .= '<img src="images/clan.jpg" alt="Image description" style="display: block; margin: auto;">';
+$imageOutput .= '</div>';
+echo $imageOutput;
+
 ?>

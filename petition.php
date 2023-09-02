@@ -19,5 +19,12 @@ switch ($op) {
 		require("lib/petition/petition_default.php");
 		break;
 }
+
+// Display the image with center alignment
+$imageOutput = '<div style="text-align: center;">';
+$imageOutput .= '<img src="images/petition.jpg" alt="Image description" style="display: block; margin: auto;">';
+$imageOutput .= '</div>';
+echo $imageOutput;
+
 popup_footer();
 ?>
