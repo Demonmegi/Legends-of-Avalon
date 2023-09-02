@@ -1,0 +1,836 @@
+House Rooms Notes
+/*
+		House Rooms...
+			,,,expanding the horizons of your living space.
+
+		~~ History ~~
+		
+		1.0.0
+			Initial Release
+			
+		1.0.1
+			Added ("housemorerooms") hook, for those that
+			may wish to hook in their own rooms.
+			
+		1.0.2
+			Switched some stuff from preferences to
+			settings and made everything better.
+
+		1.0.3
+			Introduced a -true- checks system to
+			ensure that the module won't steal rooms
+			away from other modules when they're in
+			service.
+			
+		1.0.4
+			Standardizing the Go Back changes over
+			all versions.
+			
+		1.0.5
+			Laid out a floorplan, navs connecting
+			Bathroom and Bedroom now exist and navs
+			connecting Kitchen and Longe now exist
+			too.  Furthermore, one can exit from any
+			ground floor room to the village, yet
+			they cannot exit off the top floor.
+			
+			This would be unwise and would result
+			in a heroic, yet piontless; "I regret
+			nothing!" moment, as our poor player
+			would plummet ... well, actually they
+			wouldn't but they'd expect to.
+			
+			So it's better this way.
+			
+		1.0.6
+			Did a tiny bit of a rewrite of the navs
+			hook thanks to an issue spotted by
+			Ailean, it looks better all around now
+			I think.  It actually looks quite nice
+			and it's leaning more towards what I'm
+			hoping for.
+			
+		1.0.7
+			$REQUEST_URI is my friend, I proclaim my
+			undying love for $REQUEST_URI and its
+			awesomeness shall deserve a nice little
+			placque in my room, much like modulehook.
+			
+			Another bug squished, seems I couldn't
+			use httpget ("op") in a case, like, at
+			all, period.  This was responsible for
+			many of the problems that ... oh, almost
+			everyone might've been seeing.
+			
+			Hurrah!  I am happy.
+			
+		1.0.8
+			REQUEST_URI to the rescue, as it just
+			stopped the house navs from showing up
+			in the Residential Zone, which really
+			should not happen.
+			
+		1.0.9
+			Added an 'Exits From Here' header.
+			
+		2.0.0
+			This is largely the version number of
+			the new check system I have in place
+			to make sure that no matter how many
+			plugins a room has, none of them can
+			screw up the player so that they can't
+			enter their room or use their stuff.
+			In fact, I'm absolutely positive that
+			this is highly improbable, possibly
+			even impossible at that.  This means
+			that one of the hardest tasks I'd set
+			out to do has now been finished.
+			
+			If you were having any problems with
+			House Rooms or the rooms plugins,
+			these should all now be fixed.
+			Absolutely and without doubt, I even
+			put in little checks on install and
+			uninstall to let you know if it's
+			not working as I so adamantly claim
+			it will and to perkily proclaim so
+			if it is.
+			
+			That aisde ...
+			
+			I've also switched every if I could
+			find over to cases, just to see if
+			I could figure it out ... it seems
+			to be going well and I'll say this
+			much -- it does look a lot cleaner.
+			I thank Sichae for the switch/case
+			related pestering on the forums, I
+			was wrong.
+			
+			Heck, look at how I handle my script
+			info, this switch stuff should have
+			been more appealing, it does look
+			pretty.  I guess I was just scared
+			of a system that I knew nothing of
+			(at the time).  I'm big enough to
+			admit that.
+			
+			That aside ...
+			
+			I found and cleared out some useless
+			code, just streamlining the script,
+			really.
+			
+		2.0.1 & 2.0.2
+			This was the development cycle to
+			properly impliment the new modulehook
+			in 'Where can I go from here?'.  Well,
+			that's the official excuse anyway, in
+			reality I just wanted to keep things
+			proper-looking.
+			
+			Basically, there's a new nav:
+			
+			houseroomswherecan
+			
+			If you add a room to House Rooms and
+			you want to be able to report that it
+			can be exited to under particular
+			conditions, then you can hook into
+			this with that condition, as I have
+			done in the new housebedroomvault and
+			houseloungekeys plugins.
+			
+		2.0.3
+			By including disablemh=1 in the
+			runmodule section of your URI before
+			any ops, you can stop the Main Hall
+			navs and descs from showing at all.
+			
+			This has been used by Bedroom Vault
+			and Lounge successfully.  I find
+			this discovery intriguing!  I shall
+			investigate switching some of the
+			clumsier blocknavs over to it, if
+			I haven't dealt with those already
+			... don't remember.  *Sheepish.*
+			
+		2.0.4
+			Lonny dropped the idea that it might
+			be fun to introduce a system wherein
+			houses become available at a certain
+			house construction rank.  I've just
+			now implimented that system, it can
+			be configured under Settings.
+			
+		2.0.5
+			I cleaned up the Build Status page a
+			little, this now checks to make sure
+			the navs themselves are active, else
+			we'd have players complaining that
+			they saved so long to obtain a room
+			only to have it mysteriously not
+			appear in their home.  That would
+			suck for them and as I wish no undue
+			hardship towards any players, the
+			check is now in place.
+			
+		2.0.6
+			I missed a $housesize variable in
+			one of the cases which resulted in
+			interroom travel on the correct
+			floors being inaccessible.
+			
+		2.0.7
+			Minor code cleanup.
+			
+		2.0.8
+			Added a Garden.
+ 
+		~~ Installation ~~
+		
+		You can either use the House script inside
+		this zip (which as I'm aware is the latest
+		version, I snagged it at 20:40 on 22/12/04
+		and I shall try to keep up, please let me
+		know if there is a newer version) or you
+		can make the edits I've listed here.
+		
+		Open ... :
+			./modules/house.php
+		
+		Find ... :
+			addnav ("Return");
+			addnav ("Back to the Residential Quarter", "runmodule.php?module=house");
+			villagenav();
+			page_footer();
+			
+		Insert before ... :
+			modulehook ("houseroomshook");
+
+		So it looks like ... :
+			modulehook ("houseroomshook");
+			addnav ("Return");
+			addnav ("Back to the Residential Quarter", "runmodule.php?module=house");
+			villagenav();
+			page_footer();
+
+		Save and close the file.
+
+		~~ Usage ~~
+		
+		Simply hook into the contents hooks for each
+		room as they're shown below ...
+		
+			loungecontents
+			bedroomcontents
+			bathroomcontents
+			kitchencontents
+			cellarcontents
+		
+		... and use a case to add things to each of
+		them as you please.  Take a look at the
+		Bathroom here:
+		
+		http://mastaile.mine.nu/Bathroom-098.zip
+		
+		That explains how you can set rooms as not
+		empty and enabled ready to be hooked into.
+		
+		Finally, here are the hooks if you wish to
+		add more rooms to the House.
+		
+			houseroomsaddnavs
+				This is for the nav listing that
+				shows up in the Main Hall area of
+				the House.  This is where the
+				standard navs of House Rooms are
+				first seen.
+				
+			houseroomsnavdescs
+				This is for the output that tells
+				the player what rooms they can
+				go back to, if they're in Kitchen
+				for example this would tell them
+				that Lounge is a room they can
+				exit to, along with Main Hall.
+				
+			houseroomsinroomsaddnavs
+				This is the check to see if a
+				player is in a room and then to
+				only offer relevant navs out of
+				that room.  For example, if the
+				player were in the Lounge, the
+				navs here would only allow exit
+				to Kitchen and Main Hall, it's
+				the functional equivalent of
+				houseroomnavdesc's window
+				dressing.
+			
+			roomsdefines
+				This is for the modules to let
+				this script know that they're
+				installed and active. Basically
+				as you can see in other scripts
+				it just sets the 'full' and
+				'navs' prefs relevantly.  Refer
+				to one of the existing plugin
+				scripts to see how it works,
+				if you're curious.
+
+		~ Fin ~
+*/
+Lounge Keys Notes
+/*
+		Lounge Ksys...
+			,,,moving things around to give this multi-
+				floored house a little depth.
+
+		~~ History ~~
+		
+		1.0.0
+			Initial Release
+
+		2.0.0
+			This is largely the version number of
+			the new check system I have in place
+			to make sure that no matter how many
+			plugins a room has, none of them can
+			screw up the player so that they can't
+			enter their room or use their stuff.
+			In fact, I'm absolutely positive that
+			this is highly improbable, possibly
+			even impossible at that.  This means
+			that one of the hardest tasks I'd set
+			out to do has now been finished.
+			
+			If you were having any problems with
+			House Rooms or the rooms plugins,
+			these should all now be fixed.
+			Absolutely and without doubt, I even
+			put in little checks on install and
+			uninstall to let you know if it's
+			not working as I so adamantly claim
+			it will and to perkily proclaim so
+			if it is.
+			
+		2.0.1 & 2.0.2
+			This is the development cycle for
+			the navs handling and implimentating
+			of 'Where can I go from here?'
+			within this script.
+			
+			Basically, if you Cut or Withdrew
+			a Key in the old script you could go
+			just about anywhere in the house,
+			that was bad.  So in this version,
+			only the relevant navs are provided.
+			Stare at the code in horror (!) as I
+			gleefully abuse named ops to ensure
+			it doesn't break.
+
+		2.0.3
+			This version now includes the
+			new disablemh=1 to deal with the
+			errant Main Hall.  This way,
+			there are currently /no/ navs
+			running erroneously.  The only
+			nav back from Cut and Withdraw
+			is Lounge.  Hurrah!
+
+		2.0.4
+			Makeshift solution to the
+			badnav problems with the vault
+			navs.  I'll write up something
+			better soon.
+			
+			Also, the Build Status nav was
+			showing up when it shouldn't
+			have.  This has been fixed.
+			
+		2.0.5
+			I set out to migrate the keys
+			system from house.php to here,
+			to solve numerous issues with
+			the integration.  This has
+			been a resounding success as
+			the system migrated perfectly
+			and with great ease.
+			
+			Tested.  Confirmed.  *Stamp!*
+			
+			Thanks to Ailean for spotting
+			this one in the first place.
+			
+			That aside ...
+			
+			Please note, aside from a few
+			changes, the Keys system you
+			see below is /completely/
+			migrated from house.php, a
+			script which this one still
+			requires to function, you
+			must have it installed but
+			it should be credited anyway
+			just because it's awesome.
+			
+		2.0.6
+			A few changes to the system
+			to bring it up to speed with
+			the niftyness I introduced
+			in the Bedroom Vault module.
+			
+		2.0.7
+			Added Arune's additions to
+			the keys sections of the
+			house module, here.  Thanks
+			be to him.
+*/
+Kitchen Notes
+/*
+		House Kitchen...
+			,,,we all get the munchies now and again,
+				it's nice to have our own place to snack.
+
+		~~ History ~~
+		
+		1.0.0
+			Initial Release
+
+		1.0.1
+			Switched some stuff from preferences to
+			settings and made everything better.
+			
+		1.0.2 / 1.0.3
+			Introduced a -true- [sic] checks system
+			to ensure that the module won't steal
+			rooms away from other modules when
+			they're in service.  Also, version
+			bumped to 1.0.3 to match the other
+			modules.
+			
+			(Hindsight: That guy right here?  He
+			doesn't have a damned clue what he's
+			talking about.)
+			
+		1.0.4
+			A few typos fixed in regards to turns not
+			being removed and the eatcookie subop
+			lacking a dollarsign but they were rather
+			nasty typos nonetheless which halted some
+			parts of the script.  Many thanks to
+			Ailean, whose Eagle-eyes and aid sent
+			these buggers packing!
+			
+		1.0.5
+			Standardizing the Go Back changes across
+			all versions.
+			
+			This is largely because of a nasty bug
+			spotted by Ailean with the cookies and
+			because of minor issues that I knew
+			existed in the Cellar module and mostly
+			because I just wanted a cleaner, more
+			modular system.
+			
+		1.0.6
+			Added an !is_module_active check to make
+			sure that the modules didn't +1 on
+			/reinstall/ as they have been doing.  I
+			suspect your modules will be over 1 now
+			in your Settings.  Please go into House
+			Rooms Settings and set all your 'number
+			of modules using' to 0 or 1 respectively.
+			
+			Sorry about that.
+
+		2.0.0
+			This is largely the version number of
+			the new check system I have in place
+			to make sure that no matter how many
+			plugins a room has, none of them can
+			screw up the player so that they can't
+			enter their room or use their stuff.
+			In fact, I'm absolutely positive that
+			this is highly improbable, possibly
+			even impossible at that.  This means
+			that one of the hardest tasks I'd set
+			out to do has now been finished.
+			
+			If you were having any problems with
+			House Rooms or the rooms plugins,
+			these should all now be fixed.
+			Absolutely and without doubt, I even
+			put in little checks on install and
+			uninstall to let you know if it's
+			not working as I so adamantly claim
+			it will and to perkily proclaim so
+			if it is.
+			
+			That aisde ...
+			
+			I've also switched every if I could
+			find over to cases, just to see if
+			I could figure it out ... it seems
+			to be going well and I'll say this
+			much -- it does look a lot cleaner.
+			I thank Sichae for the switch/case
+			related pestering on the forums, I
+			was wrong.
+			
+			Heck, look at how I handle my script
+			info, this switch stuff should have
+			been more appealing, it does look
+			pretty.  I guess I was just scared
+			of a system that I knew nothing of
+			(at the time).  I'm big enough to
+			admit that.
+			
+			That aside ...
+			
+			I've added two modulehooks to this
+			script for those that might wish to
+			add their own foods.  For those
+			that might be feeling creative and
+			all, I wouldn't deny them.
+			
+			The navs are as follows:
+			
+			housekitchennavs
+				This is basically for the addnav
+				that leads to your food.  So
+				this case is just an addnav and
+				nothing more.
+				
+			housekitchenfoods
+				This nav is for the output and
+				the effects of your food, this
+				is where the addnav the above
+				case provided will send your
+				players, you have to provide
+				the case for it up until break.
+*/
+Bathroom Notes
+/*
+		House Bathroom...
+			,,,when ya gotta go, ya gotta go!
+
+		~~ History ~~
+		
+		1.0.0
+			Initial Release
+			
+		1.0.1
+			Removed the turns required for using
+			the facilities as compared to the 5
+			gold cost for the public facilities,
+			they were unbalancing.  Thanks to
+			Indi for that one!
+			
+		1.0.2
+			Switched some stuff from preferences to
+			settings and made everything better.
+		
+		1.0.3
+			Introduced a -true- [sic] checks system
+			to ensure that the module won't steal
+			rooms away from other modules when
+			they're in service.  Also, version
+			bumped to 1.0.3 to match the other
+			modules.
+			
+			(Hindsight: That guy right here?  He
+			doesn't have a damned clue what he's
+			talking about.)
+			
+		1.0.4
+			Gave Lonny more credit in the actual
+			newspaper itself, I feel he deserves it.
+			
+		1.0.5
+			Standardizing the Go Back changes across
+			all versions.
+			
+			This is largely because of a nasty bug
+			spotted by Ailean with the cookies and
+			because of minor issues that I knew
+			existed in the Cellar module and mostly
+			because I just wanted a cleaner, more
+			modular system.
+			
+		1.0.6
+			Added an !is_module_active check to make
+			sure that the modules didn't +1 on
+			/reinstall/ as they have been doing.  I
+			suspect your modules will be over 1 now
+			in your Settings.  Please go into House
+			Rooms Settings and set all your 'number
+			of modules using' to 0 or 1 respectively.
+			
+			Sorry about that.
+
+		2.0.0
+			This is largely the version number of
+			the new check system I have in place
+			to make sure that no matter how many
+			plugins a room has, none of them can
+			screw up the player so that they can't
+			enter their room or use their stuff.
+			In fact, I'm absolutely positive that
+			this is highly improbable, possibly
+			even impossible at that.  This means
+			that one of the hardest tasks I'd set
+			out to do has now been finished.
+			
+			If you were having any problems with
+			House Rooms or the rooms plugins,
+			these should all now be fixed.
+			Absolutely and without doubt, I even
+			put in little checks on install and
+			uninstall to let you know if it's
+			not working as I so adamantly claim
+			it will and to perkily proclaim so
+			if it is.
+			
+			That aisde ...
+			
+			I've also switched every if I could
+			find over to cases, just to see if
+			I could figure it out ... it seems
+			to be going well and I'll say this
+			much -- it does look a lot cleaner.
+			I thank Sichae for the switch/case
+			related pestering on the forums, I
+			was wrong.
+			
+			Heck, look at how I handle my script
+			info, this switch stuff should have
+			been more appealing, it does look
+			pretty.  I guess I was just scared
+			of a system that I knew nothing of
+			(at the time).  I'm big enough to
+			admit that.
+			
+			That aside ...
+			
+			I've also fixed more bugs pointed
+			out by Ailean, I think in this case
+			it was the missing brand name of the
+			toilet, correct me if I've missed
+			anything, okay?
+
+		~~ Credits ~~
+		
+		Lonny Loberts
+			Once again, I've borrowed from one of my
+			favourite coders.  I used his village news
+			to provide the 'newspaper' we see on the
+			toilet, for the entirety of that function,
+			we can thank him.
+			
+			His Village News module can be found here:
+			http://dragonprime.net/users/lonnyl/
+			I highly recommend it and just about every
+			other module he has there, in fact, his
+			Odour and Bladder modules are required in
+			this very module.
+*/
+Cellar Notes
+/*
+		House Cellar...
+			,,,o/~ trap do-o-or,
+				we know there's someONE down there. o/~
+
+		~~ History ~~
+		
+		1.0.0
+			Initial Release.
+			
+		
+		1.0.2 / 1.0.3
+			Internal changes, I forget what exactly
+			but I was bumping the version number
+			without keeping track, I believe it was
+			related to a problem with using a
+			function for travelling, this was in
+			1.0.2 before the first public release,
+			which was 1.0.3.
+
+		1.0.4
+			Standardizing the Go Back changes across
+			all versions.
+			
+			This is largely because of a nasty bug
+			spotted by Ailean with the cookies and
+			because of minor issues that I knew
+			existed in the Cellar module and mostly
+			because I just wanted a cleaner, more
+			modular system.
+			
+		1.0.5
+			Added an !is_module_active check to make
+			sure that the modules didn't +1 on
+			/reinstall/ as they have been doing.  I
+			suspect your modules will be over 1 now
+			in your Settings.  Please go into House
+			Rooms Settings and set all your 'number
+			of modules using' to 0 or 1 respectively.
+			
+			Sorry about that.
+			
+		1.0.6
+			%s-ish issue thanks to a missed variable
+			is fixed, thanks Ailean.
+
+		1.0.7
+			These changes were made by Enderandrew,
+			and not the original author.  There was
+			a bug where a function was being called
+			that didn't exist.  I also optimized the
+			code.
+			
+		~~ Credits and Information ~~
+		
+		If installed, this module works with Lonny
+		Luberts' Hunger module (usechow.php), it uses
+		the random food-finding code from the module
+		itself.  This module doesn't actually -need-
+		usechow.php to be installed but I do strongly
+		endorese and recommend it, it's a far better
+		experience with it installed, especially LoGD
+		as a whole. It's an awesome module.
+		
+		You can find it here:
+		
+		http://dragonprime.net/users/lonnyl/
+		
+		- Further Credits -
+		
+		Sichae pointed me at a really good example as
+		to how I might fetch a random name from the
+		SQL database, the original code was from
+		Lonny's Castle, to give full credits where
+		they're due all around.
+		
+		Also, Kendaer helped out too (yay!) with LIMIT
+		1, which I'd gather will really stop my CPU
+		from frying with too many SQL requests.
+		
+		Thanks guys, you rock.
+*/
+Bedroom Vault Notes
+/*
+		Bedroom Vault...
+			,,,just something for the roleplayer to enjoy,
+				a safe-haven tucked away in their bedroom.
+
+		~~ History ~~
+		
+		1.0.0
+			Initial Release
+			
+		2.0.0
+			This is largely the version number of the new
+			check system I have in place to make sure that
+			no matter how many plugins a room has, none
+			of them can screw up the player so that they
+			can't enter their room or use their stuff.  In
+			fact, I'm absolutely positive that this is
+			highly improbable, possibly even impossible at
+			that.  This means that one of the hardest
+			tasks I'd set out to do has now been finished.
+			
+			If you were having any problems with House
+			Rooms or the rooms plugins, these should all
+			now be fixed.  Absolutely and without doubt,
+			I even put in little checks on install and
+			uninstall to let you know if it's not working
+			as I so adamantly claim it will and to
+			perkily proclaim so if it is.
+			
+			That aside ...
+			
+			I tossed in the administrator option to have
+			the Sleep (Log Out) blocked from the Main
+			Hall (as it's not very realistic) and have
+			it only show up in the bedroom instead.
+			This feature is thanks to the suggestion
+			made by Ailean.
+			
+			That aside ...
+			
+			The vault navs were totally kaploofy, thanks
+			to Ailean I discovered this and it's been
+			fixed up.
+			
+		2.0.1
+			Minor change, added an output to the part
+			that moves the sleeping nav and cleaned up
+			the nav itself a bit, nothing major.
+
+		2.0.2
+			This is the development cycle for
+			the navs handling and implimentating
+			of 'Where can I go from here?'
+			within this script.
+			
+			Basically, if you Withdraw or
+			Deposit Gold or Gems in the old
+			script you could go just about
+			anywhere in the house, that was bad.
+			So in this version, only the
+			relevant navs are provided.  Stare
+			at the code in horror (!) as I
+			gleefully abuse named ops to ensure
+			it doesn't break.
+			
+			That aside ...
+			
+			I fixed a typo in the Catch Some
+			Z's nav.  Thanks Ailean!
+			
+		2.0.3
+			This version now includes the
+			new disablemh=1 to deal with the
+			errant Main Hall.  This way,
+			there are currently /no/ navs
+			running erroneously.  The only
+			nav back from Deposit and
+			Withdraw is Bedroom.  Hurrah!
+			
+		2.0.4
+			Makeshift solution to the
+			badnav problems with the vault
+			navs.  I'll write up something
+			better soon.
+			
+			Also, the Build Status nav was
+			showing up when it shouldn't
+			have.  This has been fixed.
+			
+		2.0.5
+			I set out to migrate the keys
+			system from house.php to here,
+			to solve numerous issues with
+			the integration.  This has
+			been a resounding success as
+			the system migrated perfectly
+			and with great ease.
+			
+			Tested.  Confirmed.  *Stamp!*
+			
+			Thanks to Ailean for spotting
+			this one in the first place.
+			
+			That aside ...
+			
+			Please note, aside from a few
+			changes, the Chest system you
+			see below is /completely/
+			migrated from house.php, a
+			script which this one still
+			requires to function, you
+			must have it installed but
+			it should be credited anyway
+			just because it's awesome.
+*/
