@@ -1,23 +1,23 @@
 /* CSS Document */
-html{background-color:#ca0500;color:#cf7800}
+html{background-color:#ca0500;color:#FFFF00}
 main{text-align:center;overflow:auto;width:100%}
-td.charinfo{border-bottom:thin solid #cf7800}
-.charhead{text-align:center;font-weight:bold;border-bottom:thin dotted #cf7800}
-#statbox{border:thin solid #cf7800;margin:1ex 0;padding:1ex}
+td.charinfo{border-bottom:thin solid #FFFF00}
+.charhead{text-align:center;font-weight:bold;border-bottom:thin dotted #FFFF00}
+#statbox{border:thin solid #FFFF00;margin:1ex 0;padding:1ex}
 #statbox,#content{float:right}
 #leftnav,#statbox{width:13%}
 #content{width:70%;margin:1em;overflow:auto}
-#leftnav{float:left;border-right:thin solid #cf7800;border-bottom:medium double #cf7800;margin-bottom:1ex;clear:left}
+#leftnav{float:left;border-right:thin solid #FFFF00;border-bottom:medium double #FFFF00;margin-bottom:1ex;clear:left}
 #leftnav ul{list-style-type:none;padding:0;margin:0}
 .navhead{padding-bottom:1pt;margin-bottom:1pt;text-align:center;overflow:auto}
 #leftnav li{padding:0;margin:0}
 a{color:#cf7800}
-a.nav{display:block;border:thin outset #cf7800;padding:.5ex;margin:.3ex;text-decoration:none}
+a.nav{display:block;border:thin outset #FFFF00;padding:.5ex;margin:.3ex;text-decoration:none}
 a:hover{color:#3087FF}
 a.nav:active{border:thin inset #bbb}
 .navhi{color:#3087FF;text-decoration:underline}
 
-#header{padding:1ex;border-bottom:medium groove #cf7800;text-align:center}
+#header{padding:1ex;border-bottom:medium groove #FFFF00;text-align:center}
 #pagetitle{text-align:center}
 #headnav{padding:0;margin:0;text-align:left}
 ul#headnav a{text-decoration:none}
