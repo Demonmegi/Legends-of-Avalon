@@ -397,7 +397,7 @@ function usechow_run(){
 	set_module_pref('chow', $newchow);
 	//I cannot make you keep this line here but would appreciate it left in.
 	output("`n`n");
-	rawoutput("<div style=\"text-align: left;\"><a href=\"http://www.pqcomp.com\" target=\"_blank\">Chow by Lonny @ http://www.pqcomp.com</a><br>");
+	rawoutput("<div style=\"text-align: left;\"><a href=\"http://www.pqcomp.com\" target=\"_blank\"></a><br>");
 	page_footer();
 }
 
