@@ -13,9 +13,9 @@ td.charinfo{border-bottom:thin solid #ccc}
 #leftnav li{padding:0;margin:0}
 a{color:#ccc}
 a.nav{display:block;border:thin outset #ccc;padding:.5ex;margin:.3ex;text-decoration:none}
-a:hover{color:#eee}
+a:hover{color:#800080}
 a.nav:active{border:thin inset #bbb}
-.navhi{color:#fff;text-decoration:underline}
+.navhi{color:#800080;text-decoration:underline}
 
 #header{padding:1ex;border-bottom:medium groove #ccc;text-align:center}
 #pagetitle{text-align:center}
