@@ -12,7 +12,7 @@ require_once("lib/stripslashes_deep.php");
 $op = httpget('op');
 
 switch ($op) {
-	case "primer": case "faq": case "faq1": case "faq2": case "faq3":
+	case "primer": case "faq": case "faq1": case "faq2": case "faq3":case "faq4":
 		require("lib/petition/petition_$op.php");
 		break;
 	default:
