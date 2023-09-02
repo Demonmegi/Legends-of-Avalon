@@ -48,7 +48,7 @@ function page_header(){
 
 	$arguments = func_get_args();
 	if (!$arguments || count($arguments) == 0) {
-		$arguments = array("Legend of the Green Dragon");
+		$arguments = array("Legends of Avalon");
 	}
 	$title = call_user_func_array("sprintf_translate", $arguments);
 	$title = holidayize($title,'title');
@@ -389,7 +389,7 @@ function page_footer($saveuser=true){
  *
  * @param string $title The title of the popup window
  */
-function popup_header($title="Legend of the Green Dragon"){
+function popup_header($title="Legends of Avalon"){
 	global $header, $template;
 
 	translator_setup();
@@ -399,7 +399,7 @@ function popup_header($title="Legend of the Green Dragon"){
 
 	$arguments = func_get_args();
 	if (!$arguments || count($arguments) == 0) {
-		$arguments = array("Legend of the Green Dragon");
+		$arguments = array("Legends of Avalon");
 	}
 	$title = call_user_func_array("sprintf_translate", $arguments);
 	$title = holidayize($title,'title');
