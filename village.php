@@ -173,6 +173,14 @@ if (getsetting("enablecompanions",true)) {
 	tlschema();
 }
 
+addnav("Dorf von Avalon","runmodule.php?module=cities&op=travel&city=Dorf von Avalon");
+addnav("Südtor","runmodule.php?module=cities&op=travel&city=Suedtor");
+addnav("Aussenhof","runmodule.php?module=cities&op=travel&city=Aussenhof");
+addnav("Hof der Bauern","runmodule.php?module=cities&op=travel&city=Hof%20der%20Bauern");
+addnav("Aussenburg","runmodule.php?module=cities&op=travel&city=Aussenburg");
+addnav("Innenhof","runmodule.php?module=cities&op=travel&city=Innenhof");
+addnav("Innenburg","runmodule.php?module=cities&op=travel&city=Innenburg");
+
 tlschema($schemas['fightnav']);
 addnav($texts['fightnav']);
 tlschema();
