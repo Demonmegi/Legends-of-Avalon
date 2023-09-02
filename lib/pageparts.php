@@ -726,7 +726,7 @@ function charstats(){
 			} else {
 				$sql="SELECT name,alive,location,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY level DESC";
 				$result = db_query($sql);
-				$ret.=appoencode(sprintf(translate_inline("`bOnline Characters (%s players):`b`n"),db_num_rows($result)));
+				$ret.=appoencode(sprintf(translate_inline("`bOnline-Charaktere (%s players):`b`n"),db_num_rows($result)));
 				while ($row = db_fetch_assoc($result)) {
 					$ret.=appoencode("`^{$row['name']}`n");
 					$onlinecount++;
