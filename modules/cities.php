@@ -21,9 +21,9 @@ function cities_getmoduleinfo()
 			"Cities Settings,title",
 				"allowance"=>"Daily Travel Allowance,int|3",
 				"coward"=>"Penalise Cowardice for running away?,bool|1",
-				"travelspecialchance"=>"Chance for a special during travel,range,1,100,1|7",
-				"safechance"=>"Chance to be waylaid on a safe trip,range,1,100,1|50",
-				"dangerchance"=>"Chance to be waylaid on a dangerous trip,range,1,100,1|66",
+				"travelspecialchance"=>"Chance for a special during travel,range,0,100,1|7",
+				"safechance"=>"Chance to be waylaid on a safe trip,range,0,100,1|50",
+				"dangerchance"=>"Chance to be waylaid on a dangerous trip,range,0,100,1|66",
 		),
 		"prefs-mounts"=>array(
 			"Cities Mount Preferences,title",
@@ -101,8 +101,6 @@ function cities_dohook($hookname,$args)
 				{
 					$args = modulehook('count-travels', array('available'=>0,'used'=>0));
 					$free = max(0, $args['available'] - $args['used']);
-					addcharstat('Extra Info');
-					addcharstat('Free Travel', $free);
 				}
 			}
 		break;
