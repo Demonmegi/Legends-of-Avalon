@@ -29,8 +29,19 @@ page_header();
 output("`cWillkommen bei Legend of the Green Dragon, einem browserbasierten Rollenspiel, basierend auf Seth Ables Legend of the Red Dragon und Siege of Avalon von Digital Tome.`n");
 
 if (getsetting("homecurtime", 1)) {
-	output("`@Die aktuelle Uhrzeit in %s ist `%%s`@.`0`n", getsetting("villagename", LOCATION_FIELDS), getgametime());
+    output("`@Die aktuelle Uhrzeit in %s ist `%%s`@.`0`n", getsetting("villagename", LOCATION_FIELDS), getgametime());
 }
+
+// Calculate server runtime
+$serverStartTime = strtotime("2023-09-02 00:00:00"); // Replace with your server's start time
+$currentTime = time();
+$serverRuntime = $currentTime - $serverStartTime;
+$serverRuntimeDays = floor($serverRuntime / 86400); // 86400 seconds in a day
+$serverRuntimeHours = floor(($serverRuntime % 86400) / 3600); // 3600 seconds in an hour
+$serverRuntimeMinutes = floor(($serverRuntime % 3600) / 60);
+$serverRuntimeSeconds = $serverRuntime % 60;
+
+output("`@Serverlaufzeit: `&%d days %dh %dm %ds`0`n", $serverRuntimeDays, $serverRuntimeHours, $serverRuntimeMinutes, $serverRuntimeSeconds);
 
 if (getsetting("homenewdaytime", 1)) {
 	$secstonewday = secondstonextgameday();
