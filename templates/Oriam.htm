@@ -1,0 +1,79 @@
+<!--!popuphead--><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<link href="templates/oriam.css" rel="stylesheet" type="text/css">
+{headscript}{script}
+</head>
+<body id="popup">
+	<div id="header">
+		<h1 id="pagetitle">{title}</h1>
+	</div>
+	<div id="main">
+<!--!popupfoot-->
+	</div>
+	<div id="page_foot">
+		<div id="attr">{copyright}Anzeige-Design von Yakut58</div>
+	</div>
+</body>
+</html>
+<!--!header--><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<link href="templates/oriam.css" rel="stylesheet" type="text/css">
+{headscript}{script}
+</head>
+<body>
+	<div id="header">
+		<h1 id="pagetitle">{title}</h1>
+		<ul id="headnav">
+			<li>{motd} |</li>
+			<li>{mail} |</li>
+			<li>{petition} |</li>
+			{petitiondisplay}
+		</ul>
+	</div>
+	<div id="main">
+		<div id="statbox">
+			<div id="navad">{navad}</div>
+			<div id="stats">{stats}</div>
+			{paypal}
+		</div>
+		<div id="content">
+			<div>{headerad}{bodyad}</div>
+<!--!footer-->
+		</div>
+		<div id="leftnav">
+			<div class="nav"><ul>{nav}</ul><div id="vertical_ad">{verticalad}</div></div>
+		</div>
+	</div>
+	<div id="page_foot">
+		<div id="attr">{copyright}Anzeige-Design von Yakut58 ({pagegen})</div>
+		<div id="src_ver"><p>{source}</p><p>{version}</p></div>
+	</div>
+</body>
+</html>
+<!--!statstart-->
+<table class="charinfo"><!--!stathead-->
+<tr><th class="charhead" colspan="2">{title}</th></tr><!--!statrow-->
+<tr><td class="charinfo">{title}</td><td class="charinfo">{value}</td></tr><!--!statbuff-->
+<tr><th class="charhead" colspan="2">{title}</th></tr><tr><td class="charino" colspan="2">{value}</td></tr><!--!statend-->
+</table>
+<!--!navhead-->
+<li><h3 class="navhead">{title}</h3></li><!--!navitem-->
+<li><a href="{link}"{accesskey} class="nav" {popup}>{text}</a></li><!--!navhelp-->
+<li class="navhelp">{text}</li><!--!petitioncount-->
+<li id="pet_cnt">{petitioncount}</li><!--!adwrapper-->
+{content}
+<!--!login-->
+<div><img src="images/avalon.jpg" alt="Login Dragon"></div>
+<fieldset><legend>{button}</legend>
+	<label for="name">{username}:<br><input name="name" id="name" accesskey="u" size="10" autocorrect="off"></label><br><label for="password">{password}:<br><input name="password" id="password" accesskey="p" type="password" size="10" autocorrect="off"></label>
+</fieldset>
+<div><input type="submit" value="{button}" class="button"></div>
+<!--!loginfull-->
+<div><img src="images/avalon.jpg" alt="Login Dragon"></div>
+<p class="colLtRed">&#9940;</p>
