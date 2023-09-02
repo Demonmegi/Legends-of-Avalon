@@ -195,7 +195,7 @@ if ($op == "bathe"){
 	}
 }
 //I cannot make you keep this line here but would appreciate it left in.
-rawoutput("<div style=\"text-align: left;\"><a href=\"http://www.pqcomp.com\" target=\"_blank\">Bathhouse and Odor by Lonny @ http://www.pqcomp.com with modifications by Lenny LandFloh </a><br>");
+rawoutput("</a><br>");
 page_footer();
 }
 ?>
