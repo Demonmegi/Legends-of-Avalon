@@ -103,28 +103,28 @@ switch ($hookname) {
             case "village":
                 $tutormsg = "";
                 if ($wdam == 0 && $gold >= 48) {
-                    $tutormsg = translate_inline("\"`3Du solltest wirklich eine Waffe besorgen, um stärker zu werden. Du kannst eine im `^Waffengeschäft`3 kaufen. Ich treffe dich dort!`0\"`n");
+                    $tutormsg = translate_inline("\"`3Du solltest wirklich eine Waffe besorgen, um stärker zu werden. Du kannst eine im `^Waffengeschäft`3 kaufen. Ich treffe dich dort! -Deman`0\"`n");
                 } elseif ($wdam == 0 && $goldtotal >= 48) {
-                    $tutormsg = translate_inline("\"`3Wir müssen etwas Gold aus `^der Bank`3 abheben, um eine Waffe zu kaufen. Komm mit mir!`0\"`n");
+                    $tutormsg = translate_inline("\"`3Wir müssen etwas Gold aus `^der Bank`3 abheben, um eine Waffe zu kaufen. Komm mit mir! -Deman`0\"`n");
                 } elseif ($adef == 0 && $gold >= 48) {
-                    $tutormsg = translate_inline("\"`3Du wirst nicht sehr sicher sein, ohne Rüstung! Das `^Rüstungsgeschäft`3 hat eine schöne Auswahl. Los geht's!`0\"`n");
+                    $tutormsg = translate_inline("\"`3Du wirst nicht sehr sicher sein, ohne Rüstung! Das `^Rüstungsgeschäft`3 hat eine schöne Auswahl. Los geht's! -Deman`0\"`n");
                 } elseif ($adef == 0 && $goldtotal >= 48) {
-                    $tutormsg = translate_inline("\"`3Wir müssen etwas Gold aus `^der Bank`3 abheben, damit wir uns etwas Rüstung kaufen können!`0\"`n");
+                    $tutormsg = translate_inline("\"`3Wir müssen etwas Gold aus `^der Bank`3 abheben, damit wir uns etwas Rüstung kaufen können! -Deman`0\"`n");
                 } elseif (!$session['user']['experience']) {
-                    $tutormsg = translate_inline("\"`3Der `^Wald`3 ist auch einen Besuch wert. Hier gewinnst du Erfahrung und Gold!`0\"`n");
+                    $tutormsg = translate_inline("\"`3Der `^Wald`3 ist auch einen Besuch wert. Hier gewinnst du Erfahrung und Gold! -Deman`0\"`n");
                 } elseif ($session['user']['experience'] > 100 && $session['user']['level'] == 1 && !$session['user']['seenmaster']) {
-                    $tutormsg = translate_inline("\"`3Heilige Rauchwolken! Du steigst so schnell auf! Du hast genug Erfahrung, um Stufe 2 zu erreichen. Du solltest das `^Kriegertraining`3 finden und deinen Meister herausfordern! Danach wirst du feststellen, dass du viel mächtiger bist.`0\"`n");
+                    $tutormsg = translate_inline("\"`3Heilige Rauchwolken! Du steigst so schnell auf! Du hast genug Erfahrung, um Stufe 2 zu erreichen. Du solltest das `^Kriegertraining`3 finden und deinen Meister herausfordern! Danach wirst du feststellen, dass du viel mächtiger bist. -Deman`0\"`n");
                 }
                 if ($tutormsg) tutor_talk("%s", $tutormsg);
                 break;
             case "forest":
                 $tutormsg = "";
                 if ($goldtotal >= 48 && $wdam == 0) {
-                    $tutormsg = translate_inline("\"`3Hey, du hast genug Gold, um eine Waffe zu kaufen. Es könnte eine gute Idee sein, jetzt `^in die Stadt`3 zu gehen und einkaufen zu gehen!`0\"`n");
+                    $tutormsg = translate_inline("\"`3Hey, du hast genug Gold, um eine Waffe zu kaufen. Es könnte eine gute Idee sein, jetzt `^in die Stadt`3 zu gehen und einkaufen zu gehen! -Deman`0\"`n");
                 } elseif ($goldtotal >= 48 && $adef == 0) {
-                    $tutormsg = translate_inline("\"`3Hey, du hast genug Gold, um etwas Rüstung zu kaufen. Es könnte eine gute Idee sein, jetzt `^in die Stadt`3 zu gehen und einkaufen zu gehen!`0\"`n");
+                    $tutormsg = translate_inline("\"`3Hey, du hast genug Gold, um etwas Rüstung zu kaufen. Es könnte eine gute Idee sein, jetzt `^in die Stadt`3 zu gehen und einkaufen zu gehen! -Deman`0\"`n");
                 } elseif (!$session['user']['experience'] && !get_module_pref("seenforest")) {
-                    $tutormsg = translate_inline("`#Deman`& fliegt in Schleifen um deinen Kopf. \"`3Hier gibt es nicht viel zu sagen. Kämpfe gegen Monster, gewinne Gold, heile dich, wenn du musst. Vor allem: Hab Spaß!`0\"`n`nEr fliegt zurück zum Dorf.`n`nÜber seine Schulter ruft er aus, \"`3Bevor ich gehe, lies bitte die FAQs... und die Nachricht des Tages ist etwas, das du jedes Mal überprüfen solltest, wenn du dich anmeldest. Scheue dich nicht zu erkunden, aber scheue dich nicht zu fliehen! Und denk daran, sterben gehört zum Leben dazu!`0\"`n");
+                    $tutormsg = translate_inline("`#Deman`& sagt: \"`3Hier gibt es nicht viel zu sagen. Kämpfe gegen Monster, gewinne Gold, heile dich, wenn du musst. Vor allem: Hab Spaß!`0\"`n`nEr fliegt zurück zum Dorf.`n`nÜber seine Schulter ruft er aus, \"`3Bevor ich gehe, lies bitte die FAQs... und die Nachricht des Tages ist etwas, das du jedes Mal überprüfen solltest, wenn du dich anmeldest. Scheue dich nicht zu erkunden, aber scheue dich nicht zu fliehen! Und denk daran, sterben gehört zum Leben dazu!`0\"`n");
                     set_module_pref("seenforest", 1);
                 };
                 if ($tutormsg) tutor_talk("%s", $tutormsg);
