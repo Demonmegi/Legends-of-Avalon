@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 02, 2023 at 04:49 PM
+-- Generation Time: Sep 03, 2023 at 05:14 PM
 -- Server version: 10.5.19-MariaDB-0+deb11u2
 -- PHP Version: 8.1.13
 
@@ -40,7 +40,7 @@ INSERT INTO `settings` (`setting`, `value`) VALUES
 ('addexp', '5'),
 ('allowclans', '1'),
 ('allowcreation', '1'),
-('allowfeed', '0'),
+('allowfeed', '1'),
 ('allowgoldtransfer', '0'),
 ('allowoddadminrenames', '0'),
 ('allowpackofmonsters', '1'),
@@ -102,11 +102,11 @@ INSERT INTO `settings` (`setting`, `value`) VALUES
 ('innname', 'Gasthaus \"Zum gequetschten\"'),
 ('installer_version', '1.1.2 Dragonprime Edition'),
 ('instantexp', '0'),
-('lastdboptimize', '23-09-02 02:38:04'),
-('last_char_expire', '2023-09-02 02:38:53'),
+('lastdboptimize', '2023-09-03 11:35:26'),
+('last_char_expire', '2023-09-03 02:03:12'),
 ('logdnet', '0'),
 ('logdnetserver', 'http://logdnet.logd.com/'),
-('loginbanner', 'Version 0.5 (https://github.com/Yakut58/Legends-of-Avalon)'),
+('loginbanner', 'Version 0.6 (https://github.com/Yakut58/Legends-of-Avalon)'),
 ('LOGINTIMEOUT', '900'),
 ('mailsizelimit', '1024'),
 ('maxattacks', '4'),
@@ -133,7 +133,7 @@ INSERT INTO `settings` (`setting`, `value`) VALUES
 ('multithrillmax', '2'),
 ('multithrillmin', '1'),
 ('newdaycron', '0'),
-('newdaySemaphore', '2023-09-02 12:04:13'),
+('newdaySemaphore', '2023-09-03 12:13:36'),
 ('newestplayer', '2'),
 ('newplayerstartgold', '50'),
 ('notify_address', ''),
@@ -143,7 +143,7 @@ INSERT INTO `settings` (`setting`, `value`) VALUES
 ('officermoderate', '0'),
 ('oldmail', '14'),
 ('OnlineCount', '0'),
-('OnlineCountLast', '1693665764'),
+('OnlineCountLast', '1693753982'),
 ('onlyunreadmails', '1'),
 ('paypalcountry-code', 'US'),
 ('paypalcurrency', 'USD'),
