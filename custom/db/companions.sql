@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 03, 2023 at 03:57 PM
+-- Generation Time: Sep 03, 2023 at 04:01 PM
 -- Server version: 10.5.19-MariaDB-0+deb11u2
 -- PHP Version: 8.1.13
 
@@ -60,7 +60,7 @@ CREATE TABLE `companions` (
 INSERT INTO `companions` (`companionid`, `name`, `category`, `description`, `attack`, `attackperlevel`, `defense`, `defenseperlevel`, `maxhitpoints`, `maxhitpointsperlevel`, `abilities`, `cannotdie`, `cannotbehealed`, `companionlocation`, `companionactive`, `companioncostdks`, `companioncostgems`, `companioncostgold`, `jointext`, `dyingtext`, `allowinshades`, `allowinpvp`, `allowintrain`) VALUES
 (1, '`^Dillon', 'Krieger', 'Ein Krieger, der an der Front bei der Belagerung von Avalon auf dem Gehsteg mitgekämpft hat. Aufgrund der Gefahren im Wald hat er sich jedoch entschieden, Söldner zu werden.', 5, 2, 1, 2, 20, 20, 'a:4:{s:5:\"fight\";s:1:\"1\";s:4:\"heal\";s:1:\"0\";s:5:\"magic\";s:1:\"0\";s:6:\"defend\";b:0;}', 0, 0, 'Dorf von Avalon', 1, 0, 4, 573, '`^Ich werde euren Rücken freihalten. Mein Schwert soll nun das Blut der Monster trinken.', '`4Argggggh! Ich bin besiegt! Ich verlasse meine sterbliche Hülle. Leb wohl, mein Freund.', 1, 0, 0),
 (2, '`qKermen', 'Bogenschütze', 'Ein Bogenschütze der sich an der Front im Aussenhof während der Belagerung von Avalon behauptet hat. Aufgrund der Gefahren im Wald hat er sich jedoch entschieden, Söldner zu werden.', 6, 2, 1, 1, 15, 15, 'a:4:{s:5:\"fight\";s:1:\"1\";s:4:\"heal\";s:1:\"0\";s:5:\"magic\";s:1:\"0\";s:6:\"defend\";b:0;}', 0, 0, 'Dorf von Avalon', 1, 0, 3, 800, '`QKein Gegner wird sich an Euch heranschleichen können. Mein Bogen soll das Herz der Monster zerschmettern.', '`4Argggggh! Ich bin besiegt! Ich verlasse meine sterbliche Hülle. Leb wohl, mein Freund.', 1, 0, 0),
-(3, '`$Scur', 'Zauberer', 'Ein Zauberer, der bei der Belagerung von Avalon als Wache gedient hatte. Aufgrund der Gefahren im Wald hat er sich jedoch entschieden, Söldner zu werden.', 1, 1, 5, 5, 15, 10, 'a:4:{s:4:\"heal\";s:1:\"2\";s:5:\"magic\";s:1:\"2\";s:5:\"fight\";b:0;s:6:\"defend\";b:0;}', 0, 1, 'Dorf von Avalon', 1, 0, 3, 1000, 'Niemand wird uns überwältigen können. Meine Magie wird alle Monster verjagen.', '`4Argggggh! Ich bin besiegt! Ich verlasse meine sterbliche Hülle. Leb wohl, mein Freund.', 1, 0, 0);
+(3, '`$Scur', 'Zauberer', 'Ein Zauberer, der bei der Belagerung von Avalon als Wache gedient hatte. Aufgrund der Gefahren im Wald hat er sich jedoch entschieden, Söldner zu werden.', 1, 1, 5, 5, 15, 10, 'a:4:{s:6:\"defend\";s:1:\"1\";s:4:\"heal\";s:1:\"2\";s:5:\"magic\";s:1:\"2\";s:5:\"fight\";b:0;}', 0, 1, 'Dorf von Avalon', 1, 0, 3, 1000, 'Niemand wird uns überwältigen können. Meine Magie wird alle Monster verjagen.', '`4Argggggh! Ich bin besiegt! Ich verlasse meine sterbliche Hülle. Leb wohl, mein Freund.', 1, 0, 0);
 
 --
 -- Indexes for dumped tables
