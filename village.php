@@ -180,6 +180,8 @@ addnav("Hof der Bauern","runmodule.php?module=cities&op=travel&city=Hof%20der%20
 addnav("Aussenburg","runmodule.php?module=cities&op=travel&city=Aussenburg");
 addnav("Innenhof","runmodule.php?module=cities&op=travel&city=Innenhof");
 addnav("Innenburg","runmodule.php?module=cities&op=travel&city=Innenburg");
+addnav("Die Hoehlen","runmodule.php?module=cities&op=travel&city=Die%20Hoehlen");
+addnav("Krypta","runmodule.php?module=cities&op=travel&city=Krypta");
 
 tlschema($schemas['fightnav']);
 addnav($texts['fightnav']);
