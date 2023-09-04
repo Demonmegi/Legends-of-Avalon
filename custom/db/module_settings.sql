@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 03, 2023 at 05:11 PM
+-- Generation Time: Sep 04, 2023 at 09:00 PM
 -- Server version: 10.5.19-MariaDB-0+deb11u2
 -- PHP Version: 8.1.13
 
@@ -65,7 +65,7 @@ INSERT INTO `module_settings` (`modulename`, `setting`, `value`) VALUES
 ('city_weather', 'shadeswx7', '`6Drückend heiss und unangenehm schwül'),
 ('city_weather', 'shadeswx8', '`^Höllische Feuerwinde wehen'),
 ('city_weather', 'shadeswxreport', 'Die Atmosphäre in Astralebene ist derzeit `%s`.'),
-('city_weather', 'weather', 'heiss und sonnig'),
+('city_weather', 'weather', 'starker Wind mit vereinzelten Schauern'),
 ('city_weather', 'weather1', 'bedeckt und kühl, mit sonnigen Phasen'),
 ('city_weather', 'weather2', 'warm und sonnig'),
 ('city_weather', 'weather3', 'regnerisch'),
@@ -157,7 +157,7 @@ INSERT INTO `module_settings` (`modulename`, `setting`, `value`) VALUES
 ('moons', 'moon1', '1'),
 ('moons', 'moon1cycle', '23'),
 ('moons', 'moon1name', 'Mundil'),
-('moons', 'moon1place', '13'),
+('moons', 'moon1place', '15'),
 ('moons', 'moon2', '0'),
 ('moons', 'moon2cycle', '43'),
 ('moons', 'moon2name', 'Ay'),
@@ -171,6 +171,10 @@ INSERT INTO `module_settings` (`modulename`, `setting`, `value`) VALUES
 ('odor', 'newday', '1'),
 ('odor', 'roundsleft', '100'),
 ('odor', 'titlenew', 'Schweinebacke'),
+('oldchurch', 'belltoll', '74'),
+('oldchurch', 'oldchurchplace', 'Dorf von Avalon'),
+('oldchurch', 'ritualenergy', '0'),
+('oldman', 'carrydk', '0'),
 ('outhouse', 'badmusthit', '50'),
 ('outhouse', 'cost', '5'),
 ('outhouse', 'giveback', '3'),
