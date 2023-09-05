@@ -10,6 +10,8 @@ function forest($noshowmessage=false) {
 //	mass_module_prepare(array("forest", "validforestloc"));
 	addnav("Heal");
 	addnav("H?Healer's Hut","healer.php");
+	addnav("Der Aussenposten","runmodule.php?module=cities&op=travel&city=Der%20Aussenposten");
+	addnav("Die Hoehlen","runmodule.php?module=cities&op=travel&city=Die%20Hoehlen");
 	addnav("Fight");
 	addnav("L?Look for Something to Kill","forest.php?op=search");
 	if ($session['user']['level']>1)
