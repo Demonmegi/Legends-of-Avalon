@@ -182,6 +182,7 @@ addnav("Innenhof","runmodule.php?module=cities&op=travel&city=Innenhof");
 addnav("Innenburg","runmodule.php?module=cities&op=travel&city=Innenburg");
 addnav("Die Hoehlen","runmodule.php?module=cities&op=travel&city=Die%20Hoehlen");
 addnav("Krypta","runmodule.php?module=cities&op=travel&city=Krypta");
+addnav("Die Steppe","runmodule.php?module=cities&op=travel&city=Die%20Steppe");
 
 tlschema($schemas['fightnav']);
 addnav($texts['fightnav']);
