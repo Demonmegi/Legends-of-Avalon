@@ -141,7 +141,7 @@ output("`c`2Spielserver version: `@%s`0`c", $logd_version);
 if (getsetting("homeskinselect", 1)) {
 	rawoutput("<form action='home.php' method='POST'>");
 	rawoutput("<table align='center'><tr><td>");
-	$form = array("template"=>"Choose a different display skin:,theme");
+	$form = array("template"=>"Wählen Sie ein anderes Anzeige-Design aus:,theme");
 	$prefs['template'] = $_COOKIE['template'];
 	if ($prefs['template'] == "")
 		$prefs['template'] = getsetting("defaultskin", "jade.htm");
