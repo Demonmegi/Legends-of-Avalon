@@ -2,7 +2,9 @@
 
 http://loa.bplaced.net/home.php
 
-Info: https://soamigos.de/wbb5/forum/index.php?thread/4596-legends-of-avalon/
+Thread: https://soamigos.de/wbb5/forum/index.php?thread/4596-legends-of-avalon/
+
+Update: Der hoster schafft langsam aber sicher die alte PHP 5.6 umgebung ab. Das Spiel kann im jetzigen Zustand nicht auf neueren Umgebungen laufen - Somit wird ein refactoring auf PHP 8.0+ nötig sein. Das kann eine weile dauern.
 
 Geschichtlich knüpft LoA an das Ende von SoA an - ein Jahr nach Avalons Befreiung wurde der Frieden zwischen den Grasleoparden (Clan von Mithras - nach seinem Tode verlor dieser Clan an politischer Relevanz in der Steppe) und dem Eurale-Bund offiziell - Oriam wurde von den Invasoren befreit und die Anspannungen an der Grenze haben sich grösstenteils gelegt. Die Friedensbedingungen waren - Angesichts des Schadens das die Sha'Ahoul angestellt haben - Relativ Milde, was jedoch daran liegt, dass der Eurale Bund keinen politischen willen hat um einen Gegenangriff in die Steppe zu machen, was sowieso riskanter und unbekannter Terrain ist. Somit hat der "Sieger" (Wenn man das nennen darf) des Krieges sich mit Austausch der Kriegsgefangenen und Ressourcenkompensationen zufriedengegeben. Die Bedingung, Mithras Leiche zu übergeben wurde nicht erfüllt, da entweder die Sha'Ahoul selbst nicht wissen, wo die Leiche ist oder Verräter ihre Hände im Spiel haben. Vielleicht wird man mehr davon in der Zukunft hören...
 
