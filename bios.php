@@ -19,13 +19,13 @@ if ($op=="block"){
 	db_query($sql);
 }
 if ($op=="unblock"){
-	$sql = "UPDATE " . db_prefix("accounts") . " SET bio='',biotime='0000-00-00 00:00:00' WHERE acctid='$userid'";
+	$sql = "UPDATE " . db_prefix("accounts") . " SET bio='',biotime='0001-01-01 00:00:00' WHERE acctid='$userid'";
 	$subj = array("Your bio has been unblocked");
 	$msg = array("The system administrators have decided to unblock your bio.  You can once again enter a bio entry.");
 	systemmail($userid,$subj,$msg);
 	db_query($sql);
 }
-$sql = "SELECT name,acctid,bio,biotime FROM " . db_prefix("accounts") . " WHERE biotime<'9999-12-31' AND bio>'' ORDER BY biotime DESC LIMIT 100";
+$sql = "SELECT name,acctid,bio,biotime FROM " . db_prefix("accounts") . " WHERE biotime<'9999-12-31' AND bio>'' ORDER BY biotime DESC LIMIT 500";
 $result = db_query($sql);
 page_header("User Bios");
 $block = translate_inline("Block");
@@ -49,7 +49,7 @@ if ($session['user']['superuser'] & SU_EDIT_COMMENTS)
 	addnav("Return to Comment Moderation","moderate.php");
 
 addnav("Refresh","bios.php");
-$sql = "SELECT name,acctid,bio,biotime FROM " . db_prefix("accounts") . " WHERE biotime>'9000-01-01' AND bio>'' ORDER BY biotime DESC LIMIT 100";
+$sql = "SELECT name,acctid,bio,biotime FROM " . db_prefix("accounts") . " WHERE biotime>'9000-01-01' AND bio>'' ORDER BY biotime DESC LIMIT 500";
 $result = db_query($sql);
 output("`n`n`b`&Blocked Bios:`0`b`n");
 $unblock = translate_inline("Unblock");

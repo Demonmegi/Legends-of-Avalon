@@ -2,7 +2,7 @@
 // translator ready
 // addnews ready
 // mail ready
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 define("OVERRIDE_FORCED_NAV",true);
 require_once("common.php");
 require_once("lib/errorhandling.php");
@@ -18,7 +18,7 @@ if ($url) {
 }
 if (!($session['user']['loggedin'] && $session['user']['superuser'] & SU_VIEW_SOURCE) || !isset($session['user']['loggedin'])) {
 	output("Due to the behaviour of people in the past, access to the source code online has been restricted.");
-	output("You may download the entirety of the latest publically released stable version from <a href='http://www.dragonprime.net' target='_blank'>DragonPrime</a>.", true);
+	output("You may download the entirety of the latest publically released stable version from <a href='https://dragonprime-reborn.ca/' target='_blank'>dragonprime reborn/</a>.", true);
 	output("You may then work with that code within the restrictions of its license.");
 	output("`n`nHopefully this will help put an end to actions like the following:");
 	rawoutput("<ul><li>");

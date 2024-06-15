@@ -5,6 +5,7 @@
 require_once("lib/dump_item.php");
 
 function showform($layout,$row,$nosave=false,$keypref=false){
+// debug($layout)	;
 	global $session;
  	static $showform_id=0;
  	static $title_id=0;
@@ -18,18 +19,16 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 	rawoutput("</td></tr><tr><td>&nbsp;</td></tr><tr><td>");
 	rawoutput("<table cellpadding='2' cellspacing='0'>");
 	$i = 0;
-	while(list($key,$val)=each($layout)){
+	foreach ($layout as $key=>$val) {
 		$pretrans = 0;
 		if ($keypref !== false) $keyout = sprintf($keypref, $key);
 		else $keyout = $key;
 		if (is_array($val)) {
 			$v = $val[0];
-			//$info = split(",", $v);
 			$info = explode(",", $v);
 			$val[0] = $info[0];
 			$info[0] = $val;
 		} else {
-			//$info = split(",",$val);
 			$info = explode(",",$val);
 		}
 		if (is_array($info[0])) {
@@ -111,7 +110,6 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			$vloc['all'] = 1;
 			$vloc = modulehook("validlocation", $vloc);
 			unset($vloc['all']);
-			reset($vloc);
 			rawoutput("<select name='$keyout'>");
 			foreach($vloc as $loc=>$val) {
 				if ($loc == $row[$key]) {
@@ -127,13 +125,13 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			$pretrans = 1;
 			// FALLTHROUGH
 		case "checklist":
-			reset($info);
-			list($k,$v)=each($info);
-			list($k,$v)=each($info);
+			array_shift($info);
+			array_shift($info);
 			$select="";
-			while (list($k,$v)=each($info)){
+			foreach($info as $k=>$v) {
+			// while(list($k, $v) = each($info)) {
 				$optval = $v;
-				list($k,$v)=each($info);
+				// list($k, $v) = each($info);
 				$optdis = $v;
 				if (!$pretrans) $optdis = translate_inline($optdis);
 				if (is_array($row[$key])){
@@ -149,23 +147,25 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				}
 				$select.="<input type='checkbox' name='{$keyout}[{$optval}]' value='1'".($checked==$optval?" checked":"").">&nbsp;".("$optdis")."<br>";
 			}
+			unset($pretrans);
 			rawoutput($select);
 			break;
 		case "radiopretrans":
 			$pretrans = 1;
 			// FALLTHROUGH
 		case "radio":
-			reset($info);
-			list($k,$v)=each($info);
-			list($k,$v)=each($info);
+			array_shift($info);
+			array_shift($info);
 			$select="";
-			while (list($k,$v)=each($info)){
+			foreach($info as $k=>$v) {
+			// while(list($k, $v) = each($info)) {
 				$optval = $v;
-				list($k,$v)=each($info);
+				// list($k, $v) = each($info);
 				$optdis = $v;
 				if (!$pretrans) $optdis = translate_inline($optdis);
 				$select.=("<input type='radio' name='$keyout' value='$optval'".($row[$key]==$optval?" checked":"").">&nbsp;".("$optdis")."<br>");
 			}
+			unset($pretrans);
 			rawoutput($select);
 			break;
 		case "dayrange":
@@ -220,20 +220,24 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			//DisplayName,bitfield,disablemask,(highbit,display)+
 			//1-26-03 added disablemask so this field type can be used
 			// on bitfields other than superuser.
-			reset($info);
-			list($k,$v)=each($info);
-			list($k,$v)=each($info);
-			list($k,$disablemask)=each($info);
+			array_shift($info);
+			array_shift($info);
+			$disablemask = array_shift($info);
 			rawoutput("<input type='hidden' name='$keyout"."[0]' value='1'>", true);
-			while (list($k,$v)=each($info)){
+			while(current($info)!==false) {
+				$v = current($info);
+			// while(list($k, $v) = each($info)) {
 				rawoutput("<input type='checkbox' name='$keyout"."[$v]'"
 					.(isset($row[$key]) && (int)$row[$key] & (int)$v?" checked":"")
 					.($disablemask & (int)$v?"":" disabled")
 					." value='1'> ");
-				list($k,$v)=each($info);
+				// list($k, $v) = each($info);
+				$v=next($info);
 				if (!$pretrans) $v = translate_inline($v);
 				output_notl("%s`n",$v,true);
+				next($info);
 			}
+			unset($pretrans);
 			break;
 		case "datelength":
 			// However, there was a bug with your translation code wiping
@@ -252,14 +256,13 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				"1 year"
 			);
 			tlschema("showform");
-			while (list($k,$v)=each($vals)){
+			foreach ($vals as $k=>$v) {
 				$vals[$k]=translate($v);
 				rawoutput(tlbutton_pop());
 			}
 			tlschema();
-			reset($vals);
 			rawoutput("<select name='$keyout'>");
-			while(list($k,$v)=each($vals)) {
+			foreach ($vals as $k=>$v) {
 				rawoutput("<option value=\"".htmlentities($v, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\"".($row[$key]==$v?" selected":"").">".htmlentities($v, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</option>");
 			}
 			rawoutput("</select>");
@@ -268,15 +271,14 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			$pretrans = 1;
 		    // FALLTHROUGH
 		case "enum":
-			reset($info);
-			list($k,$v)=each($info);
-			list($k,$v)=each($info);
+			array_shift($info);
+			array_shift($info);
 			$select="";
 			$select.=("<select name='$keyout'>");
-			while (list($k,$v)=each($info)){
-				$optval = $v;
-				list($k,$v)=each($info);
-				$optdis = $v;
+
+			while(current($info)!==false) {
+				$optval = current($info);
+				$optdis = next($info);
 				if (!$pretrans) {
 					$optdis = translate_inline($optdis);
 				}
@@ -285,12 +287,14 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 					$selected = 1;
 
 				$select.=("<option value='$optval'".($selected?" selected":"").">".HTMLEntities("$optdis", ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</option>");
+				next($info);
 			}
+			unset($pretrans);
 			$select.="</select>";
 			rawoutput($select);
 			break;
 		case "password":
-			if (array_key_exists($key, $row)) $out = $row[$key];
+			if (isset($row[$key])) $out = $row[$key];
 			else $out = "";
 			rawoutput("<input type='password' name='$keyout' value='".HTMLEntities($out, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."'>");
 			break;
@@ -327,12 +331,13 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				rawoutput("<script type=\"text/javascript\">function increase(target, value){  if (target.rows + value > 3 && target.rows + value < 50) target.rows = target.rows + value;}</script>");
 				rawoutput("<textarea id='textarea$key' class='input' name='$keyout' cols='$cols' rows='5'>".htmlentities(str_replace("`n", "\n", $text), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</textarea>");
 				rawoutput("<input type='button' onClick=\"increase(textarea$key,1);\" value='+' accesskey='+'><input type='button' onClick=\"increase(textarea$key,-1);\" value='-' accesskey='-'>");
+				unset($resize);
 			} else {
 				rawoutput("<textarea class='input' name='$keyout' cols='$cols' rows='5'>".htmlentities(str_replace("`n", "\n", $text), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</textarea>");
 			}
 			break;
 		case "int":
-			if (array_key_exists($key, $row)) $out = $row[$key];
+			if (isset($row[$key])) $out = $row[$key];
 			else $out = 0;
 			rawoutput("<input name='$keyout' value=\"".HTMLEntities($out, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" size='5'>");
 			break;
@@ -346,18 +351,18 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			if ($len < $minlen) $minlen = $len;
 			if ($len > $minlen) $minlen = $len/2;
 			if ($minlen > 70) $minlen = 70;
-			if (array_key_exists($key, $row)) $val = $row[$key];
+			if (isset($row[$key])) $val = $row[$key];
 			else $val = "";
 			rawoutput("<input size='$minlen' maxlength='$len' name='$keyout' value=\"".HTMLEntities($val, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
 			break;
 		default:
-			if (array_key_exists($info[1],$extensions)){
+			if (isset($extensions[$info[1]])){
 				$func=$extensions[$info[1]];
-				if (array_key_exists($key, $row)) $val = $row[$key];
+				if (isset($row[$key])) $val = $row[$key];
 				else $val = "";
 				call_user_func($func, $keyout, $val, $info);
 			}else{
-				if (array_key_exists($key, $row)) $val = $row[$key];
+				if (isset($row[$key])) $val = $row[$key];
 				else $val = "";
 				rawoutput("<input size='50' name='$keyout' value=\"".HTMLEntities($val, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
 			}
@@ -426,8 +431,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 	} else {
 		rawoutput("<script language='JavaScript'>");
 		rawoutput("formSections[$showform_id] = new Array();");
-		reset($formSections);
-		while (list($key,$val)=each($formSections)){
+		foreach ($formSections as $key=>$val) {
 			rawoutput("formSections[$showform_id][$key] = '".addslashes($val)."';");
 		}
 		rawoutput("

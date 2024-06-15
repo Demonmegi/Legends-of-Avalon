@@ -9,8 +9,8 @@ function drinks_dohook_private($hookname,$args) {
 	case "ale":
 		require_once("modules/drinks/misc_functions.php");
 		$texts = drinks_gettexts();
+		$texts['module'] = httpget('module');
 		$drinktext = modulehook("drinks-text",$texts);
-
 		$drunk = get_module_pref("drunkeness");
 		$drunklist = array(
 				-1=>"stone cold sober",
@@ -46,12 +46,15 @@ function drinks_dohook_private($hookname,$args) {
 		while ($row = db_fetch_assoc($result)) {
 			$row['allowdrink'] = 1;
 			$row = modulehook("drinks-check", $row);
+
 			if ($row['allowdrink']) {
 				$drinkcost = $row['costperlevel']*$session['user']['level'];
 				// No hotkeys on drinks.  Too easy for them to interfere
 				// with and modify stock navs randomly.
-				addnav(array(" ?%s  (`^%s`0 gold)", $row['name'], $drinkcost),
-						"runmodule.php?module=drinks&act=buy&id={$row['drinkid']}");
+				//addnav(array(" ?`0%s `0(`^%s`0 gold)", $row['name'], $drinkcost),
+				//		"runmodule.php?module=drinks&act=buy&id={$row['drinkid']}&caller=" . $drinktext['module']);
+				addnav(array("`0%s `0(`^%s`0 gold)", $row['name'], $drinkcost),
+						"runmodule.php?module=drinks&act=buy&id={$row['drinkid']}&caller=" . $drinktext['module']);
 			}
 		}
 		break;
@@ -85,9 +88,9 @@ function drinks_dohook_private($hookname,$args) {
 		}
 		break;
 	case "commentary":
-		if (($session['user']['superuser'] & SU_IS_GAMEMASTER) && substr($args['commentline'], 0, 5) == "/game") break;
+		if ((($session['user']['superuser'] & SU_IS_GAMEMASTER) && substr($args['commentline'], 0, 5) == "/game") || substr($args['commentline'], 0, 2) == "/x") break;
 		require_once("modules/drinks/drunkenize.php");
-		$drunk = get_module_pref("drunkeness");
+		$drunk = get_module_pref("drunkeness");		
 		if ($drunk > 50) {
 			$args['commenttalk'] = "drunkenly {$args['commenttalk']}";
 		}

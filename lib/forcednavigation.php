@@ -16,7 +16,7 @@ function do_forced_nav($anonymous,$overrideforced){
 			$session['bufflist']=unserialize($session['user']['bufflist']);
 			if (!is_array($session['bufflist'])) $session['bufflist']=array();
 			$session['user']['dragonpoints']=unserialize($session['user']['dragonpoints']);
-			$session['user']['prefs']=unserialize($session['user']['prefs']);
+			if ($session['user']['prefs']!=null) $session['user']['prefs']=unserialize($session['user']['prefs']);
 			if (!is_array($session['user']['dragonpoints'])) $session['user']['dragonpoints']=array();
 			if (is_array(unserialize($session['user']['allowednavs']))){
 				$session['allowednavs']=unserialize($session['user']['allowednavs']);
@@ -33,6 +33,7 @@ function do_forced_nav($anonymous,$overrideforced){
 			redirect("index.php","Account Disappeared!");
 		}
 		db_free_result($result);
+	
 		if (isset($session['allowednavs'][$REQUEST_URI]) && $session['allowednavs'][$REQUEST_URI] && $overrideforced!==true){
 			$session['allowednavs']=array();
 		}else{

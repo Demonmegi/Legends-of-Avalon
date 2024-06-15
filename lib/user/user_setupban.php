@@ -1,18 +1,20 @@
 <?php
-$sql = "SELECT name,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE acctid=\"$userid\"";
-$result = db_query($sql);
-$row = db_fetch_assoc($result);
-if ($row['name']!="")
-	output("Setting up ban information based on `\$%s`0", $row['name']);
+if (isset($userid) && $userid!="") {
+	$sql = "SELECT name,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE acctid=\"$userid\"";
+	$result = db_query($sql);
+	$row = db_fetch_assoc($result);
+	if ($row['name']!="")
+		output("Setting up ban information based on `\$%s`0", $row['name']);
+}
 rawoutput("<form action='user.php?op=saveban' method='POST'>");
 output("Set up a new ban by IP or by ID (recommended IP, though if you have several different users behind a NAT, you can try ID which is easily defeated)`n");
 rawoutput("<input type='radio' value='ip' id='ipradio' name='type' checked>");
 output("IP: ");
-rawoutput("<input name='ip' id='ip' value=\"".HTMLEntities($row['lastip'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
+rawoutput("<input name='ip' id='ip' value=\"".(isset($row)?HTMLEntities($row['lastip'], ENT_COMPAT, getsetting("charset", "ISO-8859-1")):'')."\">");
 output_notl("`n");
 rawoutput("<input type='radio' value='id' name='type'>");
 output("ID: ");
-rawoutput("<input name='id' value=\"".HTMLEntities($row['uniqueid'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
+rawoutput("<input name='id' value=\"".(isset($row)?HTMLEntities($row['uniqueid'], ENT_COMPAT, getsetting("charset", "ISO-8859-1")):'')."\">");
 output("`nDuration: ");
 rawoutput("<input name='duration' id='duration' size='3' value='14'>");
 output("Days (0 for permanent)`n");
@@ -28,7 +30,7 @@ rawoutput("<input type='submit' class='button' value='$pban' onClick='if (docume
 rawoutput("</form>");
 output("For an IP ban, enter the beginning part of the IP you wish to ban if you wish to ban a range, or simply a full IP to ban a single IP`n`n");
 addnav("","user.php?op=saveban");
-if ($row['name']!=""){
+if (isset($row) && $row['name']!=""){
 	$id = $row['uniqueid'];
 	$ip = $row['lastip'];
 	$name = $row['name'];

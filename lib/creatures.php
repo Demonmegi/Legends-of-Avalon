@@ -41,8 +41,8 @@ function creature_health($level){
 		case 17:
 			$health = 178;
 		break;
-		case 18:
-			$health = 190;
+		default:
+			$health = $level * 10 + 10;
 		break;
 	}
 	return $health;
@@ -60,6 +60,8 @@ function creature_defense($level){
 	$defense = 0;
 	switch ($level){
 		// Always fall through
+		default:
+			$defense += $level - 18;
 		case 18:
 			++$defense;
 		case 17:

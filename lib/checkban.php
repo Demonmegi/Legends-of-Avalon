@@ -8,7 +8,8 @@ function checkban($login=false){
 		return false;
 	if ($login===false){
 		$ip=$_SERVER['REMOTE_ADDR'];
-		$id=$_COOKIE['lgi'];
+		$id=0;
+		if (isset($_COOKIE['lgi'])) $id=$_COOKIE['lgi'];
 	}else{
 		$sql = "SELECT lastip,uniqueid,banoverride,superuser FROM " . db_prefix("accounts") . " WHERE login='$login'";
 		$result = db_query($sql);
@@ -21,7 +22,7 @@ function checkban($login=false){
 		$ip=$row['lastip'];
 		$id=$row['uniqueid'];
 	}
-	$sql = "SELECT * FROM " . db_prefix("bans") . " where ((substring('$ip',1,length(ipfilter))=ipfilter AND ipfilter<>'') OR (uniqueid='$id' AND uniqueid<>'')) AND (banexpire='0000-00-00' OR banexpire>='".date("Y-m-d")."')";
+	$sql = "SELECT * FROM " . db_prefix("bans") . " where ((substring('$ip',1,length(ipfilter))=ipfilter AND ipfilter<>'') OR (uniqueid='$id' AND uniqueid<>'')) AND (banexpire='0001-01-01' OR banexpire>='".date("Y-m-d")."')";
 	$result = db_query($sql);
 	if (db_num_rows($result)>0){
 		$session=array();
@@ -29,7 +30,7 @@ function checkban($login=false){
 		$session['message'].=translate_inline("`n`4You fall under a ban currently in place on this website:`n");
 		while ($row = db_fetch_assoc($result)) {
 			$session['message'].=$row['banreason']."`n";
-			if ($row['banexpire']=='0000-00-00')
+			if ($row['banexpire']=='0001-01-01')
 				$session['message'].=translate_inline("  `\$This ban is permanent!`0");
 				else
 				$session['message'].=sprintf_translate("  `^This ban will be removed `\$after`^ %s.`0",date("M d, Y",strtotime($row['banexpire'])));

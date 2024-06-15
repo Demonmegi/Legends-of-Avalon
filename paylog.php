@@ -30,14 +30,14 @@ superusernav();
 
 $op = httpget('op');
 if ($op==""){
-	$sql = "SELECT info,txnid FROM ".db_prefix("paylog")." WHERE processdate='0000-00-00'";
+	$sql = "SELECT info,txnid FROM ".db_prefix("paylog")." WHERE processdate='0001-01-01'";
 	$result = db_query($sql);
 	while ($row = db_fetch_assoc($result)){
 		$info = unserialize($row['info']);
 		$sql = "UPDATE ".db_prefix('paylog')." SET processdate='".date("Y-m-d H:i:s",strtotime($info['payment_date']))."' WHERE txnid='".addslashes($row['txnid'])."'";
 		db_query($sql);
 	}
-	$sql = "SELECT substring(processdate,1,7) AS month, sum(amount)-sum(txfee) AS profit FROM ".db_prefix('paylog')." GROUP BY month DESC";
+	$sql = "SELECT substring(processdate,1,7) AS month, sum(amount)-sum(txfee) AS profit FROM ".db_prefix('paylog')." GROUP BY month ORDER BY month DESC";
 	$result = db_query($sql);
 	addnav("Months");
 	while ($row = db_fetch_assoc($result)){
@@ -63,7 +63,7 @@ if ($op==""){
 		$row = db_fetch_assoc($result);
 		$info = unserialize($row['info']);
 		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td nowrap>");
-		output_notl(date("m/d H:i",strtotime($info['payment_date'])));
+		output_notl(date("m/d H:i",(strtotime($info['payment_date']))));
 		rawoutput("</td><td>");
 		output_notl("%s",$row['txnid']);
 		rawoutput("</td><td>");

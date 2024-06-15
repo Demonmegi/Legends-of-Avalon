@@ -18,7 +18,7 @@ if ($op == "") checkday();
 
 $pointsavailable =
 	$session['user']['donation']-$session['user']['donationspent'];
-$entry = ($session['user']['donation'] > 0) || ($session['user']['superuser'] & SU_EDIT_COMMENTS);
+$entry = ($session['user']['donation'] >= 0) || ($session['user']['superuser'] & SU_EDIT_COMMENTS);
 if ($pointsavailable < 0) $pointsavailable = 0; // something weird.
 
 page_header("Hunter's Lodge");
@@ -85,12 +85,6 @@ if ($op==""){
 		output("`#&#149;`7None -- Please talk to your admin about creating some.`n", true);
 	}
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/lodge.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
 
 page_footer();
 ?>

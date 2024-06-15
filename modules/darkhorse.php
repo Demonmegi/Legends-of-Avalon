@@ -57,7 +57,7 @@ function darkhorse_install(){
 	}
 	module_addhook("forest");
 	module_addhook("mountfeatures");
-	module_addhook("moderate");
+	module_addhook("createmoderatelist");
 	return true;
 }
 
@@ -67,8 +67,10 @@ function darkhorse_uninstall(){
 
 function darkhorse_dohook($hookname,$args){
 	switch($hookname) {
-	case "moderate":
-		$args['darkhorse'] = get_module_setting("tavernname");
+	case "createmoderatelist":
+		tlschema("commentary");
+		$args['darkhorse']=array("name"=>sprintf_translate(get_module_setting("tavernname")),"group"=>"Wald");
+		tlschema();
 		break;
 	case "mountfeatures":
 		$tavern = get_module_objpref("mounts", $args['id'], "findtavern");
@@ -137,12 +139,19 @@ function darkhorse_bartender($from){
 				addnav("Search Again",$from."op=bartender&what=enemies");
 				$search = "%";
 				$name = httppost('name');
-				for ($i=0;$i<strlen($name);$i++){
-					$search.=substr($name,$i,1)."%";
+				$name_len = strlen($name);
+				for ($i=0; $i < $name_len; ++$i){
+					$search.= substr($name,$i,1)."%";
 				}
-				$sql = "SELECT name,alive,location,sex,level,laston,loggedin,login FROM " . db_prefix("accounts") . " WHERE (locked=0 AND name LIKE '$search') ORDER BY level DESC";
+				$search = addslashes($search);
+				$sql = "SELECT name,alive,location,sex,level,laston,loggedin,login FROM " . db_prefix("accounts") . " WHERE (locked=0 AND login = '$name') ORDER BY level DESC";
 				$result = db_query($sql);
 				$max = db_num_rows($result);
+				if ($max==0) {
+					$sql = "SELECT name,alive,location,sex,level,laston,loggedin,login FROM " . db_prefix("accounts") . " WHERE (locked=0 AND name LIKE '$search') ORDER BY level DESC";
+					$result = db_query($sql);
+					$max = db_num_rows($result);
+				}
 				if ($max > 100) {
 					output("`n`n\"`7Hey, whatsh you think yoush doin'.  That'sh too many namesh to shay.  I'll jusht tell you 'bout shome of them.`0`n");
 					$max = 100;

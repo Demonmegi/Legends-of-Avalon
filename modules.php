@@ -34,8 +34,7 @@ if (is_array($module)){
 	if ($module) $modules = array($module);
 	else $modules = array();
 }
-reset($modules);
-while (list($key,$module)=each($modules)){
+foreach ($modules as $key=>$module) {
 	$op = $theOp;
 	output("`2Performing `^%s`2 on `%%s`0`n", translate_inline($op), $module);
 	if($op=="install"){
@@ -64,7 +63,7 @@ while (list($key,$module)=each($modules)){
 		httpset('op', "");
 		invalidatedatacache("inject-$module");
 	}elseif($op=="reinstall"){
-		$sql = "UPDATE " . db_prefix("modules") . " SET filemoddate='0000-00-00 00:00:00' WHERE modulename='$module'";
+		$sql = "UPDATE " . db_prefix("modules") . " SET filemoddate='0001-01-01 00:00:00' WHERE modulename='$module'";
 		db_query($sql);
 		// We don't care about the return value here at all.
 		injectmodule($module, true);
@@ -279,8 +278,7 @@ if ($op==""){
 					rawoutput("<td>&nbsp;</td>");
 					rawoutput("<td colspan='6'>");
 					output("`bRequires:`b`n");
-					reset($moduleinfo[$i]['requires']);
-					while (list($key,$val)=each($moduleinfo[$i]['requires'])){
+					foreach ($moduleinfo[$i]['requires'] as $key=>$val) {
 						$info = explode("|",$val);
 						if (module_check_requirements(array($key=>$val))){
 							output_notl("`@");

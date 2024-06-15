@@ -20,7 +20,6 @@ $valid_loc = modulehook("validlocation", $valid_loc);
 if (!isset($valid_loc[$session['user']['location']])) {
 	$session['user']['location']=$vname;
 }
-
 $newestname = "";
 $newestplayer = getsetting("newestplayer", "");
 if ($newestplayer == $session['user']['acctid']) {
@@ -173,17 +172,6 @@ if (getsetting("enablecompanions",true)) {
 	tlschema();
 }
 
-addnav("Dorf von Avalon","runmodule.php?module=cities&op=travel&city=Dorf von Avalon");
-addnav("Südtor","runmodule.php?module=cities&op=travel&city=Suedtor");
-addnav("Aussenhof","runmodule.php?module=cities&op=travel&city=Aussenhof");
-addnav("Hof der Bauern","runmodule.php?module=cities&op=travel&city=Hof%20der%20Bauern");
-addnav("Aussenburg","runmodule.php?module=cities&op=travel&city=Aussenburg");
-addnav("Innenhof","runmodule.php?module=cities&op=travel&city=Innenhof");
-addnav("Innenburg","runmodule.php?module=cities&op=travel&city=Innenburg");
-addnav("Die Hoehlen","runmodule.php?module=cities&op=travel&city=Die%20Hoehlen");
-addnav("Krypta","runmodule.php?module=cities&op=travel&city=Krypta");
-addnav("Die Steppe","runmodule.php?module=cities&op=travel&city=Die%20Steppe");
-
 tlschema($schemas['fightnav']);
 addnav($texts['fightnav']);
 tlschema();
@@ -306,7 +294,8 @@ if (!isset($args['block']) || $args['block'] != 'yes') {
 		tlschema($schemas['talk']);
 		output($texts['talk']);
 		tlschema();
-		commentdisplay("",$texts['section'],"Speak",25,$texts['sayline'], $schemas['sayline']);
+		//commentdisplay("",$texts['section'],"Speak",25,$texts['sayline'], $schemas['sayline']);
+		commentdisplay("",$texts['section'],"Speak",17,$texts['sayline'], $schemas['sayline']);
 }
 
 module_display_events("village", "village.php");

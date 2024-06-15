@@ -50,4 +50,3 @@ v1.42 added the possibilty to clean up empty namespace rows in the untranslated 
 v1.43 added the invalidate for the cached translation quers in 1.1.x and a fix for the scan module regarding addnews
 v1.44 serveral smaller bugfixes and adaption to new language settings in 1.1.1 (compatible downwards)
 v1.45 added mirrors to the pull section (grabbed from my central db server), fixed one missing /option in the pull.php
-v1.46 added a setting for the central db server - as the location changed. Also minor cleanups

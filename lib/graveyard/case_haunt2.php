@@ -4,11 +4,22 @@ $name = httppost('name');
 for ($x=0;$x<strlen($name);$x++){
 	$string .= substr($name,$x,1)."%";
 }
-$sql = "SELECT login,name,level FROM " . db_prefix("accounts") . " WHERE name LIKE '".addslashes($string)."' AND locked=0 ORDER BY level,login";
+$sql = "SELECT login,name,level, clanid FROM " . db_prefix("accounts") . " WHERE name LIKE '".addslashes($string)."' AND locked=0 ORDER BY level,login";
 $result = db_query($sql);
-if (db_num_rows($result)<=0){
+
+$targetcount=db_num_rows($result);
+$victims=array();
+if ($targetcount>0 && $targetcount<=100) {
+	while ($row=db_fetch_assoc($result)) {
+		$victims[]=$row;
+	}
+	$victims=modulehook("modifyhaunttargets",$victims);
+	$targetcount=count($victims);
+}
+
+if ($targetcount<=0){
 	output("`\$%s`) could find no one who matched the name you gave him.",$deathoverlord);
-}elseif(db_num_rows($result)>100){
+}elseif($targetcount>100){
 	output("`\$%s`) thinks you should narrow down the number of people you wish to haunt.",$deathoverlord);
 	$search = translate_inline("Search");
 	rawoutput("<form action='graveyard.php?op=haunt2' method='POST'>");
@@ -24,8 +35,9 @@ if (db_num_rows($result)<=0){
 	$lev = translate_inline("Level");
 	rawoutput("<table cellpadding='3' cellspacing='0' border='0'>");
 	rawoutput("<tr class='trhead'><td>$name</td><td>$lev</td></tr>");
-	for ($i=0;$i<db_num_rows($result);$i++){
-		$row = db_fetch_assoc($result);
+	$i=0;
+	foreach ($victims as $row){
+		$i++;
 		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td><a href='graveyard.php?op=haunt3&name=".HTMLEntities($row['login'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."'>");
 		output_notl("%s", $row['name']);
 		rawoutput("</a></td><td>");

@@ -244,7 +244,7 @@ function goldmine_runevent($type)
 					output("At least you learned something about mining from this experience and have gained %s experience.`n`n", $exp);
 					output("`3You may continue to play tomorrow`n");
 					$session['user']['experience']+=$exp;
-					$session['user']['alive']=false;
+					$session['user']['alive']=0;
 					$session['user']['hitpoints']=0;
 					$gemlost = round(get_module_setting("percentgemloss")/100 * $session['user']['gems'], 0);
 					$goldlost = round(get_module_setting("percentgoldloss")/100 * $session['user']['gold'], 0);

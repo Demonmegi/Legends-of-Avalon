@@ -98,7 +98,7 @@ function racehuman_dohook($hookname,$args){
 			$one = translate_inline("an");
 			$two = translate_inline("two");
 			$three = translate_inline("three");
-			$word = $bonus==1?$one:$bonus==2?$two:$three;
+			$word = (($bonus==1)?$one:(($bonus==2)?$two:$three));
 			$fight = translate_inline("fight");
 			$fights = translate_inline("fights");
 			output("`&As a human, your size and strength permit you the ability to effortlessly wield weapons, tiring much less quickly than other races.`n`^You gain %s extra forest %s each day!", $word, $bonus==1?$fight:$fights);
@@ -123,7 +123,7 @@ function racehuman_dohook($hookname,$args){
 			$one = translate_inline("an");
 			$two = translate_inline("two");
 			$three = translate_inline("three");
-			$word = $bonus==1?$one:$bonus==2?$two:$three;
+			$word = (($bonus==1)?$one:(($bonus==2)?$two:$three));
 			$fight = translate_inline("fight");
 			$fights = translate_inline("fights");
 

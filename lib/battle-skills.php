@@ -121,8 +121,7 @@ function report_power_move($crit, $dmg) {
 function suspend_buffs($susp=false, $msg=false){
 	global $session, $badguy;
 	$suspendnotify = 0;
-	reset($session['bufflist']);
-	while (list($key,$buff)=each($session['bufflist'])){
+	foreach ($session['bufflist'] as $key=>$buff) {
 		if (array_key_exists('suspended', $buff) && $buff['suspended'])
 			continue;
 		// Suspend non pvp allowed buffs when in pvp
@@ -194,8 +193,7 @@ function is_buff_active($name) {
 function unsuspend_buffs($susp=false,$msg=false) {
 	global $session, $badguy;
 	$unsuspendnotify = 0;
-	reset($session['bufflist']);
-	while (list($key,$buff)=each($session['bufflist'])){
+	foreach ($session['bufflist'] as $key=>$buff) {
 		if (array_key_exists("expireafterfight",$buff) && $buff['expireafterfight']) unset($session['bufflist'][$key]);
 		elseif (array_key_exists("suspended",$buff) && $buff['suspended'] && $susp && (!array_key_exists($susp, $buff) || !$buff[$susp])) {
 			$session['bufflist'][$key]['suspended'] = 0;

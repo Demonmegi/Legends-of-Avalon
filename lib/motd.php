@@ -19,8 +19,10 @@ function motd_admin($id, $poll=false) {
 
 function motditem($subject,$body,$author,$date,$id){
 	if ($date)
-		rawoutput("<a name='motd".date("YmdHis",strtotime($date))."'>");
+		rawoutput("<p id='$id'><a name='motd".date("YmdHis",strtotime($date))."'>");
+	rawoutput("<a href=\"#$id\" onClick=\"javascript:document.getElementById('id').scrollIntoView(true);\">");
 	output_notl("`b`^%s`0`b", $subject);
+	rawoutput("</a>");
 	if ($id > "") {
 		motd_admin($id);
 	}
@@ -29,16 +31,16 @@ function motditem($subject,$body,$author,$date,$id){
 		output_notl("`3%s`0", $author);
 	}
 	if ($date>"")
-		output_notl("`0 &#150; `#%s`0", $date, true);
+		output_notl("`0 `#%s`0", $date, true);
 	if ($date || $author) output_notl("`n");
 
 	output_notl("`2%s`0", nltoappon($body), true);
 	if ($date) rawoutput("</a>");
-	rawoutput("<hr>");
+	rawoutput("<hr></p>");
 }
-
 function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 	global $session;
+	rawoutput("<p id='$id'>");
 	$sql = "SELECT count(resultid) AS c, MAX(choice) AS choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' AND account='{$session['user']['acctid']}'";
 	$result = db_query($sql);
 	$row = db_fetch_assoc($result);
@@ -50,9 +52,11 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 		rawoutput("<form action='motd.php?op=vote' method='POST'>");
 		rawoutput("<input type='hidden' name='motditem' value='$id'>",true);
 	}
+	rawoutput("<a href=\"#$id\" onClick=\"javascript:document.getElementById('id').scrollIntoView(true);\">");
 	output_notl("`b`&%s `^%s`0`b", $poll, $subject);
+	rawoutput("</a>");
 	if ($showpoll) motd_admin($id, true);
-	output_notl("`n`3%s`0 &#150; `#%s`0`n", $author, $date, true);
+	output_notl("`n`3%s`0 `#%s`0`n", $author, $date, true);
 	output_notl("`2%s`0`n", stripslashes($body['body']));
 	$sql = "SELECT count(resultid) AS c, choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' GROUP BY choice ORDER BY choice";
 	$result = db_query_cached($sql,"poll-$id");
@@ -89,8 +93,82 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 		$vote = translate_inline("Vote");
 		rawoutput("<input type='submit' class='button' value='$vote'></form>");
 	}
-	rawoutput("<hr>",true);
+	rawoutput("<hr></p>",true);
 }
+//function motditem($subject,$body,$author,$date,$id){
+//	if ($date)
+//		rawoutput("<a name='motd".date("YmdHis",strtotime($date))."'>");
+//	output_notl("`b`^%s`0`b", $subject);
+//	if ($id > "") {
+//		motd_admin($id);
+//	}
+//	if ($date || $author) output_notl("`n");
+//	if ($author > "") {
+//		output_notl("`3%s`0", $author);
+//	}
+//	if ($date>"")
+//		output_notl("`0 &#150; `#%s`0", $date, true);
+//	if ($date || $author) output_notl("`n");
+//
+//	output_notl("`2%s`0", nltoappon($body), true);
+//	if ($date) rawoutput("</a>");
+//	rawoutput("<hr>");
+//}
+
+//function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
+//	global $session;
+//	$sql = "SELECT count(resultid) AS c, MAX(choice) AS choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' AND account='{$session['user']['acctid']}'";
+//	$result = db_query($sql);
+//	$row = db_fetch_assoc($result);
+//	$choice = $row['choice'];
+//	$body = unserialize($body);
+//
+//	$poll = translate_inline("Poll:");
+//	if ($session['user']['loggedin'] && $showpoll) {
+//		rawoutput("<form action='motd.php?op=vote' method='POST'>");
+//		rawoutput("<input type='hidden' name='motditem' value='$id'>",true);
+//	}
+//	output_notl("`b`&%s `^%s`0`b", $poll, $subject);
+//	if ($showpoll) motd_admin($id, true);
+//	output_notl("`n`3%s`0 &#150; `#%s`0`n", $author, $date, true);
+//	output_notl("`2%s`0`n", stripslashes($body['body']));
+//	$sql = "SELECT count(resultid) AS c, choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' GROUP BY choice ORDER BY choice";
+//	$result = db_query_cached($sql,"poll-$id");
+//	$choices=array();
+//	$totalanswers=0;
+//	$maxitem = 0;
+//	while ($row = db_fetch_assoc($result)) {
+//		$choices[$row['choice']]=$row['c'];
+//		$totalanswers+=$row['c'];
+//		if ($row['c']>$maxitem) $maxitem = $row['c'];
+//	}
+//	foreach ($body['opt'] as $key=>$val) {
+//		if (trim($val)!=""){
+//			if ($totalanswers<=0) $totalanswers=1;
+//			$percent = 0;
+//			if(isset($choices[$key])) {
+//				$percent = round($choices[$key] / $totalanswers * 100,1);
+//			}
+//			if ($session['user']['loggedin'] && $showpoll) {
+//				rawoutput("<input type='radio' name='choice' value='$key'".($choice==$key?" checked":"").">");
+//			}
+//			output_notl("%s (%s - %s%%)`n", stripslashes($val),
+//					(isset($choices[$key])?(int)$choices[$key]:0), $percent);
+//			if ($maxitem==0 || !isset($choices[$key])){
+//				$width=1;
+//			} else {
+//				$width = round(($choices[$key]/$maxitem) * 400,0);
+//			}
+//			$width = max($width,1);
+//			rawoutput("<img src='images/rule.gif' width='$width' height='2' alt='$percent'><br>");
+//		}
+//	}
+//	if ($session['user']['loggedin'] && $showpoll) {
+//		$vote = translate_inline("Vote");
+//		rawoutput("<input type='submit' class='button' value='$vote'></form>");
+//	}
+//	rawoutput("<hr>",true);
+//}
 
 function motd_form($id) {
 	global $session;

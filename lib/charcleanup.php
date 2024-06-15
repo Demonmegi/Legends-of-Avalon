@@ -5,22 +5,19 @@ function char_cleanup($id, $type)
 	// this function handles the grunt work of character cleanup.
 
 	// Run any modules hooks who want to deal with character deletion, or stop it
-	$return = modulehook("delete_character",
-			array("acctid"=>$id, "deltype"=>$type, "dodel"=>true));
-			
+	//modulehook("delete_character", array("acctid"=>$id, "deltype"=>$type,));
+	$return = modulehook("delete_character",array("acctid"=>$id, "deltype"=>$type, "dodel"=>true));
 	if(!$return['dodel']) return false;
-
 	// delete the output field from the accounts_output table introduced in 1.1.1
 
 	db_query("DELETE FROM " . db_prefix("accounts_output") . " WHERE acctid=$id;");
 
 	// delete the comments the user posted, necessary to have the systemcomments with acctid 0 working
 
-	db_query("DELETE FROM " . db_prefix("commentary") . " WHERE author=$id;");
+	db_query("DELETE FROM " . db_prefix("commentary") . " WHERE author=$id AND author<>0;");
 
 	// Clean up any clan positions held by this character
-	$sql = "SELECT clanrank,clanid FROM " . db_prefix("accounts") .
-		" WHERE acctid=$id";
+	$sql = "SELECT clanrank,clanid FROM " . db_prefix("accounts") . " WHERE acctid=$id";
 	$res = db_query($sql);
 	$row = db_fetch_assoc($res);
 	if ($row['clanid'] != 0 && $row['clanrank'] == CLAN_LEADER) {
@@ -45,7 +42,7 @@ function char_cleanup($id, $type)
 			db_query($sql);
 			// And just in case we goofed, no players associated with a
 			// deleted clan  This shouldn't be important, but.
-			$sql = "UPDATE " . db_prefix("accounts") . " SET clanid=0,clanrank=0,clanjoindate='0000-00-00 00:00;00' WHERE clanid=$cid";
+			$sql = "UPDATE " . db_prefix("accounts") . " SET clanid=0,clanrank=0,clanjoindate='0001-01-01 00:00;00' WHERE clanid=$cid";
 			db_query($sql);
 		}
 	}
@@ -58,7 +55,6 @@ function char_cleanup($id, $type)
 	
 	// Delete any news from the user
 	db_query('DELETE FROM ' . db_prefix('news') . ' WHERE accountid=' . $id);
-	
 	return true;
 }
 

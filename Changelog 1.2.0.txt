@@ -1,0 +1,39 @@
+Changes:
+
+2022-08-02
+    - newday.php: fireing the storage of newday-text
+    - train.php: added isset - checks on some vars
+    - home.php:  added isset - checks on some vars
+    - configuration.php Added an Option for using a short popup bio instead of the long one
+    - common.php: some var checks
+    - source.php: changes from dragonprime.net to dragonprime-reborn.change
+    - lib/saveuser.php: added function for storing the newday-text in an field of accounts_output
+    - lib/output.php: changes for hex-colors
+    - lib/commentary.php: Changes for the new colors, allow alternative post-authors (list every one with the same email address - for rp chars for example)
+    - lib/forms.php: Changes for the new colors
+    - lib/datetime.php: Store the Last comment post in a module pref on the helping mod gameoptions.php and restore it after the newday fires. This prevent the lost of comments on newday
+    - lib/pageparts.php: enclose the mail-sectin in a div for access by js-code
+    - lib/errorhandler.php: additional var checks
+    - lib/expire_chars.php: php8 changes on function join
+    - lib/battle-buffs.php: some checks on used session-vars
+    - lib/all_tables.php: Updateded account_output structure
+    - modules/titlechange.php: fixed convert error
+
+    - added lib/colorstatics.php: - concentrate all color vars into one field
+    - added modules/gameoptions.php
+    - added ajax.php, modules/ajax-chat
+
+2022-06-13
+- paylog - change order of payments to reflect old style (newest on top)
+- lots of validations if user is logged in
+
+2022-05-06
+general:
+- changed col function in table module_hooks to functionname and altered the sql statement
+- a lot of Date Changes 0000-00-00 to 00001-01-01
+
+- dag\install.php
+    removed table-type innodb
+
+drinks\install.php
+    removed default value for field remarks (not allowed anymore)

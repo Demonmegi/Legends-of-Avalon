@@ -11,10 +11,11 @@ if (db_num_rows($result)>0){
 		} else {
 			$row['name']=$row['msgfrom'];
 		}
-		// No translation for subject if it's not an array
 		$row_subject = @unserialize($row['subject']);
 		if ($row_subject !== false) {
 			$row['subject'] = call_user_func_array("sprintf_translate", $row_subject);
+		} else {
+			$row['subject'] = translate_inline($row['subject']);
 		}
 		// No translation for body if it's not an array
 		$row_body = @unserialize($row['body']);

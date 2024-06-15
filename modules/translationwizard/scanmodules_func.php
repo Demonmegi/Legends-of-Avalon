@@ -6,7 +6,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 		die("Fatal Error ! Could not find File.");
 	}
 	$str = join("",file($filepath));
-	$file_len=strlen($str);
+
 	// Handle 'standard_tlschema' Para
 	if($standard_tlschema === false)
 	{	
@@ -29,8 +29,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 	$pretext_flag      = false;
 	$intext_flag       = false;
 	$translate_inline_inline_select_flag = false;
-	$single_quote_flag = false;
-	
+
 	// Initalise Strings
 	$current_translate   = "";
 	$current_tlschema    = $standard_tlschema;
@@ -67,7 +66,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 	
 	
 	// Start parse
-	for( $i = 0; $i < $file_len; $i++ )
+	for($i=0;$str[$i]!="";$i++)
 	{
 		if($str[$i] == "\n")
 		{
@@ -169,7 +168,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 				{
 					$open_bracket_flag = true;
 				}
-				elseif( $str[$i] == '"' || $str[$i] == '\'' )
+				else if($str[$i] == "\"")
 				{
 					if($open_bracket_flag == true)
 					{
@@ -177,10 +176,6 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 						{
 							debug("<br>Line $line: Reading string from '$current_outputtype' started");
 						}
-						if( $str[$i] == '\'' )
-							$single_quote_flag = true;
-						else
-							$single_quote_flag = false;
 						$intext_flag = true;
 						$pretext_flag = false;
 						$open_bracket_flag = false;
@@ -314,7 +309,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 		}
 		else // $intext flag == true 
 		{
-			if ( ( $str[$i] == '"' && !$single_quote_flag || $str[$i] == '\'' && $single_quote_flag ) && $escape_flag == false )
+			if($str[$i] == "\"" && $escape_flag == false)
 			{
 				if($current_translate == false)
 				{

@@ -109,10 +109,10 @@ if ($dp < $dkills) {
 	rawoutput("</font>");
 	$resurrection = httpget('resurrection');
 
-	if ($session['user']['alive']!=true){
+	if ($session['user']['alive']!=1){
 		$session['user']['resurrections']++;
 		output("`@You are resurrected!  This is resurrection number %s.`0`n",$session['user']['resurrections']);
-		$session['user']['alive']=true;
+		$session['user']['alive']=0;
 		invalidatedatacache("list.php-warsonline");
 	}
 	$session['user']['age']++;
@@ -147,7 +147,7 @@ if ($dp < $dkills) {
 	$session['user']['bufflist']="";
 	strip_all_buffs();
 	tlschema("buffs");
-	while(list($key,$val)=@each($tempbuf)){
+	foreach ($tempbuf as $key=>$val) {
 		if (array_key_exists('survivenewday', $val) &&
 				$val['survivenewday']==1){
 			//$session['bufflist'][$key]=$val;
@@ -169,7 +169,7 @@ if ($dp < $dkills) {
 
 	reset($session['user']['dragonpoints']);
 	$dkff=0;
-	while(list($key,$val)=each($session['user']['dragonpoints'])){
+	foreach($session['user']['dragonpoints'] as $val){
 		if ($val=="ff"){
 			$dkff++;
 		}
@@ -290,7 +290,7 @@ if ($dp < $dkills) {
 
 	if (!getsetting("newdaycron",0)) {
 		//check last time we did this vs now to see if it was a different game day.
-		$lastnewdaysemaphore = convertgametime(strtotime(getsetting("newdaySemaphore","0000-00-00 00:00:00") . " +0000"));
+		$lastnewdaysemaphore = convertgametime(strtotime(getsetting("newdaySemaphore","0001-01-01 00:00:00") . " +0000"));
 		$gametoday = gametime();
 		if (gmdate("Ymd",$gametoday)!=gmdate("Ymd",$lastnewdaysemaphore)){
 				// it appears to be a different game day, acquire semaphore and
@@ -298,13 +298,13 @@ if ($dp < $dkills) {
             $sql = "LOCK TABLES " . db_prefix("settings") . " WRITE";
             db_query($sql);
             clearsettings();
-            $lastnewdaysemaphore = convertgametime(strtotime(getsetting("newdaySemaphore","0000-00-00 00:00:00") . " +0000"));
+            $lastnewdaysemaphore = convertgametime(strtotime(getsetting("newdaySemaphore","0001-01-01 00:00:00") . " +0000"));
                 $gametoday = gametime();
             if (gmdate("Ymd",$gametoday)!=gmdate("Ymd",$lastnewdaysemaphore)){
                 //we need to run the hook, update the setting, and unlock.
                 savesetting("newdaySemaphore",gmdate("Y-m-d H:i:s"));
                 $sql = "UNLOCK TABLES";
-                db_query($sql);
+				db_query($sql);
 				require("lib/newday/newday_runonce.php");
 			}else{
 	            //someone else beat us to it, unlock.
@@ -319,13 +319,8 @@ if ($dp < $dkills) {
 	$turnstoday = $args['turnstoday'];
 	debuglog("New Day Turns: $turnstoday");
 
+	savenewdaylog();
+
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/newday.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

@@ -34,11 +34,11 @@ if ($op == "save"){
 		if ($id){
 			$sql = "";
 			reset($post);
-			while (list($key,$val)=each($post)){
+			foreach ($post as $key=>$val) {
 				if (substr($key,0,8)=="creature") $sql.="$key = '$val', ";
 			}
 			reset($creaturestats[$lev]);
-			while (list($key,$val)=each($creaturestats[$lev])){
+			foreach ($creaturestats[$lev] as $key=>$val) {
 				if ( $key!="creaturelevel" && substr($key,0,8)=="creature"){
 					$sql.="$key = \"".addslashes($val)."\", ";
 				}
@@ -52,7 +52,7 @@ if ($op == "save"){
 			$vals = array();
 
 			reset($post);
-			while (list($key,$val)=each($post)){
+			foreach ($post as $key=>$val) {
 				if (substr($key,0,8)=="creature") {
 					array_push($cols,$key);
 					array_push($vals,$val);
@@ -63,7 +63,7 @@ if ($op == "save"){
 			array_push($cols, "graveyard");
 			array_push($vals, $grave);
 			reset($creaturestats[$lev]);
-			while (list($key,$val)=each($creaturestats[$lev])){
+			foreach ($creaturestats[$lev] as $key=>$val) {
 				if ($key!="creaturelevel"&& substr($key,0,8)=="creature"){
 					array_push($cols,$key);
 					array_push($vals,$val);
@@ -83,7 +83,7 @@ if ($op == "save"){
 		$module = httpget("module");
 		$post = httpallpost();
 		reset($post);
-		while(list($key, $val) = each($post)) {
+		foreach ($post as $key=>$val) {
 			set_module_objpref("creatures", $id, $key, $val, $module);
 		}
 		output("`^Saved!`0`n");
@@ -101,6 +101,7 @@ if ($op=="del"){
 	db_query($sql);
 	if (db_affected_rows()>0){
 		output("Creature deleted`n`n");
+		module_delete_objprefs('creatures',$id);
 	}else{
 		output("Creature not deleted: %s", db_error(LINK));
 	}
@@ -225,10 +226,9 @@ if ($op=="" || $op=="search"){
 				"creaturelevel"=>"Level,range,1,18,1",
 				"forest"=>"Creature is in forest?,bool",
 				"graveyard"=>"Creature is in graveyard?,bool",
+				"creatureaiscript"=>($session['user']['superuser']&SU_RAW_SQL > 0)?"Creature's A.I.,textarearesizeable":"Creature's A.I.,viewonly", 
 			);
-			if ($session['user']['superuser'] & SU_MEGAUSER || $session['user']['superuser'] & SU_RAW_SQL) {
-				$form["creatureaiscript"] = "Creature's A.I.,textarearesizeable";
-			}
+//				"creatureaiscript"=>"Creature's A.I.,textarearesizeable",
 			rawoutput("<form action='creatures.php?op=save' method='POST'>");
 			showform($form, $row);
 			rawoutput("</form>");
@@ -236,7 +236,7 @@ if ($op=="" || $op=="search"){
 		}
 	}else{
 		$module = httpget("module");
-		rawoutput("<form action='mounts.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
+		rawoutput("<form action='creatures.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
 		module_objpref_edit("creatures", $module, $id);
 		rawoutput("</form>");
 		addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");

@@ -39,11 +39,5 @@ if ($session['user']['dragonkills']>0 ||
 }
 villagenav();
 
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/rock.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

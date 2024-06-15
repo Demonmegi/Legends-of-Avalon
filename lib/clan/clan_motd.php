@@ -24,7 +24,7 @@
 				$claninfo['descauthor']=$session['user']['acctid'];
 			}
 			$customsay = httppost('customsay');
-			if (httppostisset('customsay') && $customsay!=$claninfo['customsay'] && $session['user']['clanrank']>=CLAN_LEADER){
+			if (httppostisset('customsay') && $customsay!=$claninfo['customsay'] && $session['user']['clanrank']>CLAN_OFFICER){
 				$sql = "UPDATE " . db_prefix("clans") . " SET customsay='$customsay' WHERE clanid={$claninfo['clanid']}";
 				db_query($sql);
 				invalidatedatacache("clandata-{$claninfo['clanid']}");
@@ -57,7 +57,7 @@
 			}else{
 				rawoutput("<textarea name='clandesc' cols='50' rows='10' class='input' style='width: 66%'>".htmlentities($claninfo['clandesc'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</textarea><br>");
 			}
-			if ($session['user']['clanrank']>=CLAN_LEADER){
+			if ($session['user']['clanrank']>CLAN_OFFICER){
 				output("`n`&`bCustom Talk Line`b `7(blank means \"says\" -- 15 chars max)`n");
 				rawoutput("<input name='customsay' value=\"".htmlentities($claninfo['customsay'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" class='input' maxlength=\"15\"><br/>");
 			}

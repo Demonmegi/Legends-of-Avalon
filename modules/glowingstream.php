@@ -59,7 +59,7 @@ function glowingstream_runevent($type,$link)
 			output("As the woodland creatures know the danger of this place, none are here to scavenge from your corpse, thus you may keep your gold.`n");
 			output("The life lesson learned here balances any experience you would have lost.`n");
 			output("You may continue playing again tomorrow.");
-			$session['user']['alive']=false;
+			$session['user']['alive']=0;
 			$session['user']['hitpoints']=0;
 			addnav("Daily News","news.php");
 			addnews("%s encountered strange powers in the forest, and was not seen again.",$session['user']['name']);

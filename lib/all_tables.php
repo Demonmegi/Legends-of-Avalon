@@ -5,7 +5,7 @@
 /**
  * Contains information for all the tables
  * 
- * @copyright Copyright Â© 2002-2005, Eric Stevens & JT Traub, Â© 2006-2009, Dragonprime Development Team
+ * @copyright Copyright © 2002-2005, Eric Stevens & JT Traub, © 2006-2009, Dragonprime Development Team
  * @version Lotgd 1.1.2 DragonPrime Edition
  * @package Core
  * @subpackage Library
@@ -29,7 +29,7 @@ return array(
 			'name'=>'sex', 'type'=>'tinyint(4) unsigned', 'default'=>'0'
 			),
 		'specialty'=>array(
-			'name'=>'specialty', 'type'=>'varchar(20)',
+			'name'=>'specialty', 'type'=>'varchar(20)', 'null'=>'1'
 			),
 		'experience'=>array(
 			'name'=>'experience', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -68,7 +68,7 @@ return array(
 			'name'=>'spirits', 'type'=>'int(4)', 'default'=>'0'
 			),
 		'laston'=>array(
-			'name'=>'laston', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'laston', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'hitpoints'=>array(
 			'name'=>'hitpoints', 'type'=>'int(11)', 'default'=>'10'
@@ -92,19 +92,19 @@ return array(
 			'name'=>'turns', 'type'=>'int(11) unsigned', 'default'=>'10'
 			),
 		'title'=>array(
-			'name'=>'title', 'type'=>'varchar(25)'
+			'name'=>'title', 'type'=>'varchar(25)','null'=>'1'
 			),
 		'password'=>array(
-			'name'=>'password', 'type'=>'varchar(32)'
+			'name'=>'password', 'type'=>'varchar(32)','null'=>'1'
 			),
 		'badguy'=>array(
-			'name'=>'badguy', 'type'=>'text'
+			'name'=>'badguy', 'type'=>'text','null'=>'1'
 			),
 		'companions'=>array(
-			'name'=>'companions', 'type'=>'text'
+			'name'=>'companions', 'type'=>'text','null'=>'1'
 			),
 		'allowednavs'=>array(
-			'name'=>'allowednavs', 'type'=>'mediumtext'
+			'name'=>'allowednavs', 'type'=>'mediumtext','null'=>'1'
 			),
 		'loggedin'=>array(
 			'name'=>'loggedin', 'type'=>'tinyint(4) unsigned', 'default'=>'0'
@@ -128,24 +128,24 @@ return array(
 			'name'=>'charm', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'specialinc'=>array(
-			'name'=>'specialinc', 'type'=>'varchar(50)'
+			'name'=>'specialinc', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'specialmisc'=>array(
-			'name'=>'specialmisc', 'type'=>'text'
+			'name'=>'specialmisc', 'type'=>'text','null'=>'1'
 			),
 		'login'=>array(
-			'name'=>'login', 'type'=>'varchar(50)'
+			'name'=>'login', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'lastmotd'=>array(
 			'name'=>'lastmotd',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'playerfights'=>array(
 			'name'=>'playerfights', 'type'=>'int(11) unsigned', 'default'=>'3'
 			),
 		'lasthit'=>array(
-			'name'=>'lasthit', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'lasthit', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'seendragon'=>array(
 			'name'=>'seendragon', 'type'=>'tinyint(4) unsigned', 'default'=>'0'
@@ -163,7 +163,7 @@ return array(
 			'name'=>'hashorse', 'type'=>'tinyint(4) unsigned', 'default'=>'0'
 			),
 		'bufflist'=>array(
-			'name'=>'bufflist', 'type'=>'text'
+			'name'=>'bufflist', 'type'=>'text','null'=>'1'
 			),
 		'gentime'=>array(
 			'name'=>'gentime', 'type'=>'double unsigned', 'default'=>'0'
@@ -172,31 +172,31 @@ return array(
 			'name'=>'gentimecount', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'lastip'=>array(
-			'name'=>'lastip', 'type'=>'varchar(40)'
+			'name'=>'lastip', 'type'=>'varchar(40)','null'=>'1'
 			),
 		'uniqueid'=>array(
 			'name'=>'uniqueid', 'type'=>'varchar(32)', 'null'=>'1'
 			),
 		'dragonpoints'=>array(
-			'name'=>'dragonpoints', 'type'=>'text'
+			'name'=>'dragonpoints', 'type'=>'text','null'=>'1'
 			),
 		'boughtroomtoday'=>array(
 			'name'=>'boughtroomtoday', 'type'=>'tinyint(4)', 'default'=>'0'
 			),
 		'emailaddress'=>array(
-			'name'=>'emailaddress', 'type'=>'varchar(128)'
+			'name'=>'emailaddress', 'type'=>'varchar(128)','null'=>'1'
 			),
 		'emailvalidation'=>array(
-			'name'=>'emailvalidation', 'type'=>'varchar(32)'
+			'name'=>'emailvalidation', 'type'=>'varchar(32)','null'=>'1'
 			),
 		'sentnotice'=>array(
 			'name'=>'sentnotice', 'type'=>'int(11)', 'default'=>'0'
 			),
 		'prefs'=>array(
-			'name'=>'prefs', 'type'=>'text'
+			'name'=>'prefs', 'type'=>'text','null'=>'1'
 			),
 		'pvpflag'=>array(
-			'name'=>'pvpflag', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'pvpflag', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'transferredtoday'=>array(
 			'name'=>'transferredtoday', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -208,18 +208,18 @@ return array(
 			'name'=>'gravefights', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'hauntedby'=>array(
-			'name'=>'hauntedby', 'type'=>'varchar(50)'
+			'name'=>'hauntedby', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'deathpower'=>array(
 			'name'=>'deathpower', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'gensize'=>array(
-			'name'=>'gensize', 'type'=>'int(11) unsigned', 'default'=>'0'
+			'name'=>'gensize', 'type'=>'int(20) unsigned', 'default'=>'0'
 			),
 		'recentcomments'=>array(
 			'name'=>'recentcomments',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'donation'=>array(
 			'name'=>'donation', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -228,7 +228,7 @@ return array(
 			'name'=>'donationspent', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'donationconfig'=>array(
-			'name'=>'donationconfig', 'type'=>'text'
+			'name'=>'donationconfig', 'type'=>'text','null'=>'1'
 			),
 		'referer'=>array(
 			'name'=>'referer', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -237,13 +237,13 @@ return array(
 			'name'=>'refererawarded', 'type'=>'tinyint(1)', 'default'=>'0'
 			),
 		'bio'=>array(
-			'name'=>'bio', 'type'=>'varchar(255)'
+			'name'=>'bio', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'race'=>array(
 			'name'=>'race', 'type'=>'varchar(25)', 'default'=>'0'
 			),
 		'biotime'=>array(
-			'name'=>'biotime', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'biotime', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'banoverride'=>array(
 			'name'=>'banoverride',
@@ -267,7 +267,7 @@ return array(
 			'name'=>'bestdragonage', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'ctitle'=>array(
-			'name'=>'ctitle', 'type'=>'varchar(25)'
+			'name'=>'ctitle', 'type'=>'varchar(25)','null'=>'1'
 			),
 		'beta'=>array(
 			'name'=>'beta', 'type'=>'tinyint(3) unsigned', 'default'=>'0'
@@ -281,7 +281,7 @@ return array(
 		'regdate'=>array(
 			'name'=>'regdate',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'clanid'=>array(
 			'name'=>'clanid', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -292,7 +292,7 @@ return array(
 		'clanjoindate'=>array(
 			'name'=>'clanjoindate',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -343,6 +343,9 @@ return array(
 			),
 		'output'=>array(
 			'name'=>'output', 'type'=>'mediumtext'
+			),
+		'newdaytext'=>array(
+			'name'=>'newdaytext', 'type'=>'mediumtext', 'null'=>'1'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -463,7 +466,7 @@ return array(
 			'default'=>'0.00'
 			),
 		'processdate'=>array(
-			'name'=>'processdate', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'processdate', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -502,22 +505,22 @@ return array(
 		),
 	'bans'=>array(
 		'ipfilter'=>array(
-			'name'=>'ipfilter', 'type'=>'varchar(15)'
+			'name'=>'ipfilter', 'type'=>'varchar(15)','null'=>'1'
 			),
 		'uniqueid'=>array(
-			'name'=>'uniqueid', 'type'=>'varchar(32)'
+			'name'=>'uniqueid', 'type'=>'varchar(32)','null'=>'1'
 			),
 		'banexpire'=>array(
 			'name'=>'banexpire', 'type'=>'datetime', 'null'=>'1'
 			),
 		'banreason'=>array(
-			'name'=>'banreason', 'type'=>'text'
+			'name'=>'banreason', 'type'=>'text','null'=>'1'
 			),
 		'banner'=>array(
-			'name'=>'banner', 'type'=>'varchar(50)'
+			'name'=>'banner', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'lasthit'=>array(
-			'name'=>'lasthit', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'lasthit', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'key-banexpire'=>array(
 			'name'=>'banexpire', 'type'=>'key', 'columns'=>'banexpire'
@@ -534,10 +537,10 @@ return array(
 			'name'=>'clanid', 'type'=>'int(11) unsigned', 'extra'=>'auto_increment'
 			),
 		'clanname'=>array(
-			'name'=>'clanname', 'type'=>'varchar(255)'
+			'name'=>'clanname', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'clanshort'=>array(
-			'name'=>'clanshort', 'type'=>'varchar(5)'
+			'name'=>'clanshort', 'type'=>'varchar(5)','null'=>'1'
 			),
 		'clanmotd'=>array(
 			'name'=>'clanmotd', 'type'=>'text', 'null'=>'1'
@@ -552,7 +555,7 @@ return array(
 			'name'=>'descauthor', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'customsay'=>array(
-			'name'=>'customsay', 'type'=>'varchar(15)'
+			'name'=>'customsay', 'type'=>'varchar(15)','null'=>'1'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -580,13 +583,16 @@ return array(
 			'name'=>'author', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'comment'=>array(
-			'name'=>'comment', 'type'=>'varchar(200)'
+			'name'=>'comment', 'type'=>'varchar(200)','null'=>'1'
 			),
 		'postdate'=>array(
 			'name'=>'postdate',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
+		'original'=>array(
+			'name'=>'original', 'type'=>'int(11)', 'default'=>'0'
+			),			
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
 			'type'=>'primary key',
@@ -667,7 +673,7 @@ return array(
 			'name'=>'id', 'type'=>'int(11) unsigned', 'extra'=>'auto_increment'
 			),
 		'date'=>array(
-			'name'=>'date', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'date', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'actor'=>array(
 			'name'=>'actor', 'type'=>'int(11) unsigned', 'null'=>'1'
@@ -704,19 +710,19 @@ return array(
 			'extra'=>'auto_increment'
 			),
 		'date'=>array(
-			'name'=>'date', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'date', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'post'=>array(
 			'name'=>'post', 'type'=>'tinytext'
 			),
 		'ip'=>array(
-			'name'=>'ip', 'type'=>'varchar(40)'
+			'name'=>'ip', 'type'=>'varchar(40)','null'=>'1'
 			),
 		'acctid'=>array(
 			'name'=>'acctid', 'type'=>'int(11) unsigned', 'null'=>'1'
 			),
 		'id'=>array(
-			'name'=>'id', 'type'=>'varchar(32)'
+			'name'=>'id', 'type'=>'varchar(32)','null'=>'1'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -743,10 +749,12 @@ return array(
 		'message'=>array(
 			'name'=>'message',
 			'type'=>'text',
+			'null'=>'1',
 			),
 		'category'=>array(
 			'name'=>'category',
 			'type'=>'varchar(50)',
+			'null'=>'1',
 			),
 		'filed'=>array(
 			'name'=>'filed',
@@ -756,7 +764,7 @@ return array(
 		'date'=>array(
 			'name'=>'date',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00',
+			'default'=>'0001-01-01 00:00:00',
 			),
 		'who'=>array(
 			'name'=>'who',
@@ -777,8 +785,8 @@ return array(
 		),
 	'logdnetbans'=>array(
 		'banid'=>array('name'=>'banid','type'=>'int(11) unsigned','extra'=>'auto_increment'),
-		'bantype'=>array('name'=>'bantype','type'=>'varchar(20)'),
-		'banvalue'=>array('name'=>'banvalue','type'=>'varchar(255)'),
+		'bantype'=>array('name'=>'bantype','type'=>'varchar(20)','null'=>'1'),
+		'banvalue'=>array('name'=>'banvalue','type'=>'varchar(255)','null'=>'1'),
 		'key-PRIMARY'=>array('name'=>'PRIMARY','type'=>'PRIMARY KEY','unique'=>'1','columns'=>'banid'),
 		),
 	'logdnet'=>array(
@@ -799,7 +807,7 @@ return array(
 		'lastupdate'=>array(
 			'name'=>'lastupdate',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'version'=>array(
 			'name'=>'version', 'type'=>'varchar(255)', 'default'=>'Unknown'
@@ -810,7 +818,7 @@ return array(
 		'lastping'=>array(
 			'name'=>'lastping',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'recentips'=>array(
 			'name'=>'recentips',
@@ -847,13 +855,13 @@ return array(
 			'name'=>'msgto', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'subject'=>array(
-			'name'=>'subject', 'type'=>'varchar(255)'
+			'name'=>'subject', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'body'=>array(
-			'name'=>'body', 'type'=>'text'
+			'name'=>'body', 'type'=>'text','null'=>'1'
 			),
 		'sent'=>array(
-			'name'=>'sent', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'sent', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'seen'=>array(
 			'name'=>'seen', 'type'=>'tinyint(1)', 'default'=>'0'
@@ -928,7 +936,7 @@ return array(
 			'name'=>'moderator', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'moddate'=>array(
-			'name'=>'moddate', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'moddate', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -939,13 +947,13 @@ return array(
 		),
 	'module_event_hooks'=>array(
 		'event_type'=>array(
-			'name'=>'event_type', 'type'=>'varchar(20)'
+			'name'=>'event_type', 'type'=>'varchar(20)','null'=>'1'
 			),
 		'modulename'=>array(
-			'name'=>'modulename', 'type'=>'varchar(50)'
+			'name'=>'modulename', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'event_chance'=>array(
-			'name'=>'event_chance', 'type'=>'text'
+			'name'=>'event_chance', 'type'=>'text','null'=>'1'
 			),
 		'key-modulename'=>array(
 			'name'=>'modulename', 'type'=>'key', 'columns'=>'modulename'
@@ -956,13 +964,13 @@ return array(
 		),
 	'module_hooks'=>array(
 		'modulename'=>array(
-			'name'=>'modulename', 'type'=>'varchar(50)'
+			'name'=>'modulename', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'location'=>array(
-			'name'=>'location', 'type'=>'varchar(50)'
+			'name'=>'location', 'type'=>'varchar(50)','null'=>'1'
 			),
-		'function'=>array(
-			'name'=>'function', 'type'=>'varchar(50)'
+		'functionname'=>array(
+			'name'=>'functionname', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'whenactive'=>array(
 			'name'=>'whenactive', 'type'=>'text'
@@ -974,7 +982,7 @@ return array(
 			'name'=>'PRIMARY',
 			'type'=>'primary key',
 			'unique'=>'1',
-			'columns'=>'modulename,location,function'
+			'columns'=>'modulename,location,functionname'
 			),
 		'key-location'=>array(
 			'name'=>'location', 'type'=>'key', 'columns'=>'location'
@@ -982,13 +990,13 @@ return array(
 		),
 	'module_objprefs'=>array(
 		'modulename'=>array(
-			'name'=>'modulename', 'type'=>'varchar(50)'
+			'name'=>'modulename', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'objtype'=>array(
-			'name'=>'objtype', 'type'=>'varchar(50)'
+			'name'=>'objtype', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'setting'=>array(
-			'name'=>'setting', 'type'=>'varchar(50)'
+			'name'=>'setting', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'objid'=>array(
 			'name'=>'objid', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -1006,10 +1014,10 @@ return array(
 
 	'module_settings'=>array(
 		'modulename'=>array(
-			'name'=>'modulename', 'type'=>'varchar(50)'
+			'name'=>'modulename', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'setting'=>array(
-			'name'=>'setting', 'type'=>'varchar(50)'
+			'name'=>'setting', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'value'=>array(
 			'name'=>'value', 'type'=>'text', 'null'=>'1'
@@ -1023,10 +1031,10 @@ return array(
 		),
 	'module_userprefs'=>array(
 		'modulename'=>array(
-			'name'=>'modulename', 'type'=>'varchar(50)'
+			'name'=>'modulename', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'setting'=>array(
-			'name'=>'setting', 'type'=>'varchar(50)'
+			'name'=>'setting', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'userid'=>array(
 			'name'=>'userid', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -1049,35 +1057,35 @@ return array(
 		),
 	'modules'=>array(
 		'modulename'=>array(
-			'name'=>'modulename', 'type'=>'varchar(50)'
+			'name'=>'modulename', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'formalname'=>array(
-			'name'=>'formalname', 'type'=>'varchar(255)'
+			'name'=>'formalname', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'description'=>array(
 			'name'=>'description', 'type'=>'text'
 			),
 		'moduleauthor'=>array(
-			'name'=>'moduleauthor', 'type'=>'varchar(255)'
+			'name'=>'moduleauthor', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'active'=>array(
 			'name'=>'active', 'type'=>'tinyint(4)', 'default'=>'0'
 			),
 		'filename'=>array(
-			'name'=>'filename', 'type'=>'varchar(255)'
+			'name'=>'filename', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'installdate'=>array(
 			'name'=>'installdate',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'installedby'=>array(
-			'name'=>'installedby', 'type'=>'varchar(50)'
+			'name'=>'installedby', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'filemoddate'=>array(
 			'name'=>'filemoddate',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'type'=>array(
 			'name'=>'type', 'type'=>'tinyint(4)', 'default'=>'0'
@@ -1086,7 +1094,7 @@ return array(
 			'name'=>'extras', 'type'=>'text', 'null'=>'1'
 			),
 		'category'=>array(
-			'name'=>'category', 'type'=>'varchar(50)'
+			'name'=>'category', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'infokeys'=>array(
 			'name'=>'infokeys', 'type'=>'text'
@@ -1139,13 +1147,13 @@ return array(
 			'extra'=>'auto_increment'
 			),
 		'mountname'=>array(
-			'name'=>'mountname', 'type'=>'varchar(50)'
+			'name'=>'mountname', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'mountdesc'=>array(
 			'name'=>'mountdesc', 'type'=>'text', 'null'=>'1'
 			),
 		'mountcategory'=>array(
-			'name'=>'mountcategory', 'type'=>'varchar(50)'
+			'name'=>'mountcategory', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'mountbuff'=>array(
 			'name'=>'mountbuff', 'type'=>'text', 'null'=>'1'
@@ -1163,13 +1171,13 @@ return array(
 			'name'=>'mountforestfights', 'type'=>'int(11)', 'default'=>'0'
 			),
 		'newday'=>array(
-			'name'=>'newday', 'type'=>'text'
+			'name'=>'newday', 'type'=>'text','null'=>'1'
 			),
 		'recharge'=>array(
-			'name'=>'recharge', 'type'=>'text'
+			'name'=>'recharge', 'type'=>'text','null'=>'1'
 			),
 		'partrecharge'=>array(
-			'name'=>'partrecharge', 'type'=>'text'
+			'name'=>'partrecharge', 'type'=>'text','null'=>'1'
 			),
 		'mountfeedcost'=>array(
 			'name'=>'mountfeedcost', 'type'=>'int(11) unsigned', 'default'=>'20'
@@ -1206,13 +1214,13 @@ return array(
 			'name'=>'newstext', 'type'=>'text'
 			),
 		'newsdate'=>array(
-			'name'=>'newsdate', 'type'=>'date', 'default'=>'0000-00-00'
+			'name'=>'newsdate', 'type'=>'date', 'default'=>'0001-01-01'
 			),
 		'accountid'=>array(
 			'name'=>'accountid', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'arguments'=>array(
-			'name'=>'arguments', 'type'=>'text'
+			'name'=>'arguments', 'type'=>'text','null'=>'1'
 			),
 		'tlschema'=>array(
 			'name'=>'tlschema', 'type'=>'varchar(255)', 'default'=>'news'
@@ -1240,7 +1248,7 @@ return array(
 			'name'=>'author', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'date'=>array(
-			'name'=>'date', 'type'=>'datetime', 'default'=>'0000-00-00 00:00:00'
+			'name'=>'date', 'type'=>'datetime', 'default'=>'0001-01-01 00:00:00'
 			),
 		'status'=>array(
 			'name'=>'status', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -1254,7 +1262,7 @@ return array(
 		'closedate'=>array(
 			'name'=>'closedate',
 			'type'=>'datetime',
-			'default'=>'0000-00-00 00:00:00'
+			'default'=>'0001-01-01 00:00:00'
 			),
 		'closeuserid'=>array(
 			'name'=>'closeuserid', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -1315,7 +1323,7 @@ return array(
 			'name'=>'last', 'type'=>'datetime', 'null'=>'1'
 			),
 		'site'=>array(
-			'name'=>'site', 'type'=>'varchar(50)'
+			'name'=>'site', 'type'=>'varchar(50)','null'=>'1'
 			),
 		'dest'=>array(
 			'name'=>'dest', 'type'=>'varchar(255)', 'null'=>'1'
@@ -1338,10 +1346,10 @@ return array(
 		),
 	'settings'=>array(
 		'setting'=>array(
-			'name'=>'setting', 'type'=>'varchar(20)'
+			'name'=>'setting', 'type'=>'varchar(20)','null'=>'1'
 			),
 		'value'=>array(
-			'name'=>'value', 'type'=>'varchar(255)'
+			'name'=>'value', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -1379,10 +1387,10 @@ return array(
 			'name'=>'intext', 'type'=>'blob', 'null'=>'0'
 			),
 		'language'=>array(
-			'name'=>'language', 'type'=>'varchar(10)'
+			'name'=>'language', 'type'=>'varchar(10)','null'=>'1'
 			),
 		'namespace'=>array(
-			'name'=>'namespace', 'type'=>'varchar(255)'
+			'name'=>'namespace', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -1402,10 +1410,10 @@ return array(
 			'name'=>'tid', 'type'=>'int(11)', 'extra'=>'auto_increment'
 			),
 		'language'=>array(
-			'name'=>'language', 'type'=>'varchar(10)'
+			'name'=>'language', 'type'=>'varchar(10)','null'=>'1'
 			),
 		'uri'=>array(
-			'name'=>'uri', 'type'=>'varchar(255)'
+			'name'=>'uri', 'type'=>'varchar(255)','null'=>'1'
 			),
 		'intext'=>array(
 			'name'=>'intext', 'type'=>'blob'

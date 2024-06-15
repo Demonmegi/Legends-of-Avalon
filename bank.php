@@ -55,13 +55,18 @@ if ($op==""){
 	}
 }elseif($op=="transfer2"){
 	output("`6`bConfirm Transfer`b:`n");
-	$string="%";
 	$to = httppost('to');
-	for ($x=0;$x<strlen($to);$x++){
-		$string .= substr($to,$x,1)."%";
-	}
-	$sql = "SELECT name,login FROM " . db_prefix("accounts") . " WHERE name LIKE '".addslashes($string)."' AND locked=0 ORDER by login='$to' DESC, name='$to' DESC, login";
+	$sql = "SELECT name,login FROM " . db_prefix('accounts') . " WHERE locked = 0 AND login = '".addslashes($to)."'";
 	$result = db_query($sql);
+	//debug(db_num_rows($result));
+	if(db_num_rows($result) != 1) {
+		$string="%";
+		for ($x=0;$x<strlen($to);$x++){
+			$string .= substr($to,$x,1)."%";
+		}
+		$sql = "SELECT name,login FROM " . db_prefix("accounts") . " WHERE name LIKE '".addslashes($string)."' AND locked=0 ORDER by login='$to' DESC, name='$to' DESC, login";
+		$result = db_query($sql);
+	}
 	$amt = abs((int)httppost('amount'));
 	if (db_num_rows($result)==1){
 		$row = db_fetch_assoc($result);
@@ -262,12 +267,6 @@ if (getsetting("allowgoldtransfer",1)){
 		addnav("M?Transfer Money","bank.php?op=transfer");
 	}
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/bank.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
 
 page_footer();
 

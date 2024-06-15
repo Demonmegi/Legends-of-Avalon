@@ -44,7 +44,7 @@ function dag_dohook_private($hookname,$args){
 		$info = dag_getmoduleinfo();
 		$parts = array();
 		$values = array();
-		while(list($key,$val)= each($info['settings'])) {
+		foreach ($info['settings'] as $key=>$val) {
 			if (is_array($val)) {
 				$x = explode("|", $val[0]);
 			} else {

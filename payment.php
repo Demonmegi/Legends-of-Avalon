@@ -4,11 +4,15 @@
 // translator ready
 ob_start();
 set_error_handler("payment_error");
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 require_once("common.php");
 require_once("lib/http.php");
 
 tlschema("payment");
+
+// Send an empty HTTP 200 OK response to acknowledge receipt of the notification 
+header('HTTP/1.1 200 OK'); 
+  
 
 // read the post from PayPal system and add 'cmd'
 $req = 'cmd=_notify-validate';
@@ -20,14 +24,18 @@ foreach ($post as $key => $value) {
 	$req .= "&$key=$value";
 }
 
-// post back to PayPal system to validate
-$header = "";
-$header .= "POST /cgi-bin/webscr HTTP/1.1\r\n";
-$header .= "Content-Length: " . strlen($req) . "\r\n";
+// Set up the acknowledgement request headers
+$header  = "POST /cgi-bin/webscr HTTP/1.1\r\n";                    // HTTP POST request
 $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-$header .= "Host: www.paypal.com\r\n";
-$header .= "Connection: close\r\n\r\n";
+$header .= "Content-Length: " . strlen($req) . "\r\n";
+$header .="Host: www.paypal.com\r\n";
+$header .="Connection: close\r\n\r\n";
+
+// Open a socket for the acknowledgement request
+
 $fp = fsockopen ('ssl://www.paypal.com', 443, $errno, $errstr, 30);
+//$fp = fsockopen ('www.paypal.com', 80, $errno, $errstr, 30);
+//$fp = fsockopen ('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
 
 // assign posted variables to local variables
 $item_name = httppost('item_name');
@@ -36,7 +44,7 @@ $payment_status = httppost('payment_status');
 $payment_amount = httppost('mc_gross');
 $payment_currency = httppost('mc_currency');
 $txn_id = httppost('txn_id');
-$receiver_email = httppost('receiver_email');
+$receiver_email = httppost('business'); //formerly receiver_email, but with using multiple emails for paypal it's gross
 $payer_email = httppost('payer_email');
 $payment_fee = httppost('mc_fee');
 
@@ -71,12 +79,13 @@ if (!$fp) {
 				}
 				if (($receiver_email != "logd@mightye.org") &&
 					($receiver_email != getsetting("paypalemail", ""))) {
-					$emsg = "This payment isn't to me!  It's to $receiver_email.\n";
+					$emsg = "This payment isn't to me(".getsetting("paypalemail", "").")!  It's to $receiver_email.\n";
 					payment_error(E_WARNING,$emsg,__FILE__,__LINE__);
 				}
 				writelog($response);
 
 			}else{
+				modulehook("donation-error",$post);
 				payment_error(E_ERROR,"Payment Status isn't 'Completed' it's '$payment_status'",__FILE__,__LINE__);
 			}
 		}
@@ -96,7 +105,6 @@ function writelog($response){
 	$match = array();
 	preg_match("'([^:]*):([^/])*'",$item_number,$match);
 	if ($match[1]>""){
-		$match[1] = addslashes($match[1]);
 		$sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE login='{$match[1]}'";
 		$result = db_query($sql);
 		$row = db_fetch_assoc($result);
@@ -109,7 +117,8 @@ function writelog($response){
 			// notification for.
 			if ($txn_type =="reversal") $donation -= $payment_fee;
 
-			$hookresult = modulehook("donation_adjustments",array("points"=>$donation*100,"amount"=>$donation,"acctid"=>$acctid,"messages"=>array()));
+			$hookresult = modulehook("donation_adjustments",array("points"=>$donation*getsetting('dpointspercurrencyunit',100),"amount"=>$donation,"acctid"=>$acctid,"messages"=>array()));
+			//updated to make a setting here for each Dollar, Euro, Shekel
 			$hookresult['points'] = round($hookresult['points']);
 
 			$sql = "UPDATE " . db_prefix("accounts") . " SET donation = donation + '{$hookresult['points']}' WHERE acctid=$acctid";
@@ -123,7 +132,6 @@ function writelog($response){
 				debuglog($message,false,$acctid,"donation",0,false);
 			}
 			if (db_affected_rows()>0) $processed = 1;
-			modulehook("donation", array("id"=>$acctid, "amt"=>$donation*100, "manual"=>false));
 		}
 	}
 	$sql = "
@@ -150,7 +158,9 @@ function writelog($response){
 			'$payment_fee',
 			'".date("Y-m-d H:i:s")."'
 		)";
-	db_query($sql);
+	$result = db_query($sql);
+	if ($match[1]>"" && $acctid>0) modulehook("donation", array("id"=>$acctid, "amt"=>$donation*getsetting('dpointspercurrencyunit',100), "manual"=>false));
+	modulehook("donation-processed",$post);
 	$err = db_error();
 	if ($err) {
 		payment_error(E_ERROR,"SQL: $sql\nERR: $err", __FILE__,__LINE__);

@@ -1,0 +1,44 @@
+/*Highjacked for modifing Default behavior */
+
+input[type="text"] {
+    width: 90%;
+}
+
+textarea {
+	width: 90%;
+}
+
+.colsparkgray 		{ color: #575757; }
+.collightyellow 	{ color: #FFF28E; }
+.collightorange 	{ color: #FFBF26; }
+.coldarkorange 		{ color: #FF6600; }
+.colbrickred 		{ color: #D10000; }
+.colsweetred 		{ color: #8A023F; }
+.colcandyred 		{ color: #B9034C; }
+.colpeppermint 		{ color: #8CFF63; }
+.colfir 			{ color: #035900; }
+.coldarkfir 		{ color: #457A00; }
+.collightfir 		{ color: #669900; }
+.colskyblue 		{ color: #59CEFD; }
+.colbabypink 		{ color: #DC79FF; }
+.coldarklilac 		{ color: #800099; }
+.collightlilac 		{ color: #7373FF; }
+.colmiddlebrown 	{ color: #815E39; }
+.collightmallow 	{ color: #997F99; }
+.colmallow 			{ color: #7F667F; }
+.coldarkmallow 		{ color: #664C66; }
+
+.colmousegrey 		{ color: #707070; }
+.colrottenred 		{ color: #523b34; }
+.collightrottenred 	{ color: #8B3626; }
+.colclottedred 		{ color: #AE2722; }
+.coltomatoered 		{ color: #FD342F; }
+.colflashymint 		{ color: #5fd5bc; }
+.colblueishgreen 	{ color: #2d8574; }
+.colblueishpurple 	{ color: #5180E5; }
+.colmoredarkblue 	{ color: #2f4386; }
+.colsweetspurple 	{ color: #A390EE; }
+.colelearapurple 	{ color: #7F68DF; }
+.colclaybrown 		{ color: #AE8F68; }
+
+

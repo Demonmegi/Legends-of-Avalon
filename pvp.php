@@ -49,7 +49,7 @@ if ($op=="" && $act!="attack"){
 		$attackstack['enemies'][0] = $badguy;
 		$attackstack['options'] = $options;
 		$session['user']['badguy']=createstring($attackstack);
-		debug($session['user']['badguy']);
+		//debug($session['user']['badguy']);
 		$session['user']['playerfights']--;
 	}
 
@@ -127,12 +127,5 @@ if ($battle){
 		fightnav(false,false, "pvp.php$extra");
 	}
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/pvp.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

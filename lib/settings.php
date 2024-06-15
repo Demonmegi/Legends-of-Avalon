@@ -5,24 +5,24 @@
 
 function savesetting($settingname,$value){
 	global $settings;
+	if (db_table_exists(db_prefix("settings"))===true)  {	
 		loadsettings();
-	// if (!isset($settings[$settingname]) && $value){
-	if ($settingname == "showFormTabIndex") return true;
-	if (!isset($settings[$settingname])){
-			$sql = "INSERT INTO " . db_prefix("settings") . " (setting,value) VALUES (\"".addslashes($settingname)."\",\"".addslashes($value)."\")";
-	}else if (isset($settings[$settingname])) {
-			$sql = "UPDATE " . db_prefix("settings") . " SET value=\"".addslashes($value)."\" WHERE setting=\"".addslashes($settingname)."\"";
-	} else {
-		return false;
-	}
-	db_query($sql);
-	$settings[$settingname]=$value;
-	invalidatedatacache("game-settings");
-	if (db_affected_rows()>0) {
-		return true;
-	}else{
-		return false;
-	}
+		if (!isset($settings[$settingname]) && $value){
+				$sql = "INSERT INTO " . db_prefix("settings") . " (setting,value) VALUES (\"".addslashes($settingname)."\",\"".addslashes($value)."\")";
+		}else if (isset($settings[$settingname])) {
+				$sql = "UPDATE " . db_prefix("settings") . " SET value=\"".addslashes($value)."\" WHERE setting=\"".addslashes($settingname)."\"";
+		} else {
+			return false;
+		}
+		db_query($sql);
+		$settings[$settingname]=$value;
+		invalidatedatacache("game-settings");
+		if (db_affected_rows()>0) {
+			return true;
+		}else{
+			return false;
+		}
+	} else return false;
 }
 
 function loadsettings(){
@@ -37,13 +37,15 @@ function loadsettings(){
 		$settings=datacache("game-settings");
 		if (!is_array($settings)){
 			$settings=array();
-			$sql = "SELECT * FROM " . db_prefix("settings");
-			$result = db_query($sql);//db_query_cached($sql,"game-settings");
-			while ($row = db_fetch_assoc($result)) {
-				$settings[$row['setting']] = $row['value'];
-			}
-			db_free_result($result);
-			updatedatacache("game-settings",$settings);
+			if (db_table_exists(db_prefix("settings"))===true)  {
+				$sql = "SELECT * FROM " . db_prefix("settings");
+				$result = db_query($sql);//db_query_cached($sql,"game-settings");
+				while ($row = db_fetch_assoc($result)) {
+					$settings[$row['setting']] = $row['value'];
+				}
+				db_free_result($result);
+				updatedatacache("game-settings",$settings);
+			}	
 		}
 	}
 }

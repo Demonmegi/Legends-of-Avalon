@@ -2,7 +2,7 @@
 // translator ready
 // addnews ready
 // mail ready
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 require_once("common.php");
 require_once("lib/http.php");
 require_once("lib/villagenav.php");
@@ -70,7 +70,7 @@ while ($row = db_fetch_assoc($result)) {
 		$arguments = array();
 		$base_arguments = unserialize($row['arguments']);
 		array_push($arguments,$row['newstext']);
-		while (list($key,$val)=each($base_arguments)){
+		foreach($base_arguments as $val){
 			array_push($arguments,$val);
 		}
 		$news = call_user_func_array("sprintf_translate",$arguments);
@@ -140,12 +140,6 @@ if ($totaltoday>$newsperpage){
 		}
 	}
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/news.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
 
 page_footer();
 ?>

@@ -6,8 +6,10 @@
 $defines = array();
 function myDefine($name,$value){
 	global $defines;
-	define($name,$value);
-	$defines[$name] = $value;
+	if (!defined($name)) {
+		define($name,$value);
+		$defines[$name] = $value;
+	}
 }
 
 //Superuser constants

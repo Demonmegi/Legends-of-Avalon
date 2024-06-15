@@ -9,8 +9,7 @@ function templatereplace($itemname,$vals=false){
 		output("`bWarning:`b The `i%s`i template part was not found!`n", $itemname);
 	$out = $template[$itemname];
 	if (!is_array($vals)) return $out;
-	@reset($vals);
-	while (list($key,$val)=@each($vals)){
+	foreach ($vals as $key=>$val) {
 		if (strpos($out,"{".$key."}")===false){
 			output("`bWarning:`b the `i%s`i piece was not found in the `i%s`i te".
 					"mplate part! (%s)`n", $key, $itemname, $out);
@@ -39,7 +38,7 @@ function prepare_template($force=false){
 	if ($templatename=="" || !file_exists("templates/$templatename"))
 		$templatename="jade.htm";
 	$template = loadtemplate($templatename);
-	if ($session['templatename'] == $templatename &&
+	if (isset($session['templatename']) && isset($session['templatemtime']) && $session['templatename'] == $templatename &&
 			$session['templatemtime']==filemtime("templates/$templatename")){
 		//We do not have to check that the template is valid since it has
 		//not changed.
@@ -49,14 +48,14 @@ function prepare_template($force=false){
 
 		//tags that must appear in the header
 		$templatetags=array("title","headscript","script");
-		while (list($key,$val)=each($templatetags)){
+		foreach ($templatetags as $key=>$val) {
 			if (strpos($template['header'],"{".$val."}")===false && $val)
 				$templatemessage .=
 					"You do not have {".$val."} defined in your header\n";
 		}
 		//tags that must appear in the footer
 		$templatetags=array();
-		while (list($key,$val)=each($templatetags)){
+		foreach ($templatetags as $key=>$val) {
 			if (strpos($template['footer'],"{".$val."}")===false && $val)
 				$templatemessage .=
 					"You do not have {".$val."} defined in your footer\n";
@@ -65,7 +64,7 @@ function prepare_template($force=false){
 		//tags that may appear anywhere but must appear
 		$templatetags=array("nav","stats","petition","motd","mail",
 				"paypal","source","version", "copyright");
-		while (list($key,$val)=each($templatetags)){
+		foreach ($templatetags as $key=>$val) {
 			if (!$key) array_push($templatetags,$y2^$z2);
 			if (strpos($template['header'],"{".$val."}")===false &&
 					strpos($template['footer'],"{".$val."}")===false && $val)
@@ -83,10 +82,14 @@ function prepare_template($force=false){
 	}else {
 		$y = 0;
 		$z = $y2^$z2;
-		if ($session['user']['loggedin'] && $x > ''){
-			$$z = $x;
-		}
-		$$z = $lc . $$z . "<br />";
+		// if ($session['user']['loggedin'] && $x > ''){
+			// $$z = $x;
+		// }
+// echo("Z: " . $$z);
+		// if (isset($$z)) {
+			// $$z = $lc . $$z . "<br />";
+		// }
+		// else $$z=$lc . "<br />";
 	}
 
 }

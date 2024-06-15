@@ -90,10 +90,10 @@ function massinvalidate($name) {
 				if (strpos($file, $name) !== false) {
 					invalidatedatacache($dir->path."/".$file,true);
 				}
-			}
+ 			}
 			$dir->close();
-		}
-	}
+ 		}
+ 	}
 }
 
 

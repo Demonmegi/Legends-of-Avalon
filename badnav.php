@@ -7,12 +7,12 @@ require_once("common.php");
 require_once("lib/villagenav.php");
 
 tlschema("badnav");
-
+debug($session['lastsql']);
 if ($session['user']['loggedin'] && $session['loggedin']){
-	if (strpos($session['output'],"<!--CheckNewDay()-->")){
+	if (isset($session['output']) && strpos($session['output'],"<!--CheckNewDay()-->")){
 		checkday();
 	}
-	while (list($key,$val)=each($session['allowednavs'])){
+	foreach ($session['allowednavs'] as $key=>$val){
 		//hack-tastic.
 		if (
 			trim($key)=="" ||
@@ -25,7 +25,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 	$result=db_query($sql);
 	$row=db_fetch_assoc($result);
 	if (!is_array($session['allowednavs']) ||
-			count($session['allowednavs'])==0 || $row['output']=="") {
+			count($session['allowednavs'])==0 || (!isset($row)) || $row['output']=="") {
 		$session['allowednavs']=array();
 		page_header("Your Navs Are Corrupted");
 		if ($session['user']['alive']) {

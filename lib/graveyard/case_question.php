@@ -11,6 +11,7 @@ if ($session['user']['deathpower']>=100) {
 	output("`\$%s`) speaks, \"`7I am moderately impressed with your efforts.  A minor favor I now grant to you, but continue my work, and I may yet have more power to bestow.`)\"",$deathoverlord);
 	addnav(array("%s Favors",sanitize($deathoverlord)));
 	addnav("H?Haunt a foe (25 favor)","graveyard.php?op=haunt");
+	addnav("Resurrection (100 favor)","");
 	addnav("Other");
 }else{
 	output("`\$%s`) speaks, \"`7I am not yet impressed with your efforts.  Continue my work, and we may speak further.`)\"",$deathoverlord);

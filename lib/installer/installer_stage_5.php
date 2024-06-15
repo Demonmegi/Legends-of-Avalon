@@ -12,12 +12,17 @@ $game=0;
 $missing=0;
 $conflict = array();
 
-$link = mysql_connect($session['dbinfo']['DB_HOST'],$session['dbinfo']['DB_USER'],$session['dbinfo']['DB_PASS']);
-mysql_select_db($session['dbinfo']['DB_NAME']);
+if (file_exists("dbconnect.php")) {
+	require_once("dbconnect.php");
+	$link = db_connect($DB_HOST, $DB_USER, $DB_PASS);
+}
+//$link = mysql_connect($session['dbinfo']['DB_HOST'],$session['dbinfo']['DB_USER'],$session['dbinfo']['DB_PASS']);
+//mysql_select_db($session['dbinfo']['DB_NAME']);
 $sql = "SHOW TABLES";
-$result = mysql_query($sql);
-while ($row = mysql_fetch_assoc($result)){
-	list($key,$val)=each($row);
+$result = db_query($sql);
+while ($row = db_fetch_assoc($result)){
+	$val = current($row);
+	//list($key,$val)=each($row);
 	if (isset($descriptors[$val])){
 		$game++;
 		array_push($conflict,$val);

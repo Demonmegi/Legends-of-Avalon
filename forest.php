@@ -153,7 +153,7 @@ if ($op=="search"){
 				$multi += $targetlevel - 17;
 				$targetlevel=17;
 			}
-			debug("Creatures: $multi Targetlevel: $targetlevel Mintargetlevel: $mintargetlevel");
+			//debug("Creatures: $multi Targetlevel: $targetlevel Mintargetlevel: $mintargetlevel");
 			if ($multi > 1) {
 				$packofmonsters = (bool)(e_rand(0,5) == 0 && getsetting("allowpackofmonsters", true)); // true or false
 				switch($packofmonsters) {
@@ -306,12 +306,5 @@ if ($op==""){
 	// sometimes, but not others.
 	forest($dontdisplayforestmessage);
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/forest.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

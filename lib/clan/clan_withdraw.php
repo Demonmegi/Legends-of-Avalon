@@ -24,7 +24,7 @@
 					db_query($sql);
 					//just in case we goofed, we don't want to have to worry
 					//about people being associated with a deleted clan.
-					$sql = "UPDATE " . db_prefix("accounts") . " SET clanid=0,clanrank=".CLAN_APPLICANT.",clanjoindate='0000-00-00 00:00:00' WHERE clanid={$session['user']['clanid']}";
+					$sql = "UPDATE " . db_prefix("accounts") . " SET clanid=0,clanrank=".CLAN_APPLICANT.",clanjoindate='0001-01-01 00:00:00' WHERE clanid={$session['user']['clanid']}";
 					db_query($sql);
 					output("`^As you were the last member of this clan, it has been deleted.");
 				}
@@ -49,7 +49,7 @@
 
 		$session['user']['clanid']=0;
 		$session['user']['clanrank']=CLAN_APPLICANT;
-		$session['user']['clanjoindate']="0000-00-00 00:00:00";
+		$session['user']['clanjoindate']="0001-01-01 00:00:00";
 		output("`&You have withdrawn from your clan.");
 		addnav("Clan Options");
 		addnav("Return to the Lobby","clan.php");

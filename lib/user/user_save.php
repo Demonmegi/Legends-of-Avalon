@@ -5,11 +5,10 @@ $oldvalues = stripslashes(httppost('oldvalues'));
 $oldvalues = unserialize($oldvalues);
 // Handle recombining the old name
 $otitle = $oldvalues['title'];
-if ($oldvalues['ctitle']) $otitle = $oldvalues['ctitle'];
+if (isset($oldvalues['ctitle']) && $oldvalues['ctitle']) $otitle = $oldvalues['ctitle'];
 $oldvalues['name'] = $otitle . ' ' . $oldvalues['name'];
-	$post = httpallpost();
-reset($post);
-while (list($key,$val)=each($post)){
+$post = httpallpost();
+foreach ($post as $key=>$val) {
 	if (isset($userinfo[$key])){
 		if ($key=="newpassword" ){
 			if ($val>"") {
@@ -23,7 +22,7 @@ while (list($key,$val)=each($post)){
 			}
 		}elseif ($key=="superuser"){
 			$value = 0;
-			while (list($k,$v)=each($val)){
+			foreach ($val as $k=>$v) {
 				if ($v) $value += (int)$k;
 			}
 				//strip off an attempt to set privs that the user doesn't
@@ -92,7 +91,7 @@ while (list($key,$val)=each($post)){
 			if ($session['user']['acctid']==$userid) {
 				$session['user']['title'] = $tmp;
 			}
-		} elseif ($key=="ctitle" && stripslashes($val)!=$oldvalues[$key]) {
+		} elseif ($key=="ctitle" && (isset($oldvalues[$key])==false || stripslashes($val)!=$oldvalues[$key])) {
 			$updates++;
 			$tmp = sanitize_colorname(true, stripslashes($val), true);
 			$tmp = preg_replace("/[`][cHw]/", "", $tmp);
@@ -105,7 +104,7 @@ while (list($key,$val)=each($post)){
 			}
 			$newname = change_player_ctitle($tmp, $oldvalues);
 			$sql.="$key = \"$val\",";
-			output("Changed player ctitle from %s`0 to %s`0`n", $oldvalues['ctitle'], $tmp);
+			if (isset($oldvalue['ctitle'])) output("Changed player ctitle from %s`0 to %s`0`n", $oldvalues['ctitle'], $tmp);
 			$oldvalues[$key]=$tmp;
 			if ($newname != $oldvalues['name']) {
 				$sql.="name = \"".addslashes($newname)."\",";
@@ -121,7 +120,7 @@ while (list($key,$val)=each($post)){
 			}
 		}elseif ($key=="oldvalues"){
 			//donothing.
-		}elseif ($oldvalues[$key]!=stripslashes($val) && isset($oldvalues[$key])){
+		}elseif (isset($oldvalues[$key]) && $oldvalues[$key]!=stripslashes($val)){
 			$sql.="$key = \"$val\",";
 			$updates++;
 			output("%s has changed to %s.`n", $key, stripslashes($val));

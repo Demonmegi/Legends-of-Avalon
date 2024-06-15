@@ -6,7 +6,7 @@ $replyto = (int)httpget('replyto');
 if ($session['user']['superuser'] & SU_IS_GAMEMASTER) {
 	$from = httppost('from');
 }
-if ($replyto!=""){
+if ($replyto!=0){
 	$mail = db_prefix("mail");
 	$accounts = db_prefix("accounts");
 	$sql = "SELECT ".$mail.".sent,".$mail.".body,".$mail.".msgfrom, ".$mail.".subject,".$accounts.".login, ".$accounts.".superuser, ".$accounts.".name FROM ".$mail." LEFT JOIN ".$accounts." ON ".$accounts.".acctid=".$mail.".msgfrom WHERE msgto=\"".$session['user']['acctid']."\" AND messageid=\"".$replyto."\"";
@@ -77,7 +77,7 @@ if (isset($row['login']) && $row['login']!=""){
 		$string="%";
 		$to_len = strlen($to);
 		for($x=0; $x < $to_len; ++$x) {
-			$string .= $to{$x}."%";
+			$string .= substr($to,$x,1)."%";
 		}
 		$sql = "SELECT login,name,superuser FROM " . db_prefix("accounts") . " WHERE name LIKE '".addslashes($string)."' AND locked=0 ORDER by login='$to' DESC, name='$to' DESC, login";
 		$result = db_query($sql);
@@ -117,13 +117,17 @@ foreach($superusers as $val) {
 }
 rawoutput("</script>");
 output("`2Subject:");
-rawoutput("<input name='subject' value=\"".htmlentities($subject).htmlentities(stripslashes(httpget('subject')), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\"><br>");
+require_once('lib/forms.php');
+previewfield("subject", false, false, false, false, true, htmlentities($subject).htmlentities(stripslashes(httpget('subject')), ENT_COMPAT, getsetting("charset", "ISO-8859-1")),true,true);
+
+//rawoutput("<input name='subject' value=\"".htmlentities($subject).htmlentities(stripslashes(httpget('subject')), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\"><br>");
 rawoutput("<div id='warning' style='visibility: hidden; display: none;'>");
 output("`2Notice: `^$superusermessage`n");
 rawoutput("</div>");
 output("`2Body:`n");
-require_once("lib/forms.php");
-previewfield("body", "`^", false, false, array("type"=>"textarea", "class"=>"input", "cols"=>"60", "rows"=>"9", "onKeyDown"=>"sizeCount(this);"), htmlentities($body, ENT_COMPAT, getsetting("charset", "ISO-8859-1")).htmlentities(stripslashes(httpget('body')), ENT_COMPAT, getsetting("charset", "ISO-8859-1")));
+require_once("lib/colorforms.php");
+
+CreateColorPreview("body", "`^", false, false, array("type"=>"textarea", "class"=>"input", "cols"=>"60", "rows"=>"9", "onKeyDown"=>"sizeCount(this);"), true, htmlentities($body, ENT_COMPAT, getsetting("charset", "ISO-8859-1")).htmlentities(stripslashes(httpget('body')), ENT_COMPAT, getsetting("charset", "ISO-8859-1")),true,true);
 //rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".htmlentities($body, ENT_COMPAT, getsetting("charset", "ISO-8859-1")).htmlentities(stripslashes(httpget('body')), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</textarea><br>");
 $send = translate_inline("Send");
 rawoutput("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td><input type='submit' class='button' value='$send'></td><td align='right'><div id='sizemsg'></div></td></tr></table>");
@@ -168,4 +172,5 @@ rawoutput("
 	}
 	check_su_warning();
 </script>");
+	modulehook("writemail", array('subject'=>$subject));
 ?>

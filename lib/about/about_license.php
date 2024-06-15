@@ -6,7 +6,7 @@
  * and is MightyE explaining the new license
  * in an easy to understand way.
  * 
- * @copyright Copyright Â© 2002-2005, Eric Stevens & JT Traub, Â© 2006-2009, Dragonprime Development Team
+ * @copyright Copyright © 2002-2005, Eric Stevens & JT Traub, © 2006-2009, Dragonprime Development Team
  * @version Lotgd 1.1.2 DragonPrime Edition
  * @package Core
  * @subpackage Library

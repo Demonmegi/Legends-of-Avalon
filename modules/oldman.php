@@ -3,8 +3,6 @@
 // mail ready
 // translator ready
 require_once("lib/constants.php");
-
-//addnews ready
 function oldman_getmoduleinfo(){
 	$info = array(
 		"name"=>"Old Man",
@@ -98,11 +96,7 @@ function oldman_bettinggame($from)
 					if($guess>100||$guess<0||!$guess){
 						$try--;
 						output("`@The old man chuckles, \"`#This will be like taking a sword from a baby if you think %s is between one and one hundred!`@\"`n", $guess);
-						if(6-$try == 1) {
-							output("`@\"`#You have `^1`# try left.`@\"`n");
-						} else {
-							output("`@\"`#You have `^%s`# tries left.`@\"`n", 6-$try);
-						}
+						output("`@\"`#You have `^%s`# %s left.`@\"`n", 6-$try, ((6-$try)==1?"try":"tries"));
 					} elseif ($guess>$session['user']['specialmisc']){
 						output("`@\"`#Nope, not `^%s`#, it's lower than that!  That was try `^%s`#.`@\"`n`n", $guess, $try);
 					}else{
@@ -215,7 +209,7 @@ function oldman_runevent($type)
 				output("`^That treacherous old man searches your body and takes all of your gold.`n");
 				output("You lose 5% of your experience!`n");
 				output("You may continue playing again tomorrow.");
-				$session['user']['alive']=false;
+				$session['user']['alive']=0;
 				$session['user']['hitpoints']=0;
 				$session['user']['experience']*=.95;
 				$session['user']['gold']=0;

@@ -11,7 +11,7 @@ function _curl($url)
 	// set URL and other appropriate options
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_HEADER, 0);
-	//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 	$val = 5;
@@ -28,7 +28,6 @@ function _curl($url)
 	// close curl resource, and free up system resources
 	curl_close($ch);
 
-	//$val = split("\n", $ret);
 	$val = explode("\n", $ret);
 	$total = count($val);
 	$cur = 0;
@@ -78,7 +77,7 @@ function _sock($url)
 
 function pullurl($url)
 {
-	//if (function_exists("curl_init")) return _curl($url);
+	if (function_exists("curl_init")) return _curl($url);
 	// For sume reason the socket code isn't working
 	//if (function_exists("fsockopen")) return _sock($url);
 	return @file($url);

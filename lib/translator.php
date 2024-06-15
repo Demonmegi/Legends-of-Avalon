@@ -25,7 +25,10 @@ function translator_setup(){
 $translation_table = array();
 function translate($indata,$namespace=FALSE){
 	if (getsetting("enabletranslation", true) == false) return $indata;
-	global $session,$translation_table,$translation_namespace;
+
+	if (defined("IS_INSTALLER") && db_table_exists(db_prefix("translations"))===false)  return $indata;
+
+	global $session,$translation_table,$translation_namespace, $untranslate_table;
 	if (!$namespace) $namespace=$translation_namespace;
 	$outdata = $indata;
 	if (!isset($namespace) || $namespace=="")
@@ -44,11 +47,12 @@ function translate($indata,$namespace=FALSE){
 	if (is_array($indata)){
 		//recursive translation on arrays.
 		$outdata = array();
-		while (list($key,$val)=each($indata)){
+		foreach ($indata as $key=>$val) {
 			$outdata[$key] = translate($val,$namespace);
 		}
 	}else{
 		if ($namespace != "notranslate") {
+			$collecttext=getsetting("collecttexts", false);
 			if (isset($translation_table[$namespace][$indata])) {
 				$outdata = $translation_table[$namespace][$indata];
 				$foundtranslation = true;
@@ -64,7 +68,7 @@ function translate($indata,$namespace=FALSE){
 					db_query($sql);
 				}
 				*/
-			} elseif (getsetting("collecttexts", false)) {
+			} elseif ($collecttext==true) {
 				$sql = "INSERT IGNORE INTO " .  db_prefix("untranslated") .  " (intext,language,namespace) VALUES ('" .  addslashes($indata) . "', '" . LANGUAGE . "', " .  "'$namespace')";
 				db_query($sql,false);
 			}
@@ -94,9 +98,8 @@ function sprintf_translate(){
 			tlschema();
 		}
  	}
-	reset($args);
-	each($args);//skip the first entry which is the output text
-	while (list($key,$val)=each($args)){
+ 	foreach ($args as $key=>$val) {
+ 		if (!$key) continue; // Skips key 0, output text
 		if (is_array($val)){
 			//When passed a sub-array this represents an independant
 			//translation to happen then be inserted in the master string.
@@ -150,7 +153,7 @@ function tl($in){
 }
 
 function translate_loadnamespace($namespace,$language=false){
-	if ($language===false) $language = LANGUAGE;
+	if ($language===false && defined("LANGUAGE")) $language = LANGUAGE;
 	$page = translator_page($namespace);
 	$uri = translator_uri($namespace);
 	if ($page==$uri)
@@ -183,7 +186,7 @@ function tlbutton_push($indata,$hot=false,$namespace=FALSE){
 	global $translation_is_enabled,$seentlbuttons,$session;
 	if (!$translation_is_enabled) return;
 	if (!$namespace) $namespace="unknown";
-	if ($session['user']['superuser'] & SU_IS_TRANSLATOR){
+	if (isset($session['user']) && isset($session['user']['superuser']) && $session['user']['superuser'] & SU_IS_TRANSLATOR){
 		if (preg_replace("/[ 	\n\r]|`./",'',$indata)>""){
 			if (isset($seentlbuttons[$namespace][$indata])){
 				$link = "";
@@ -209,7 +212,7 @@ function tlbutton_push($indata,$hot=false,$namespace=FALSE){
 
 function tlbutton_pop(){
 	global $translatorbuttons,$session;
-	if ($session['user']['superuser'] & SU_IS_TRANSLATOR){
+	if (isset($session['user']) && isset($session['user']['superuser']) && $session['user']['superuser'] & SU_IS_TRANSLATOR){
 		return array_pop($translatorbuttons);
 	}else{
 		return "";
@@ -252,11 +255,11 @@ function translator_check_collect_texts()
 	$tlmax = getsetting("tl_maxallowed",0);
 
 	if (getsetting("permacollect", 0)) {
-		savesetting("collecttexts", 1);
-	} elseif ($tlmax && getsetting("OnlineCount", 0) <= $tlmax) {
-		savesetting("collecttexts", 1);
+		savesetting("collecttexts", true);
+	} elseif ($tlmax && getsetting("OnlineCount", 0) < $tlmax) {
+		savesetting("collecttexts", true);
 	} else {
-		savesetting("collecttexts", 0);
+		savesetting("collecttexts", false);
 	}
 }
 

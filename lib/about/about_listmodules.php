@@ -8,7 +8,7 @@
  * modules on the server. Modules are sorted
  * by category, and are displayed in a table.
  * 
- * @copyright Copyright Â© 2002-2005, Eric Stevens & JT Traub, Â© 2006-2009, Dragonprime Development Team
+ * @copyright Copyright © 2002-2005, Eric Stevens & JT Traub, © 2006-2009, Dragonprime Development Team
  * @version Lotgd 1.1.2 DragonPrime Edition
  * @package Core
  * @subpackage Library

@@ -4,7 +4,7 @@
 // mail ready
 
 function sanitize($in){
-	$out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*AabicnHw]/", "", $in);
+	$out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*AabicnHW(s\[\]fhzZrudDSoOBICU€N?*+-_9]/", "", $in);
 	return $out;
 }
 
@@ -14,14 +14,14 @@ function newline_sanitize($in){
 }
 
 function color_sanitize($in){
-	$out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*Aabi]/", "", $in);
+	$out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*AabicHW(s\[\]fhzZrudDSoOBICU€N?*+-_9]/", "", $in);
 	return $out;
 }
 
 function comment_sanitize($in) {
 	// to keep the regexp from boinging this, we need to make sure
 	// that we're not replacing in with the ` mark.
-	$out=preg_replace("/[`](?=[^1234567890!@#\$%^&)~QqRVvGgTteEjJlLxXyYkKpPmM?*Aa])/", chr(1).chr(1), $in);
+	$out=preg_replace("/[`](?=[^1234567890!@#\$%^&)~QqRVvGgTteEjJlLxXyYkKpPmM?*AaW(s\[\]fhzZrudDSoOBICU€N?*+-_9])/", chr(1).chr(1), $in);
 	$out = str_replace(chr(1),"`",$out);
 	return $out;
 }
@@ -46,10 +46,8 @@ function cmd_sanitize($in) {
 }
 
 function comscroll_sanitize($in) {
-	$out = preg_replace("'&c(omscroll)?=([[:digit:]]|-)*'", "", $in);
-	$out = preg_replace("'\\?c(omscroll)?=([[:digit:]]|-)*'", "?", $out);
-	$out = preg_replace("'&(refresh|comment)=1'", "", $out);
-	$out = preg_replace("'\\?(refresh|comment)=1'", "?", $out);
+	$out = preg_replace("'[&]?c(omscroll)?=([[:digit:]]|-)*'", "", $in);
+	$out = preg_replace("'[&]?(refresh|comment)=1'", "", $out);
 	return $out;
 }
 
@@ -104,9 +102,9 @@ function sanitize_colorname($spaceallowed, $inname, $admin = false)
 {
 	if ($admin && getsetting("allowoddadminrenames", 0)) return $inname;
 	if ($spaceallowed)
-		$expr = "([^[:alpha:]`!@#$%^&\\)12345670 _-])";
+		$expr = "([^[:alpha:]`!@#$%^&\\)123456780 _-])";
 	else
-		$expr = "([^[:alpha:]`!@#$%^&\\)12345670])";
+		$expr = "([^[:alpha:]`!@#$%^&\\)123456780])";
 	return preg_replace($expr, "", $inname);
 }
 

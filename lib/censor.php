@@ -16,7 +16,7 @@ function soap($input,$debug=false,$skiphook=false){
 		$search = nasty_word_list();
 		$exceptions = array_flip(good_word_list());
 		$changed_content = false;
-		while (list($key,$word)=each($search)){
+		foreach ($search as $word) {
 			do {
 				if ($word > "")
 					$times = preg_match_all($word,$output,$matches);

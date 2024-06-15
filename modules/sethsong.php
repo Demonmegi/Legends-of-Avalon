@@ -171,7 +171,7 @@ function sethsong_sing()
 		$session['user']['turns']++;
 		break;
 	case 3:
-		output("Gather 'round and I'll tell you a tale`nmost terrible and dark`nof %s`^ and his unclean beer`nand how he hates this bard!`n`n", getsetting('barkeep', '`tCedrik'));
+		output("Gather 'round and I'll tell you a tale`nmost terrible and dark`nof %s`0 and his unclean beer`nand how he hates this bard!`n`n", getsetting('barkeep', '`tCedrik'));
 		output("`0You realize he's right, %s`0's beer really is nasty.", getsetting('barkeep', '`tCedrik'));
 		output("That's why most patrons prefer his ale.");
 		output("Though you don't really gain anything from the tale from %s`0, you do happen to notice a few gold on the ground!", getsetting("bard", "`^Seth"));
@@ -225,7 +225,7 @@ function sethsong_sing()
 		$gems=e_rand($leastgems,$mostgems);
 		output("What do you call a fish with no eyes?`n`n");
 		output("A fsshh.`n`n");
-		output("`0You groan as %s`0 laughs heartily.", getsetting("bard", "`^Seth"));
+		output("You groan as %s`0 laughs heartily.", getsetting("bard", "`^Seth"));
 		if($gems==0){
 			output("Shaking your head, you turn to go back to the inn.");
 		}

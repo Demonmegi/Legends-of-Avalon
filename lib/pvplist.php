@@ -67,6 +67,9 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 	rawoutput("<tr class='trhead'><td>$n</td><td>$l</td><td>$loc</td><td>$ops</td></tr>");
 	$loc_counts = array();
 	$num = count($pvp);
+
+	require_once('lib/clan/func.php');
+
 	$j = 0;
 	for ($i=0;$i<$num;$i++){
 		$row = $pvp[$i];
@@ -83,8 +86,8 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 		rawoutput("<td>");
 		if ($row['clanshort']>"" && $row['clanrank'] > CLAN_APPLICANT) {
 			output_notl("%s&lt;`2%s%s&gt;`0 ",
-					$clanrankcolors[$row['clanrank']], $row['clanshort'],
-					$clanrankcolors[$row['clanrank']], true);
+					clan_rankcolor($row['clanrank']), $row['clanshort'],
+					clan_rankcolor($row['clanrank']), true);
 		}
 		output_notl("`@%s`0", $row['name']);
 		rawoutput("</td>");

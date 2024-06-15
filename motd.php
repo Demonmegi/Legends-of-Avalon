@@ -2,7 +2,7 @@
 // addnews ready
 // translator ready
 // mail ready
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 define("OVERRIDE_FORCED_NAV",true);
 require_once("common.php");
 require_once("lib/commentary.php");
@@ -16,7 +16,7 @@ $op = httpget('op');
 $id = httpget('id');
 
 addcommentary();
-popup_header("LoA Message of the Day (MoTD)");
+popup_header("LoGD Message of the Day (MoTD)");
 
 if ($session['user']['superuser'] & SU_POST_MOTD) {
 	$addm = translate_inline("Add MoTD");
@@ -105,7 +105,7 @@ if ($op=="") {
 	rawoutput(" <input type='submit' value='".translate_inline("Submit")."' class='button'>");
 	rawoutput("</form>");
 
-	commentdisplay("`n`@Commentary:`0`n", "motd");
+	if (isset($session) && $session['user']['acctid']>0) commentdisplay("`n`@Commentary:`0`n", "motd");
 }
 
 $session['needtoviewmotd']=false;

@@ -8,8 +8,26 @@ require_once("lib/sanitize.php");
 
 function systemmail($to,$subject,$body,$from=0,$noemail=false){
 	global $session;
+	$mailstuff = modulehook('systemmail', array(
+		'to'			=> $to,
+		'from'		=> $from,
+		'subject'	=> $subject,
+		'body'		=> $body,
+		'disallow'	=> false
+		));
+
+	if($mailstuff['disallow'] == true) {
+		return;
+	}
+
+	$to = $mailstuff['to'];
+	$from = $mailstuff['from'];
+	$body = $mailstuff['body'];
+	$subject = $mailstuff['subject'];
+
 	$sql = "SELECT prefs,emailaddress FROM " . db_prefix("accounts") . " WHERE acctid='$to'";
 	$result = db_query($sql);
+	if (db_num_rows($result)==0) return false;
 	$row = db_fetch_assoc($result);
 	db_free_result($result);
 	$prefs = unserialize($row['prefs']);
@@ -37,16 +55,22 @@ function systemmail($to,$subject,$body,$from=0,$noemail=false){
 		}
 	}
 
-	$sql = "INSERT INTO " . db_prefix("mail") . " (msgfrom,msgto,subject,body,sent,originator) VALUES ('".$from."','".(int)$to."','$subject','$body','".date("Y-m-d H:i:s")."', ".($session['user']['acctid']).")";
+	$originator = (int)$session['user']['acctid'];
+	
+	$sql = "INSERT INTO " . db_prefix("mail") . " (msgfrom,msgto,subject,body,sent,originator) VALUES ('".$from."','".(int)$to."','$subject','$body','".date("Y-m-d H:i:s")."', " . $originator . ")";
+
 	db_query($sql);
 	invalidatedatacache("mail-$to");
 	$email=false;
 	if (isset($prefs['emailonmail']) && $prefs['emailonmail'] && $from>0){
 		$email=true;
-	}elseif(isset($prefs['emailonmail']) && $prefs['emailonmail'] &&
-			$from==0 && isset($prefs['systemmail']) && $prefs['systemmail']){
+	}elseif(isset($prefs['systemmail']) && $prefs['systemmail'] && $from==0){
 		$email=true;
 	}
+//	}elseif(isset($prefs['emailonmail']) && $prefs['emailonmail'] &&
+//			$from==0 && isset($prefs['systemmail']) && $prefs['systemmail']){
+//		$email=true;
+//	}
 	$emailadd = "";
 	if (isset($row['emailaddress'])) $emailadd = $row['emailaddress'];
 

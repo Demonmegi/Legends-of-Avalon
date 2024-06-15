@@ -164,9 +164,11 @@ function db_free_result($result){
 }
 
 function db_table_exists($tablename){
- 	if (defined("DB_NODB") && !defined("LINK")) return false;
+	if (defined("DB_NODB") && !defined("LINK")) return false;
 	$fname = DBTYPE."_query";
-	$exists = $fname("SELECT 1 FROM `$tablename` LIMIT 0");
+	$sql = "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = '" . VALIDDB_NAME . "' AND TABLE_TYPE LIKE 'BASE TABLE' AND TABLE_NAME = '" . $tablename . "'";
+	// $exists = $fname("SELECT 1 FROM `$tablename` LIMIT 0");
+	$exists = $fname($sql);
 	if ($exists) return true;
 	return false;
 }

@@ -57,7 +57,7 @@ function relativedate($indate){
 		$laston=translate_inline("Today");
 	elseif (date("Y-m-d",strtotime($laston)) == date("Y-m-d",strtotime("-1 day")))
 		$laston=translate_inline("Yesterday");
-	elseif (strpos($indate,"0000-00-00")!==false)
+	elseif (strpos($indate,"0001-01-01")!==false)
 		$laston = translate_inline("Never");
 	else {
 		$laston= sprintf_translate("%s days", round((strtotime("now")-strtotime($indate)) / 86400,0));
@@ -72,18 +72,16 @@ function checkday() {
 	if ($session['user']['loggedin']){
 		output_notl("<!--CheckNewDay()-->",true);
 		if(is_new_day()){
-			$post = $_POST;
-			unset($post['i_am_a_hack']);
-			if (count($post) > 0){
-				$session['user']['lasthit'] = "0000-00-00 00:00:00";
-				return;
-			} else {
-				$session=$revertsession;
-				$session['user']['restorepage']=$REQUEST_URI;
-				$session['allowednavs']=array();
-				addnav("","newday.php");
-				redirect("newday.php");
+			if (isset($_POST)) {
+				$postdata=serialize($_POST);
+				set_module_pref("lastpostvalues",$postdata,"gameoptions");
 			}
+	
+			$session=$revertsession;
+			$session['user']['restorepage']=$REQUEST_URI;
+			$session['allowednavs']=array();
+			addnav("","newday.php");
+			redirect("newday.php");
 		}
 	}
 }
@@ -91,7 +89,7 @@ function checkday() {
 function is_new_day($now=0){
 	global $session;
 
-	if ($session['user']['lasthit'] == "0000-00-00 00:00:00") {
+	if ($session['user']['lasthit'] == "0001-01-01 00:00:00") {
 		return true;
 	}
 	$t1 = gametime();

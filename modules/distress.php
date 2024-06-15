@@ -2,6 +2,7 @@
 //addnews ready
 // mail ready
 // translator ready
+//'only once a day'- modification by Orianna
 function distress_getmoduleinfo(){
 	$info = array(
 		"name"=>"Damsel In Distress",
@@ -9,20 +10,40 @@ function distress_getmoduleinfo(){
 		"author"=>"Joe Naylor and Matt Clift",
 		"category"=>"Forest Specials",
 		"download"=>"core_module",
+		"settings"=>array(
+			"Damsel In Distress - Main,title",
+			"findchance"=>"Chance of encountering?,int|70",			
+		),				
+	"prefs"=>array(	
+			"happened"=>"Already happened today?,bool|0"				
+		),
 	);
 	return $info;
 }
 
 function distress_install(){
-	module_addeventhook("forest", "return 100;");
+ 	module_addhook("newday");
+	//module_addeventhook("forest", "return 100;");
+	module_addeventhook("forest", "require_once(\"modules/distress.php\"); return distress_test();");
 	return true;
 }
 
 function distress_uninstall(){
 	return true;
 }
-
+function distress_test(){
+	global $session;		
+	$chance = get_module_setting("findchance","distress");	
+	if (get_module_pref("happened","distress") == 1) return 0; 	 
+	return $chance; 
+}
 function distress_dohook($hookname,$args){
+ global $session;
+	switch ($hookname) {
+		case "newday":	
+		set_module_pref("happened",0);	
+		break;
+	}
 	return $args;
 }
 
@@ -35,6 +56,10 @@ function distress_runevent($type)
 
 	$op = httpget('op');
 	if ($op == "" || $op == "search") {
+		$him = translate_inline("him");
+		$her = translate_inline("her");
+		set_module_pref("happened",1);
+		
 		output("`n`3While searching through the forest, you find a man lying face down in the dirt.");
 		output("The arrow in his back, the pool of blood, and the lack of movement are good indications this man is dead.`n`n");
 		output("`3While searching his body, you find a crumpled piece of paper, tightly clenched within his fist.");
@@ -42,13 +67,9 @@ function distress_runevent($type)
 		output("The note reads:`n`n");
 		output("`3\"`7Help! I have been imprisoned by my horrid old Uncle. He plans to force me to marry. Please save me! I am being held at ...`3\"`n`n");
 		output("`3The rest of the note is either too bloody or too badly damaged to read.`n`n");
-		if ($session['user']['sex']) {
-			output("`3Outraged you cry, \"`7I must save him!`3\"");
-		} else {
-			output("`3Outraged you cry, \"`7I must save her!`3\"");
-		}
+		output("`3Outraged you cry, \"`7I must save %s!`3\"", $session['user']['sex']==SEX_MALE?$her:$him);
 		output("But where will you go?`n`n");
-
+		
 		addnav("Go to");
 		addnav("Wyvern Keep", $from . "op=1");
 		addnav("Castle Slaag", $from . "op=2");
@@ -56,13 +77,14 @@ function distress_runevent($type)
 		addnav("Ignore it", $from . "op=no");
 	} elseif ($op == 'no') {
 		output("`3You crumple the note up and toss it into the trees.");
-		if ($session['user']['sex']) {
-			output("You're not afraid, he's just not worth your time.");
-		} else {
-			output("You're not afraid, she's just not worth your time.");
-		}
+		$he = translate_inline("he");
+		$she = translate_inline("she");
+		$man = translate_inline("man");
+		$maiden = translate_inline("maiden");
+
+		output("You're not afraid, %s's just not worth your time.", $session['user']['sex']==SEX_MALE?$she:$he);
 		output("Nope, not afraid at all, no way.");
-		output("You turn your back on the poor distressed %s's pitiful cry for help, and set off through the trees to find something a little less danger- ...er, a little more challenging.`n`n", translate_inline($session['user']['sex']?"man":"maiden"));
+		output("You turn your back on the poor distressed %s's pitiful cry for help, and set off through the trees to find something a little less danger- ...er, a little more challenging.`n`n", $session['user']['sex']==SEX_MALE?$maiden:$man);
 		$session['user']['specialinc']="";
 	} else {
 		switch ($op) {
@@ -85,9 +107,12 @@ function distress_runevent($type)
 			} else {
 				output("\"`#Oh, you came!`3\" she beams.");
 			}
-			output("\"`#%s, how can I ever thank you?`3\"`n`n",
-					translate_inline($session['user']['sex']?"Heroine":"Hero"));
-			output("After a few hours in each other's arms, you leave the %s side and go on your way.", translate_inline($session['user']['sex']?"prince's":"princess'"));
+			$hero = translate_inline("Hero");
+			$heroine = translate_inline("Heroine");
+			output("\"`#%s, how can I ever thank you?`3\"`n`n", $session['user']['sex']?$heroine:$hero);
+			$princes = translate_inline("prince's");
+			$princesss = translate_inline("princess'");
+			output("After a few hours in each other's arms, you leave the %s side and go on your way.", $session['user']['sex']?$princes:$princesss);
 			if ($session['user']['sex']) {
 				output("He insists that you take a small token of his appreciation.");
 			} else {
@@ -188,10 +213,12 @@ function distress_runevent($type)
 			output("`%You have died!`n`n");
 			output("`3The life lesson learned here balances any experience you would have lost.`n");
 			output("You may continue playing again tomorrow.");
-			$session['user']['alive']=false;
+			$session['user']['alive']=0;
 			$session['user']['hitpoints']=0;
 			addnav("Daily News","news.php");
-			addnews("`%%s`3 was slain attempting to rescue a %s from `#%s`3.", $session['user']['name'], translate_inline($session['user']['sex']?"prince":"princess"), $loc);
+			$prince = translate_inline("a prince");
+			$princess = translate_inline("a princess");
+			addnews("`%%s`3 was slain attempting to rescue %s from `#%s`3.", $session['user']['name'], $session['user']['sex']?$prince:$princess, $loc);
 			break;
 		case 9:
 			output("`3A fierce fight ensues, and you put forth a valiant effort!");
@@ -199,14 +226,15 @@ function distress_runevent($type)
 			output("The last thing the denizens of `#%s`3 see is your backside, fleeing into the forest.`n`n", $loc);
 			output("`%You lose a forest fight!`n");
 			output("`%You lose most of your hitpoints!`n");
-			if ($session['user']['turns']>0)
+			if ($session['user']['turns']>0) {
 				$session['user']['turns']--;
-			if ($session['user']['hitpoints'] >
-					($session['user']['hitpoints']*.1))
-				$session['user']['hitpoints'] =
-					round($session['user']['hitpoints']*.1,0);
-			if ($session['user']['hitpoints'] < 1)
+			}
+			if ($session['user']['hitpoints'] >	($session['user']['hitpoints']*.1)) {
+				$session['user']['hitpoints'] = round($session['user']['hitpoints']*.1,0);
+			}
+			if ($session['user']['hitpoints'] < 1) {
 				$session['user']['hitpoints']=1;
+			}
 			break;
 		case 10:
 			output("`3Finally you open what looks like a likely door and spy a well furnished chamber.`n`n");

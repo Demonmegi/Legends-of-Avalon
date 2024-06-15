@@ -37,7 +37,12 @@ if (file_exists("dbconnect.php")){
 	tip("Do you want to use a datacache for the sql queries? Many internal queries produce the same results and can be cached. This feature is *highly* recommended to use as the MySQL server is usually high frequented. When using in an environment where Safe Mode is enabled; this needs to be a path that has the same UID as the web server runs.");
 
 	output("`nIf yes, what is the path to the datacache directory?`n");
-	rawoutput("<input name='DB_DATACACHEPATH' value=\"".htmlentities($session['dbinfo']['DB_DATACACHEPATH'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
+	
+	if (isset($session['dbinfo']['DB_DATACACHEPATH'])) {
+		rawoutput("<input name='DB_DATACACHEPATH' value=\"".htmlentities($session['dbinfo']['DB_DATACACHEPATH'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
+	} else {
+		rawoutput("<input name='DB_DATACACHEPATH' value=\"\">");
+	}
 	tip("If you have chosen to use the datacache function, you have to enter a path here to where temporary files may be stored. Verify that you have the proper permission (777) set to this folder, else you will have lots of errors. Do NOT end with a slash / ... just enter the dir");
 
 	/*

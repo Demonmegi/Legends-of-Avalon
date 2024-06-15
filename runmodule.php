@@ -3,7 +3,7 @@
 // addnews ready
 // mail ready
 
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 define("OVERRIDE_FORCED_NAV",true);
 
 require_once("lib/http.php");

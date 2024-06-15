@@ -3,6 +3,45 @@
 // addnews ready
 // mail ready
 
+// workaround for register_globals PHP 5.4:
+
+/**
+ * function to emulate the register_globals setting in PHP
+ * for all of those diehard fans of possibly harmful PHP settings :-)
+ * @author Ruquay K Calloway
+ * @param string $order order in which to register the globals, e.g. 'egpcs' for default
+ */
+function register_globals($order = 'egpcs')
+{
+    // define a subroutine
+    if(!function_exists('register_global_array'))
+    {
+        function register_global_array(array $superglobal)
+        {
+            foreach($superglobal as $varname => $value)
+            {
+                global $$varname;
+                $$varname = $value;
+            }
+        }
+    }
+
+    $order = explode("\r\n", trim(chunk_split($order, 1)));
+    foreach($order as $k)
+    {
+        switch(strtolower($k))
+        {
+            case 'e':    register_global_array($_ENV);        break;
+            case 'g':    register_global_array($_GET);        break;
+            case 'p':    register_global_array($_POST);        break;
+            case 'c':    register_global_array($_COOKIE);    break;
+            case 's':    register_global_array($_SERVER);    break;
+        }
+    }
+}
+register_globals();
+
+
 // **** NOTICE ****
 // This series of scripts (collectively known as Legend of the Green Dragon
 // or LotGD) is copyright as per below.
@@ -36,7 +75,7 @@ $license = "\n<!-- Creative Commons License -->\n<a rel='license' href='http://c
 // work.  This license text may not be removed nor altered in any way.
 // Please see the file LICENSE for a full textual description of the license.
 
-$logd_version = "1.1.2 Dragonprime Edition";
+$logd_version = "1.2.0 Dragonprime Edition";
 
 //start the gzip compression
 //ob_start('ob_gzhandler');
@@ -120,8 +159,12 @@ if (file_exists("dbconnect.php")){
 // For more details, see
 // http://php.net/manual/en/features.persistent-connections.php
 //
-//$link = db_pconnect($DB_HOST, $DB_USER, $DB_PASS);
-$link = db_connect($DB_HOST, $DB_USER, $DB_PASS);
+if (!defined("DB_NODB")) {
+	$link = db_connect($DB_HOST, $DB_USER, $DB_PASS);
+	define("VALIDDB_NAME",$DB_NAME);
+}
+else $link=false;
+//$link = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS);
 
 $out = ob_get_contents();
 ob_end_clean();
@@ -131,7 +174,6 @@ unset($DB_PASS);
 
 if ($link===false){
  	if (!defined("IS_INSTALLER")){
-		echo $out;
 		// Ignore this bit.  It's only really for Eric's server
 		if (file_exists("lib/smsnotify.php")) {
 			$smsmessage = "No DB Server: " . db_error();
@@ -168,13 +210,16 @@ if (!DB_CONNECTED || !db_select_db ($DB_NAME)){
 	define("LINK",$link);
 	define("DB_CHOSEN",true);
 }
-if ($logd_version == getsetting("installer_version","-1")) {
-	define("IS_INSTALLER", false);
+if (DB_CONNECTED && $logd_version == getsetting("installer_version","-1")) {
+	if (!defined("IS_INSTALLER")) define("IS_INSTALLER", false);
+}
+else {
+	if (!defined("IS_INSTALLER")) define("IS_INSTALLER", true);
 }
 
 header("Content-Type: text/html; charset=".getsetting('charset','ISO-8859-1'));
 
-if (strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds") > $session['lasthit'] && $session['lasthit']>0 && $session['loggedin']){
+if (isset($session['lasthit']) && isset($session['loggedin']) && strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds") > $session['lasthit'] && $session['lasthit']>0 && $session['loggedin']){
 	// force the abandoning of the session when the user should have been
 	// sent to the fields.
 	$session=array();
@@ -235,10 +280,12 @@ if ($logd_version != getsetting("installer_version","-1") && !defined("IS_INSTAL
 	page_footer();
 }
 
-if ($session['user']['hitpoints']>0){
-	$session['user']['alive']=true;
+// debug($session['user']);
+
+if (isset($session['user']['hitpoints']) && $session['user']['hitpoints']>0){
+	$session['user']['alive']=1;
 }else{
-	$session['user']['alive']=false;
+	$session['user']['alive']=0;
 }
 
 if (isset($session['user']['bufflist']))
@@ -246,9 +293,9 @@ if (isset($session['user']['bufflist']))
 else
 	$session['bufflist'] = array();
 if (!is_array($session['bufflist'])) $session['bufflist']=array();
-$session['user']['lastip']=$REMOTE_ADDR;
-if (strlen($_COOKIE['lgi'])<32){
-	if (strlen($session['user']['uniqueid'])<32){
+if (isset($REMOTE_ADDR)) $session['user']['lastip']=$REMOTE_ADDR;
+if (isset($_COOKIE['lgi']) && strlen($_COOKIE['lgi'])<32){
+	if (isset($session['user']['uniqueid']) && strlen($session['user']['uniqueid'])<32){
 		$u=md5(microtime());
 		setcookie("lgi",$u,strtotime("+365 days"));
 		$_COOKIE['lgi']=$u;
@@ -257,11 +304,16 @@ if (strlen($_COOKIE['lgi'])<32){
 		setcookie("lgi",$session['user']['uniqueid'],strtotime("+365 days"));
 	}
 }else{
-	$session['user']['uniqueid']=$_COOKIE['lgi'];
+	if (isset($_COOKIE['lgi'])) $session['user']['uniqueid']=$_COOKIE['lgi'];
 }
-$url = "http://".$_SERVER['SERVER_NAME'].dirname($_SERVER['REQUEST_URI']);
+
+if (isset($_SERVER['SERVER_NAME']) && isset($_SERVER['REQUEST_URI'])) 
+	$url = "http://".$_SERVER['SERVER_NAME'].dirname($_SERVER['REQUEST_URI']);
+else $url = getsetting("serverurl","");
 $url = substr($url,0,strlen($url)-1);
-$urlport = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].dirname($_SERVER['REQUEST_URI']);
+if (isset($_SERVER['SERVER_NAME']) && isset($_SERVER['REQUEST_URI']) && isset($_SERVER['SERVER_PORT'])) 
+	$urlport = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].dirname($_SERVER['REQUEST_URI']);
+else $urlport = getsetting("serverurl","") . ":80";
 $urlport = substr($urlport,0,strlen($urlport)-1);
 
 if (!isset($_SERVER['HTTP_REFERER'])) $_SERVER['HTTP_REFERER'] = "";
@@ -344,37 +396,36 @@ if(is_array($temp_comp)) {
 unset($temp_comp);
 
 $beta = getsetting("beta", 0);
-if (!$beta && getsetting("betaperplayer", 1) == 1)
-	$beta = $session['user']['beta'];
-
-$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanid='{$session['user']['clanid']}'";
-$result = db_query_cached($sql, "clandata-{$session['user']['clanid']}", 3600);
-if (db_num_rows($result)>0){
-	$claninfo = db_fetch_assoc($result);
-}else{
-	$claninfo = array();
-	$session['user']['clanid']=0;
-	$session['user']['clanrank']=0;
+//Rohen, 12.04.2022 entfernt - nutzt Keiner
+ if (!$beta && getsetting("betaperplayer", 1) == 1 && isset($session['user']['beta']))
+ 	$beta = $session['user']['beta'];
+if (isset($session['user']['clanid'])) {
+	$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanid='{$session['user']['clanid']}'";
+	$result = db_query_cached($sql, "clandata-{$session['user']['clanid']}", 3600);
+	if (db_num_rows($result)>0){
+		$claninfo = db_fetch_assoc($result);
+	}else{
+		$claninfo = array();
+		$session['user']['clanid']=0;
+		$session['user']['clanrank']=0;
+	}
+	if ($session['user']['superuser'] & SU_MEGAUSER)
+		$session['user']['superuser'] =
+			$session['user']['superuser'] | SU_EDIT_USERS;
 }
-if ($session['user']['superuser'] & SU_MEGAUSER)
-	$session['user']['superuser'] =
-		$session['user']['superuser'] | SU_EDIT_USERS;
-
 translator_setup();
 //set up the error handler after the intial setup (since it does require a
 //db call for notification)
 require_once("lib/errorhandler.php");
 
 // WARNING:
-// do not hook on these modulehooks unless you really need your module to run
+// do not hook on this modulehook unless you really need your module to run
 // on every single page hit.  This is called even when the user is not
 // logged in!!!
 // This however is the only context where blockmodule can be called safely!
 // You should do as LITTLE as possible here and consider if you can hook on
 // a page header instead.
-modulehook("everyhit");
-if ($session['user']['loggedin']) {
-	modulehook("everyhit-loggedin");
-}
+//modulehook("everyhit");
+
 
 ?>

@@ -12,7 +12,7 @@ function get_player_title($old=false) {
 		if ($session['user']['ctitle']) $title = $session['user']['ctitle'];
 	} else {
 		$title = $old['title'];
-		if ($old['ctitle']) $title = $old['ctitle'];
+		if (isset($old['ctitle']) && $old['ctitle']) $title = $old['ctitle'];
 	}
 	return $title;
 }

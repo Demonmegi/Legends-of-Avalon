@@ -37,9 +37,9 @@ $basetext=array(
 	"nofeedgold"=>"`7You don't have enough gold with you to pay for the food. Merick refuses to feed your creature and advises you to look for somewhere else to let %s`7 graze for free, such as in the `@Forest`7.",
 	"confirmsale"=>"`n`n`7Merick whistles.  \"`&Yer mount shure is a foyne one, %s. Are ye sure ye wish t' part wae it?`7\"`n`nHe waits for your answer.`0",
 	"mountsold"=>"`7As sad as it is to do so, you give up your precious %s`7, and a lone tear escapes your eye.`n`nHowever, the moment you spot the %s, you find that you're feeling quite a bit better.",
-	"offer"=>"`n`n`&Merick offers you `^%s`& gold and `%%s`& gems for %s`7.",
-	"lass"=>"lass",
-	"lad"=>"lad",
+	"offer"=>"`n`nMerick offers you `^%s`& gold and `%%s`& gems for %s`7.",
+	"lad"=>"friend",
+	"lass"=>"friend",
 );
 $schemas = array(
 	'title'=>'stables',
@@ -58,6 +58,8 @@ $schemas = array(
 	'confirmsale'=>'stables',
 	'mountsold'=>'stables',
 	'offer'=>'stables',
+	'lad'=>'stables',
+	'lass'=>'stables',
 );
 $basetext['schemas']=$schemas;
 $texts = modulehook("stabletext", $basetext);
@@ -126,7 +128,7 @@ if ($op==""){
 	if ($session['user']['hashorse']) {
 		tlschema($schemas['confirmsale']);
 		output($texts['confirmsale'],
-				($session['user']['sex']?$texts["lass"]:$texts["lad"]));
+				(translate_inline($session['user']['sex']?$texts["lass"]:$texts["lad"], $session['user']['sex']?$schemas["lass"]:$schemas["lad"])));
 		tlschema();
 		addnav("Confirm trade");
 		addnav("Yes", "stables.php?op=confirmbuy&id=$id");
@@ -189,12 +191,12 @@ if ($op == 'confirmbuy') {
 	if (getsetting("allowfeed", 0) == 0) {
 		tlschema($schemas['nofeed']);
 		output($texts['nofeed'],
-				($session['user']['sex']?$texts["lass"]:$texts["lad"]));
+				(translate_inline($session['user']['sex']?$texts["lass"]:$texts["lad"], $session['user']['sex']?$schemas["lass"]:$schemas["lad"])));
 		tlschema();
 	} elseif($session['user']['gold']>=$grubprice) {
 		$buff = unserialize($playermount['mountbuff']);
-		if (!isset($buff['schema']) || $buff['schema'] == "") $buff['schema'] = "mounts";
-		if (isset($session['bufflist']['mount']) && $session['bufflist']['mount']['rounds'] == $buff['rounds']) {
+			if (!isset($buff['schema']) || $buff['schema'] == "") $buff['schema'] = "mounts";
+			if (isset($session['bufflist']['mount']) && $session['bufflist']['mount']['rounds'] == $buff['rounds']) {
 			tlschema($schemas['nothungry']);
 			output($texts['nothungry'],$name);
 			tlschema();
@@ -216,7 +218,7 @@ if ($op == 'confirmbuy') {
 			$session['user']['fedmount'] = 1;
 			tlschema($schemas['mountfull']);
 			output($texts['mountfull'],
-				($session['user']['sex']?$texts["lass"]:$texts["lad"]),
+				(translate_inline($session['user']['sex']?$texts["lass"]:$texts["lad"], $session['user']['sex']?$schemas["lass"]:$schemas["lad"])),
 				($playermount['basename']?
 				 $playermount['basename']:$playermount['mountname']));
 			tlschema();
@@ -229,7 +231,7 @@ if ($op == 'confirmbuy') {
 }elseif($op=='sellmount'){
 	tlschema($schemas['confirmsale']);
 	output($texts['confirmsale'],
-			($session['user']['sex']?$texts["lass"]:$texts["lad"]));
+			($session['user']['sex']?$texts['lass']:$texts['lad']));
 	tlschema();
 	addnav("Confirm sale");
 	addnav("Yes", "stables.php?op=confirmsell");
@@ -295,12 +297,6 @@ if ($confirm == 0) {
 			addnav(array("Examine %s`0", $row['mountname']),"stables.php?op=examine&id={$row['mountid']}");
 	}
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/stables.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
 
 page_footer();
 ?>

@@ -31,46 +31,48 @@ if ($display == 1){
 	addnav("","user.php?sort=uniqueid$q");
 	$rn=0;
 	$oorder = "";
-	$number3=db_num_rows($searchresult);
-	for ($i=0;$i<$number3;$i++){
-		$row=db_fetch_assoc($searchresult);
-		$laston = relativedate($row['laston']);
-		$loggedin =
-			(date("U") - strtotime($row['laston']) <
-			 getsetting("LOGINTIMEOUT",900) && $row['loggedin']);
-		if ($loggedin)
-			$laston=translate_inline("`#Online`0");
-		$row['laston']=$laston;
-		if ($row[$order]!=$oorder) $rn++;
-		$oorder = $row[$order];
-		rawoutput("<tr class='".($rn%2?"trlight":"trdark")."'>");
-		rawoutput("<td nowrap>");
-		rawoutput("[ <a href='user.php?op=edit&userid={$row['acctid']}$m'>$ed</a> | <a href='user.php?op=del&userid={$row['acctid']}' onClick=\"return confirm('$conf');\">$del</a> | <a href='user.php?op=setupban&userid={$row['acctid']}'>$ban</a> | <a href='user.php?op=debuglog&userid={$row['acctid']}'>$log</a> ]");
-		addnav("","user.php?op=edit&userid={$row['acctid']}$m");
-		addnav("","user.php?op=del&userid={$row['acctid']}");
-		addnav("","user.php?op=setupban&userid={$row['acctid']}");
-		addnav("","user.php?op=debuglog&userid={$row['acctid']}");
-		rawoutput("</td><td>");
-		output_notl("%s", $row['acctid']);
-		rawoutput("</td><td>");
-		output_notl("%s", $row['login']);
-		rawoutput("</td><td>");
-		output_notl("`&%s`0", $row['name']);
-		rawoutput("</td><td>");
-		output_notl("`^%s`0", $row['level']);
-		rawoutput("</td><td>");
-		output_notl("%s", $row['laston']);
-		rawoutput("</td><td>");
-		output_notl("%s", $row['gentimecount']);
-		rawoutput("</td><td>");
-		output_notl("%s", $row['lastip']);
-		rawoutput("</td><td>");
-		output_notl("%s", $row['uniqueid']);
-		rawoutput("</td><td>");
-		output_notl("%s", $row['emailaddress']);
-		rawoutput("</td></tr>");
-		$gentimecount+=$row['gentimecount'];
-		$gentime+=$row['gentime'];
+	if (is_object(($searchresult))) {
+		$number3=db_num_rows($searchresult);
+		for ($i=0;$i<$number3;$i++){
+			$row=db_fetch_assoc($searchresult);
+			$laston = relativedate($row['laston']);
+			$loggedin =
+				(date("U") - strtotime($row['laston']) <
+				getsetting("LOGINTIMEOUT",900) && $row['loggedin']);
+			if ($loggedin)
+				$laston=translate_inline("`#Online`0");
+			$row['laston']=$laston;
+			if ($row[$order]!=$oorder) $rn++;
+			$oorder = $row[$order];
+			rawoutput("<tr class='".($rn%2?"trlight":"trdark")."'>");
+			rawoutput("<td nowrap>");
+			rawoutput("[ <a href='user.php?op=edit&userid={$row['acctid']}$m'>$ed</a> | <a href='user.php?op=del&userid={$row['acctid']}' onClick=\"return confirm('$conf');\">$del</a> | <a href='user.php?op=setupban&userid={$row['acctid']}'>$ban</a> | <a href='user.php?op=debuglog&userid={$row['acctid']}'>$log</a> ]");
+			addnav("","user.php?op=edit&userid={$row['acctid']}$m");
+			addnav("","user.php?op=del&userid={$row['acctid']}");
+			addnav("","user.php?op=setupban&userid={$row['acctid']}");
+			addnav("","user.php?op=debuglog&userid={$row['acctid']}");
+			rawoutput("</td><td>");
+			output_notl("%s", $row['acctid']);
+			rawoutput("</td><td>");
+			output_notl("%s", $row['login']);
+			rawoutput("</td><td>");
+			output_notl("`&%s`0", $row['name']);
+			rawoutput("</td><td>");
+			output_notl("`^%s`0", $row['level']);
+			rawoutput("</td><td>");
+			output_notl("%s", $row['laston']);
+			rawoutput("</td><td>");
+			output_notl("%s", $row['gentimecount']);
+			rawoutput("</td><td>");
+			output_notl("%s", $row['lastip']);
+			rawoutput("</td><td>");
+			output_notl("%s", $row['uniqueid']);
+			rawoutput("</td><td>");
+			output_notl("%s", $row['emailaddress']);
+			rawoutput("</td></tr>");
+			$gentimecount+=$row['gentimecount'];
+			$gentime+=$row['gentime'];
+		}
 	}
 	rawoutput("</table>");
 	output("Total hits: %s`n", $gentimecount);

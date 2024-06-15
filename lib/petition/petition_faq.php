@@ -25,8 +25,6 @@ $t = translate_inline("`@Frequently Asked Questions on Game Play (with spoilers)
 output_notl("&#149;<a href='petition.php?op=faq2'>%s</a><br/>", $t, true);
 $t = translate_inline("`@Frequently Asked Questions on Technical Issues`0");
 output_notl("&#149;<a href='petition.php?op=faq3'>%s</a><br/>", $t, true);
-$t = translate_inline("`@Anleitung wie Text formatiert wird`0");
-output_notl("&#149;<a href='petition.php?op=faq4'>%s</a><br/>", $t, true);
 modulehook("faq-toc");
 modulehook("faq-posttoc");
 output("`nThank you,`nthe Management.`n");

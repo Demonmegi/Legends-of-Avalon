@@ -82,8 +82,7 @@ if ($op=="deactivate"){
 		$buff = array();
 		$mount = httppost('mount');
 		if ($mount) {
-			reset($mount['mountbuff']);
-			while (list($key,$val)=each($mount['mountbuff'])){
+			foreach ($mount['mountbuff'] as $key=>$val) {
 				if ($val>""){
 					$buff[$key]=stripslashes($val);
 				}
@@ -111,8 +110,7 @@ if ($op=="deactivate"){
 		// Save modules settings
 		$module = httpget("module");
 		$post = httpallpost();
-		reset($post);
-		while(list($key, $val) = each($post)) {
+		foreach ($post as $key=>$val) {
 			set_module_objpref("mounts", $id, $key, $val, $module);
 		}
 		output("`^Saved!`0`n");

@@ -35,7 +35,7 @@ switch ($mode)
 		$sql= "SELECT  count(  tid  )  AS counter, ".$minmax."(tid) as tid, intext, uri,language FROM ".db_prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
 		$result = db_query($sql);
 		output("Now there are %s rows who are still non-unique",db_num_rows($result));
-		if (db_num_rows($result)>0) output("`n`n`bYou have to repeat the operation to kill the non-unique rows who are still left.`b");
+		if (db_num_rows($result)>0) output("`n`n`bYou have to repeat the operation to kill the non-unique rows who are still left.");
 	break;
 
 	case "listing":  //if the user hits the button to work on a list, one by one

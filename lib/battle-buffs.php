@@ -5,12 +5,13 @@
 /**
  *
  * 
- * @copyright Copyright Â© 2002-2005, Eric Stevens & JT Traub, Â© 2006-2009, Dragonprime Development Team
+ * @copyright Copyright © 2002-2005, Eric Stevens & JT Traub, © 2006-2009, Dragonprime Development Team
  * @version Lotgd 1.1.2 DragonPrime Edition
  * @package Core
  * @subpackage Library
  * @license http://creativecommons.org/licenses/by-nc-sa/2.0/legalcode
  */
+
 
 require_once("lib/substitute.php");
 
@@ -30,6 +31,7 @@ function activate_buffs($tag) {
 	$result['badguydefmod'] = 1;
 	$result['lifetap'] = array();
 	$result['dmgshield'] = array();
+
 
 	foreach($session['bufflist'] as $key=>$buff) {
 		if (array_key_exists('suspended',$buff) && $buff['suspended']) continue;
@@ -56,7 +58,9 @@ function activate_buffs($tag) {
 			if (isset($buff['invulnerable']) && $buff['invulnerable'])
 				$activate = true;
 			if (isset($buff['atkmod'])) $activate = true;
+			if (isset($buff['compatkmod'])) $activate = true;
 			if (isset($buff['dmgmod'])) $activate = true;
+			if (isset($buff['comdmgkmod'])) $activate = true;
 			if (isset($buff['badguydefmod'])) $activate = true;
 			if (isset($buff['lifetap'])) $activate = true;
 			if (isset($buff['damageshield'])) $activate = true;
@@ -64,6 +68,7 @@ function activate_buffs($tag) {
 			if (isset($buff['invulnerable']) && $buff['invulnerable'])
 				$activate = true;
 			if (isset($buff['defmod'])) $activate = true;
+			if (isset($buff['compdefmod'])) $activate = true;
 			if (isset($buff['badguyatkmod'])) $activate = true;
 			if (isset($buff['badguydmgmod'])) $activate = true;
 			if (isset($buff['lifetap'])) $activate = true;
@@ -102,6 +107,9 @@ function activate_buffs($tag) {
 		if (isset($buff['badguyatkmod'])) {
 			$result['badguyatkmod'] *= $buff['badguyatkmod'];
 		}
+		if(isset($buff['compatkmod'])){
+			$result['compatkmod'] *= $buff['compatkmod'];
+		}
 		if (isset($buff['defmod'])) {
 			$result['defmod'] *= $buff['defmod'];
 			if (isset($buff['aura']) && $buff['aura']) {
@@ -111,6 +119,9 @@ function activate_buffs($tag) {
 		if (isset($buff['badguydefmod'])) {
 			$result['badguydefmod'] *= $buff['badguydefmod'];
 		}
+		if(isset($buff['compdefmod'])){
+			$result['compdefmod'] *= $buff['compdefmod'];
+		}
 		if (isset($buff['dmgmod'])) {
 			$result['dmgmod'] *= $buff['dmgmod'];
 			if (isset($buff['aura']) && $buff['aura']) {
@@ -119,6 +130,9 @@ function activate_buffs($tag) {
 		}
 		if (isset($buff['badguydmgmod'])) {
 			$result['badguydmgmod'] *= $buff['badguydmgmod'];
+		}
+		if(isset($buff['compdmgmod'])){
+			$result['compdmgmod'] *= $buff['compdmgmod'];
 		}
 		if (isset($buff['lifetap'])) {
 			array_push($result['lifetap'], $buff);
@@ -135,8 +149,9 @@ function activate_buffs($tag) {
 			$session['user']['hitpoints'] += $hptoregen;
 			// Now, take abs value just incase this was a damaging buff
 			$hptoregen = abs($hptoregen);
-			if ($hptoregen == 0) $msg = $buff['effectnodmgmsg'];
-			else $msg = $buff['effectmsg'];
+			if ($hptoregen == 0 && isset($buff['effectnodmgmsg'])) $msg = $buff['effectnodmgmsg'];
+			elseif (isset($buff['effectmsg'])) $msg = $buff['effectmsg'];
+			else $msg="";
 
 			if (is_array($msg)) {
 				$msg = sprintf_translate($msg);
@@ -175,7 +190,7 @@ function activate_buffs($tag) {
 						}
 						if (!$unset) $newcompanions[$name] = $companion;
 					}
-					$companions = $newcompanions; // Seemed to need this...
+					$companions = $newcompanions;
 				}
 			}
 		}
@@ -205,11 +220,13 @@ function activate_buffs($tag) {
 					$session['user']['hitpoints'] -= $damage;
 				}
 				if ($damage < 0) {
-					$msg = $buff['effectfailmsg'];
+					$msg = (isset($buff['effectfailmsg'])?$buff['effectfailmsg']:"");
 				} else if ($damage == 0) {
-					$msg = $buff['effectnodmgmsg'];
+					$msg = (isset($buff['effectnodmgmsg'])?$buff['effectnodmgmsg']:"");
+					// $msg = $buff['effectnodmgmsg'];
 				} else if ($damage > 0) {
-					$msg = $buff['effectmsg'];
+					$msg = (isset($buff['effectmsg'])?$buff['effectmsg']:"");
+					// $msg = $buff['effectmsg'];
 				}
 				if (is_array($msg)) {
 					$msg = sprintf_translate($msg);

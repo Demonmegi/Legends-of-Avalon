@@ -10,6 +10,7 @@ function drinks_run_private(){
 		drinks_editor();
 	}elseif ($act=="buy"){
 		$texts = drinks_gettexts();
+		$texts['module'] = httpget('caller');
 		$drinktext = modulehook("drinks-text",$texts);
 
 		tlschema($drinktext['schemas']['title']);

@@ -24,17 +24,17 @@ if ($subop=="xml"){
 	echo "</xml>";
 	exit();
 }
-	db_query("DELETE FROM " . db_prefix("bans") . " WHERE banexpire < \"".date("Y-m-d")."\" AND banexpire>'0000-00-00'");
+	db_query("DELETE FROM " . db_prefix("bans") . " WHERE banexpire < \"".date("Y-m-d")."\" AND banexpire>'0001-01-01'");
 $duration =  httpget("duration");
 if ($duration=="") {
-	$since = " WHERE banexpire <= '".date("Y-m-d H:i:s",strtotime("+2 weeks"))."' AND banexpire > '0000-00-00'";
+	$since = " WHERE banexpire <= '".date("Y-m-d H:i:s",strtotime("+2 weeks"))."' AND banexpire > '0001-01-01'";
 		output("`bShowing bans that will expire within 2 weeks.`b`n`n");
 }else{
 	if ($duration=="forever") {
 		$since="";
 		output("`bShowing all bans`b`n`n");
 	}else{
-		$since = " WHERE banexpire <= '".date("Y-m-d H:i:s",strtotime("+".$duration))."' AND banexpire > '0000-00-00'";
+		$since = " WHERE banexpire <= '".date("Y-m-d H:i:s",strtotime("+".$duration))."' AND banexpire > '0001-01-01'";
 		output("`bShowing bans that will expire within %s.`b`n`n",$duration);
 	}
 }
@@ -54,6 +54,7 @@ addnav("4 years","user.php?op=removeban&duration=4+years");
 addnav("Forever","user.php?op=removeban&duration=forever");
 $sql = "SELECT * FROM " . db_prefix("bans") . " $since ORDER BY banexpire";
 $result = db_query($sql);
+debug("SCRIPT STARTS");
 rawoutput("<script language='JavaScript'>
 function getUserInfo(ip,id,divid){
 	var filename='user.php?op=removeban&subop=xml&ip='+ip+'&id='+id;
@@ -77,6 +78,7 @@ function getUserInfo(ip,id,divid){
 }
 </script>
 ");
+debug("SCRIPT ENDS");
 rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
 $ops = translate_inline("Ops");
 $bauth = translate_inline("Ban Author");
@@ -111,7 +113,7 @@ while ($row = db_fetch_assoc($result)) {
 	if (date("Y-m-d",strtotime($row['banexpire'])) ==
 			date("Y-m-d",strtotime("1 day")))
 		$expire=translate_inline("Tomorrow");
-	if ($row['banexpire']=="0000-00-00")
+	if ($row['banexpire']=="0001-01-01")
 		$expire=translate_inline("Never");
 	output_notl("%s", $expire);
 	rawoutput("</td><td>");

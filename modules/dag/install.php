@@ -14,8 +14,7 @@ function dag_install_private(){
 	$result = db_query($sql);
 	$bountytableisthere=false;
 	while ($row = db_fetch_assoc($result)){
-		list($key,$val)=each($row);
-		if ($val==db_prefix("bounty")){
+		if (db_table_exists(db_prefix("bounty"))){
 			$bountytableisthere=true;
 			break;
 		}
@@ -29,15 +28,15 @@ function dag_install_private(){
 			amount int(11) unsigned NOT NULL default '0',
 			target int(11) unsigned NOT NULL default '0',
 			setter int(11) unsigned NOT NULL default '0',
-			setdate datetime NOT NULL default '0000-00-00 00:00:00',
+			setdate datetime NOT NULL default '0001-01-01 00:00:00',
 			status int(11) unsigned NOT NULL default '0',
 			winner int(11) unsigned NOT NULL default '0',
-			windate datetime NOT NULL default '0000-00-00 00:00:00',
+			windate datetime NOT NULL default '0001-01-01 00:00:00',
 			PRIMARY KEY (bountyid),
 			INDEX(status),
 			INDEX(target),
 			INDEX(status,target)
-		) Type=INNODB";
+		)";
 		db_query($sql);
 	}
 	//look to see if we're migrating bounties from the old system.

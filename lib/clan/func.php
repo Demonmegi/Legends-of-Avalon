@@ -6,8 +6,8 @@
  * that are specific to the clan
  * system.
  * 
- * @copyright Copyright Â© 2002-2005, Eric Stevens & JT Traub, Â© 2006-2009, Dragonprime Development Team
- * @version Lotgd 1.1.2 DragonPrime Edition
+ * @copyright Copyright © 2002-2005, Eric Stevens & JT Traub, © 2006-2007, Dragonprime Development Team
+ * @version Lotgd 1.1.1 DragonPrime Edition
  * @package Core
  * @subpackage Library
  * @license http://creativecommons.org/licenses/by-nc-sa/2.0/legalcode
@@ -46,4 +46,17 @@ function clan_previousrank($ranks,$current) {
 	}
 	return 0;
 }
+
+function clan_rankcolor($clanrank) {
+	if($clanrank > CLAN_LEADER) {
+		return "`\$";
+	} else if($clanrank > CLAN_OFFICER) {
+		return "`&";
+	} else if($clanrank > CLAN_MEMBER) {
+		return "`^";
+	} else {
+		return "`#";
+	}
+}
+
 ?>

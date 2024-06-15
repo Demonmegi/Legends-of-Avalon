@@ -21,7 +21,8 @@ if ($op=="" || $op=="sql"){
 	$sql = httppost('sql');
 	if ($sql != "") {
 		$sql = stripslashes($sql);
-		modulehook("rawsql-execsql",array("sql"=>$sql));
+		$ret=modulehook("rawsql-execsql",array("sql"=>$sql));
+		$sql = $ret['sql'];
 		debuglog('Ran Raw SQL: ' . $sql);
 		$r = db_query($sql, false);
 		if (!$r) {
@@ -70,12 +71,13 @@ if ($op=="" || $op=="sql"){
 		rawoutput(highlight_string("<?php\n$php\n?>",true));
 		rawoutput("</div>");
 		output("`bResults:`b`n");
-		modulehook("rawsql-execphp",array("php"=>$php));
+		//debuglog('Ran Raw PHP: ' . $php);
+		$ret=modulehook("rawsql-execphp",array("php"=>$php));
+		$php=$ret['php'];
 		ob_start();
 		eval($php);
 		output_notl(ob_get_contents(),true);
 		ob_end_clean();
-		debuglog('Ran Raw PHP: ' . $php);
 	}
 	output("`n`nType your code:");
 	$ret = modulehook("rawsql-modphp",array("php"=>$php));

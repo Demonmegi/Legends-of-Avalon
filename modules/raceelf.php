@@ -186,8 +186,10 @@ function raceelf_dohook($hookname,$args){
 					" WHERE acctid='$new'";
 				$result = db_query_cached($sql, "newest-$city");
 				$row = db_fetch_assoc($result);
-				$args['newestplayer'] = $row['name'];
-				$args['newestid']=$new;
+				if (is_array($row)) {
+					$args['newestplayer'] = $row['name'];
+					$args['newestid']=$new;
+				}
 			} else {
 				$args['newestplayer'] = $new;
 				$args['newestid']="";
@@ -239,12 +241,12 @@ function raceelf_dohook($hookname,$args){
 					array("`7You attempt bravado in the face of such arrogance, and thrust forward your %s for inspection.`n`n",$session['user']['weapon']),
 				);
 				$args['tradein'] = array(
-					array("`5Gadriel`7 takes your `5%s`7 and examines it again quitely. After some seconds he gives it back to you with a cold look in his eyes.", $session['user']['weapon']),
+					array("`5Gadriel`7 takes your `5%s`7 and examines it again quitely, then takes it to a rack behind him, setting it alongside several others.", $session['user']['weapon']),
 					array("`5\"`^%s`5 gold is all I can give you for this.\"`7, he says.`n`n", $tradeinvalue),
 				);
 			}
 			$args['schemas']['payweapon'] = "module-raceelf";
-			$args['payweapon'] = "Gadriel takes your `5%s`7 and puts it on a rack behind him. Then, with a flourish, he pick up a new `5%s`7, deftly demonstrating its use, before handing it to you with gallantry and grace.";
+			$args['payweapon'] = "Putting away your old `5%s`7, The Elven Ranger picks up your new `5%s`7 with a flourish, deftly demonstrating its use, before handing it to you with gallantry and grace.";
 		}
 		break;
 	}

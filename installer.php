@@ -1,21 +1,20 @@
 <?php
-
 //translator ready
 //addnews ready
 //mail ready
 
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 define("OVERRIDE_FORCED_NAV",true);
 define("IS_INSTALLER",true);
 if (!file_exists("dbconnect.php")){
 	define("DB_NODB",true);
 }
+
 require_once("common.php");
 if (file_exists("dbconnect.php")){
 	require_once("dbconnect.php");
 }
 $noinstallnavs=false;
-
 tlschema("installer");
 
 $stages=array(
@@ -116,7 +115,6 @@ if (file_exists("dbconnect.php") && (
 		$stage=6;
 	}
 if ($stage > $session['stagecompleted']) $session['stagecompleted'] = $stage;
-
 page_header("LoGD Installer &#151; %s",$stages[$stage]);
 switch($stage) {
 	case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10:

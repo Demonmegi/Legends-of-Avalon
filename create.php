@@ -2,7 +2,7 @@
 // translator ready
 // addnews ready
 // mail ready
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 require_once("common.php");
 require_once("lib/is_email.php");
 require_once("lib/checkban.php");
@@ -23,6 +23,7 @@ if ($op=="val"){
 	$result = db_query($sql);
 	if (db_num_rows($result)>0) {
 		$row = db_fetch_assoc($result);
+		modulehook("createvalidation");
 		$sql = "UPDATE " . db_prefix("accounts") . " SET emailvalidation='' WHERE emailvalidation='$id';";
 		db_query($sql);
 		output("`#`cYour email has been validated.  You may now log in.`c`0");
@@ -72,7 +73,7 @@ if ($op=="forgot"){
 				$msg = translate_mail(array("Someone from %s requested a forgotten password link for your account.  If this was you, then here is your"
 						." link, you may click it to log into your account and change your password from your preferences page in the village square.`n`n"
 						."If you didn't request this email, then don't sweat it, you're the one who is receiving this email, not them."
-						."`n`n  http://%s?op=val&id=%s `n`n Thanks for playing!",
+						."`n`n  https://%s?op=val&id=%s `n`n Thanks for playing!",
 						$_SERVER['REMOTE_ADDR'],
 						($_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT'] == 80?"":":".$_SERVER['SERVER_PORT']).$_SERVER['SCRIPT_NAME']),
 						$row['emailvalidation']
@@ -107,6 +108,7 @@ if (getsetting("allowcreation",1)==0){
 	if ($op=="create"){
 		$emailverification="";
 		$shortname = sanitize_name(getsetting("spaceinname", 0), httppost('name'));
+		$msg = "";
 
 		if (soap($shortname)!=$shortname){
 			output("`\$Error`^: Bad language was found in your name, please consider revising it.`n");
@@ -138,8 +140,8 @@ if (getsetting("allowcreation",1)==0){
 				$msg.=translate_inline("Your passwords do not match.`n");
 				$blockaccount=true;
 			}
-			if (strlen($shortname)<3){
-				$msg.=translate_inline("Your name must be at least 3 characters long.`n");
+			if (strlen($shortname)<getsetting("minnamelength", 3)){
+				$msg.=sprintf_translate("Your name must be at least %s characters long.`n", getsetting("minnamelength", 3));
 				$blockaccount=true;
 			}
 			if (strlen($shortname)>25){
@@ -189,11 +191,16 @@ if (getsetting("allowcreation",1)==0){
 					} else {
 						$dbpass = md5(md5($pass1));
 					}
+					if (isset($_COOKIE['lgi'])) {
+						$lgi = $_COOKIE['lgi'];
+					} else {
+						$lgi = 0;
+					}
 					$sql = "INSERT INTO " . db_prefix("accounts") . "
 						(name, superuser, title, password, sex, login, laston, uniqueid, lastip, gold, emailaddress, emailvalidation, referer, regdate)
 						VALUES
-						('$title $shortname', '".getsetting("defaultsuperuser",0)."', '$title', '$dbpass', '$sex', '$shortname', '".date("Y-m-d H:i:s",strtotime("-1 day"))."', '".$_COOKIE['lgi']."', '".$_SERVER['REMOTE_ADDR']."', ".getsetting("newplayerstartgold",50).", '$email', '$emailverification', '$referer', NOW())";
-					db_query($sql);
+						('$title $shortname', '".getsetting("defaultsuperuser",0)."', '$title', '$dbpass', '$sex', '$shortname', '".date("Y-m-d H:i:s",strtotime("-1 day"))."', '".$lgi."', '".$_SERVER['REMOTE_ADDR']."', ".getsetting("newplayerstartgold",50).", '$email', '$emailverification', '$referer', NOW())";
+						db_query($sql);
 					if (db_affected_rows(LINK)<=0){
 						output("`\$Error`^: Your account was not created for an unknown reason, please try again. ");
 					}else{
@@ -209,7 +216,7 @@ if (getsetting("allowcreation",1)==0){
 						modulehook("process-create", $args);
 						if ($emailverification!=""){
 							$subj = translate_mail("LoGD Account Verification",0);
-							 $msg = translate_mail(array("Login name: %s `n`nIn order to verify your account, you will need to click on the link below.`n`n http://%s?op=val&id=%s `n`nThanks for playing!",$shortname,
+							 $msg = translate_mail(array("Login name: %s `n`nIn order to verify your account, you will need to click on the link below.`n`n https://%s?op=val&id=%s `n`nThanks for playing!",$shortname,
 								($_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT'] == 80?"":":".$_SERVER['SERVER_PORT']).$_SERVER['SCRIPT_NAME']),
 								$emailverification),
 								0);
@@ -313,12 +320,5 @@ if (getsetting("allowcreation",1)==0){
 	}
 }
 addnav("Login","index.php");
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/create.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

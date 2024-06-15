@@ -82,8 +82,10 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			if ($session['user']['experience']>=$exprequired){
 				$dk = 0;
 				restore_buff_fields();
-				while(list($key, $val)=each($session['user']['dragonpoints'])) {
-					if ($val=="at" || $val=="de") $dk++;
+				if (is_array($session['user']['dragonpoints'])) {
+					foreach($session['user']['dragonpoints'] as $val) {
+						if ($val=="at" || $val=="de") $dk++;
+					}
 				}
 				$dk += (int)(($session['user']['maxhitpoints'] -
 					($session['user']['level']*10))/5);
@@ -270,12 +272,5 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 	output("You remain a moment longer, and look at the warriors in training before you turn to return to the village.");
 	villagenav();
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/train.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

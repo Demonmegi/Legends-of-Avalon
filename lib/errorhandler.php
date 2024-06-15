@@ -91,7 +91,11 @@ function logd_error_notify($errno, $errstr, $errfile, $errline, $backtrace){
 			$semi_rand = md5(time());
 			$mime_boundary = "==MULTIPART_BOUNDARY_$semi_rand";
 			$mime_boundary_header = chr(34) . $mime_boundary . chr(34);
-			$subject = "{$_SERVER['HTTP_HOST']} $level";
+			if (isset($_SERVER['HTTP_HOST'])) $subject = "{$_SERVER['HTTP_HOST']}";
+			else $subject="";
+
+			if (isset($level)) $subject .= " {$level}";
+			// $subject = "{$_SERVER['HTTP_HOST']} $level";
 
 			$body = "$notice_text
 
@@ -111,7 +115,8 @@ $html_text
 			/***
 			  * Mime bits are set up,
 			 **/
-			while (list($key,$email)=each($sendto)){
+			$from = getsetting("gameadminemail","info@localhost");
+			foreach ($sendto as $email) {
 				debug("Notifying $email of this error.");
 
 				mail($email, $subject, $body,

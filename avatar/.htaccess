@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^([^/]*)\.png$ /modules/upload_avatars/show_avatar.php?module=upload_avatars&id=$1 [L]

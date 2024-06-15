@@ -93,9 +93,6 @@ if ($op=="suicide" && getsetting("selfdelete",0)!=0) {
 			// If this is a module userpref handle and skip
 			debug("Setting $key to $val");
 			if (strstr($key, "___")) {
-				if (strpos($key, 'user_') === false && strpos($key, 'check_') === false) {
-					continue;
-				}
 				$val = httppost($key);
 				$x = explode("___", $key);
 				$module = $x[0];
@@ -152,7 +149,7 @@ if ($op=="suicide" && getsetting("selfdelete",0)!=0) {
 		"email"=>"Email Address",
 		"Display Preferences,title",
 		"template"=>"Skin,theme",
-		"language"=>"Language,enum,".getsetting("serverlanguages","en,English,de,Deutsch,fr,Français,dk,Danish,es,Español,it,Italian"),
+		"language"=>"Language,enum,".getsetting("serverlanguages","en,English,de,Deutsch,fr,Franšais,dk,Danish,es,Espa?ol,it,Italian"),
 		"tabconfig"=>"Show config sections in tabs,bool",
 		"Game Behavior Preferences,title",
 		"emailonmail"=>"Send email when you get new Ye Olde Mail?,bool",
@@ -215,11 +212,12 @@ if ($op=="suicide" && getsetting("selfdelete",0)!=0) {
 	while ($row = db_fetch_assoc($result)) {
 		$module = $row['modulename'];
 		$info = get_module_info($module);
+		if (!isset($info['prefs']) || !is_array($info['prefs'])) $info['prefs']=array();
 		if (count($info['prefs']) <= 0) continue;
 		$tempsettings = array();
 		$tempdata = array();
 		$found = 0;
-		while (list($key, $val) = each($info['prefs'])) {
+		foreach ($info['prefs'] as $key=>$val) {
 			$isuser = preg_match("/^user_/", $key);
 			$ischeck = preg_match("/^check_/", $key);
 
@@ -233,7 +231,6 @@ if ($op=="suicide" && getsetting("selfdelete",0)!=0) {
 			}
 			
 			if(is_array($x[0])) $x[0] = call_user_func_array('sprintf', $x[0]);
-			//$type = split(",", $x[0]);
 			$type = explode(",", $x[0]);
 			if (isset($type[1])) $type = trim($type[1]);
 			else $type = "string";
@@ -293,7 +290,6 @@ if ($op=="suicide" && getsetting("selfdelete",0)!=0) {
 			$mdata[$row1['modulename']."___".$row1['setting']] = $row1['value'];
 		}
 	}
-	addnav('View Bio','bio.php?char='.$session['user']['acctid'].'&ret='.urlencode($_SERVER['REQUEST_URI']));
 	
 	$form = array_merge($form, $msettings);
 	$prefs = array_merge($prefs, $mdata);

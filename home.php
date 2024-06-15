@@ -3,6 +3,7 @@
 // addnews ready
 // mail ready
 
+
 if (isset($_POST['template'])){
 	$skin = $_POST['template'];
 	if ($skin > "") {
@@ -11,9 +12,11 @@ if (isset($_POST['template'])){
 	}
 }
 
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 require_once("common.php");
 require_once("lib/http.php");
+
+
 
 
 if (!isset($session['loggedin'])) $session['loggedin']=false;
@@ -26,26 +29,15 @@ tlschema("home");
 $op = httpget('op');
 
 page_header();
-output("`cWillkommen bei Legends of Avalon, einem browserbasierten Rollenspiel, basierend auf Seth Ables Legend of the Red Dragon und Siege of Avalon von Digital Tome.`n");
+output("`cWelcome to Legend of the Green Dragon, a browser based role playing game, based on Seth Able's Legend of the Red Dragon.`n");
 
 if (getsetting("homecurtime", 1)) {
-    output("`@Die aktuelle Uhrzeit in %s ist `%%s`@.`0`n", getsetting("villagename", LOCATION_FIELDS), getgametime());
+	output("`@The current time in %s is `%%s`@.`0`n", getsetting("villagename", LOCATION_FIELDS), getgametime());
 }
-
-// Calculate server runtime
-$serverStartTime = strtotime("2023-09-02 00:00:00"); // Replace with your server's start time
-$currentTime = time();
-$serverRuntime = $currentTime - $serverStartTime;
-$serverRuntimeDays = floor($serverRuntime / 86400); // 86400 seconds in a day
-$serverRuntimeHours = floor(($serverRuntime % 86400) / 3600); // 3600 seconds in an hour
-$serverRuntimeMinutes = floor(($serverRuntime % 3600) / 60);
-$serverRuntimeSeconds = $serverRuntime % 60;
-
-output("`@Serverlaufzeit: `&%d Tage %dh %dm %ds`0`n", $serverRuntimeDays, $serverRuntimeHours, $serverRuntimeMinutes, $serverRuntimeSeconds);
 
 if (getsetting("homenewdaytime", 1)) {
 	$secstonewday = secondstonextgameday();
-	output("`@Naechster neuer Spieltag in: `\$%s (Echtzeit)`0`n`n",
+	output("`@Next new game day in: `\$%s (real time)`0`n`n",
 			date("G\\".translate_inline("h","datetime").", i\\".translate_inline("m","datetime").", s\\".translate_inline("s","datetime"),
 				$secstonewday));
 }
@@ -53,30 +45,31 @@ if (getsetting("homenewdaytime", 1)) {
 if (getsetting("homenewestplayer", 1)) {
 	$name = "";
 	$newplayer = getsetting("newestplayer", "");
-	if ($newplayer != 0) {
+	if ($newplayer != "") {
 		$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid='$newplayer'";
 		$result = db_query_cached($sql, "newest");
 		$row = db_fetch_assoc($result);
-		$name = $row['name'];
+		if (isset($row['name'])) $name = $row['name'];
+		else $name="";
 	} else {
 		$name = $newplayer;
 	}
 	if ($name != "") {
-		output("`QDer neueste Bewohner des Reiches ist: `&%s`0`n`n", $name);
+		output("`QThe newest resident of the realm is: `&%s`0`n`n", $name);
 	}
 }
 
 clearnav();
-addnav("Neu bei LoA?");
-addnav("Charakter erstellen","create.php");
-addnav("Spiel-Funktionen");
-addnav("Passwort vergessen","create.php?op=forgot");
-addnav("Krieger auflisten","list.php");
-addnav("Taegliche Nachrichten", "news.php");
-addnav("Weitere Informationen");
-addnav("Ueber LoGD","about.php");
-addnav("Spiel-Setup-Informationen", "about.php?op=setup");
-addnav("LoGD Netz","logdnet.php?op=list");
+addnav("New to LoGD?");
+addnav("Create a character","create.php");
+addnav("Game Functions");
+addnav("Forgotten Password","create.php?op=forgot");
+addnav("List Warriors","list.php");
+addnav("Daily News", "news.php");
+addnav("Other Info");
+addnav("About LoGD","about.php");
+addnav("Game Setup Info", "about.php?op=setup");
+addnav("LoGD Net","logdnet.php?op=list");
 
 modulehook("index", array());
 
@@ -91,11 +84,13 @@ if (abs(getsetting("OnlineCountLast",0) - strtotime("now")) > 60){
 	$onlinecount = getsetting("OnlineCount",0);
 }
 if ($onlinecount<getsetting("maxonline",0) || getsetting("maxonline",0)==0){
-	output("Geben Sie Ihren Namen und Ihr Passwort ein, um das Reich zu betreten.`n");
-	if ($op=="timeout"){
+	output("Enter your name and password to enter the realm.`n");
+	if ($op=="timeout" && isset($session)){
+		if (!isset($session['message'])) $session['message']='';
 		$session['message'].= translate_inline(" Your session has timed out, you must log in again.`n");
 	}
-	if (!isset($_COOKIE['lgi'])){
+	if (!isset($_COOKIE['lgi']) && isset($session)){
+		if (!isset($session['message'])) $session['message']='';
 		$session['message'].=translate_inline("It appears that you may be blocking cookies from this site.  At least session cookies must be enabled in order to use this site.`n");
 		$session['message'].=translate_inline("`b`#If you are not sure what cookies are, please <a href='http://en.wikipedia.org/wiki/WWW_browser_cookie'>read this article</a> about them, and how to enable them.`b`n");
 	}
@@ -113,9 +108,9 @@ if ($onlinecount<getsetting("maxonline",0) || getsetting("maxonline",0)==0){
 	}
 	//-->
 	</script>");
-	$uname = translate_inline("<u>B</u>enutzername");
-	$pass = translate_inline("<u>P</u>asswort");
-	$butt = translate_inline("Einloggen");
+	$uname = translate_inline("<u>U</u>sername");
+	$pass = translate_inline("<u>P</u>assword");
+	$butt = translate_inline("Log in");
 	rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
 	output_notl("`c");
 	addnav("","login.php");
@@ -136,12 +131,12 @@ if ($onlinecount<getsetting("maxonline",0) || getsetting("maxonline",0)==0){
 $msg = getsetting("loginbanner","*BETA* This is a BETA of this website, things are likely to change now and again, as it is under active development *BETA*");
 output_notl("`n`c`b`&%s`0`b`c`n", $msg);
 $session['message']="";
-output("`c`2Spielserver version: `@%s`0`c", $logd_version);
+output("`c`2Game server running version: `@%s`0`c", $logd_version);
 
 if (getsetting("homeskinselect", 1)) {
 	rawoutput("<form action='home.php' method='POST'>");
 	rawoutput("<table align='center'><tr><td>");
-	$form = array("template"=>"Waehlen Sie ein anderes Anzeige-Design aus:,theme");
+	$form = array("template"=>"Choose a different display skin:,theme");
 	$prefs['template'] = $_COOKIE['template'];
 	if ($prefs['template'] == "")
 		$prefs['template'] = getsetting("defaultskin", "jade.htm");
@@ -151,12 +146,6 @@ if (getsetting("homeskinselect", 1)) {
 	rawoutput("</td><td><br>&nbsp;<input type='submit' class='button' value='$submit'></td>");
 	rawoutput("</tr></table></form>");
 }
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/home.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
 
 page_footer();
 ?>

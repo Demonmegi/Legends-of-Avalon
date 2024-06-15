@@ -30,9 +30,8 @@ function synctable($tablename,$descriptor,$nodrop=false){
 	}else{
 		//the table exists, so we need to compare it against the descriptor.
 		$existing = table_create_descriptor($tablename);
-		reset($descriptor);
 		$changes = array();
-		while (list($key,$val)=each($descriptor)){
+		foreach ($descriptor as $key=>$val) {
 			if ($key == "RequireMyISAM") continue;
 			$val['type'] = descriptor_sanitize_type($val['type']);
 			if (!isset($val['name'])) {
@@ -87,8 +86,7 @@ function synctable($tablename,$descriptor,$nodrop=false){
 		}//end while
 		//drop no longer needed columns
 		if (!$nodrop){
-			reset($existing);
-			while (list($key,$val)=each($existing)){
+			foreach ($existing as $key=>$val) {
 				//This column no longer exists.
 				if ($val['type']=="key" || $val['type']=="unique key"){
 					$sql = "DROP KEY {$val['name']}";
@@ -113,9 +111,8 @@ function synctable($tablename,$descriptor,$nodrop=false){
 function table_create_from_descriptor($tablename,$descriptor){
 	$sql = "CREATE TABLE $tablename (\n";
 	$type = "INNODB";
-	reset($descriptor);
 	$i=0;
-	while (list($key,$val)=each($descriptor)){
+	foreach ($descriptor as $key=>$val) {
 		if ($key === "RequireMyISAM" && $val == 1) {
 			// Let's hope that we don't run into badly formatted strings
 			// but you know what, if we do, tough
@@ -152,7 +149,7 @@ function table_create_from_descriptor($tablename,$descriptor){
 		$sql .= descriptor_createsql($val);
 		$i++;
 	}
-	$sql .= ") engine=$type";
+	$sql .= ") ENGINE=$type";
 	return $sql;
 }
 
@@ -239,8 +236,7 @@ function descriptor_createsql($input){
 		$return = $input['name']." "
 			.$input['type']
 			.(isset($input['null']) && $input['null']?"":" NOT NULL")
-			.(isset($input['default']) &&
-					$input['default']>""?" default '{$input['default']}'":"")
+			.(isset($input['default'])?" default '{$input['default']}'":"")
 			." ".$input['extra'];
 	}
 	return $return;

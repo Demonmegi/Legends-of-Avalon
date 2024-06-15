@@ -51,11 +51,5 @@ if ($session['user']['superuser'] & SU_INFINITE_DAYS){
 
 tlschema();
 
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/shades.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

@@ -24,9 +24,9 @@ function forestvictory($enemies,$denyflawless=false){
 		}
 		$gold += $badguy['creaturegold'];
 		tlschema("battle");
-		if(isset($badguy['creaturelose'])) $msg = translate_inline($badguy['creaturelose']);
+		$msg = translate_inline($badguy['creaturelose']);
 		tlschema();
-		if(isset($msg)) output_notl("`b`&%s`0`b`n",$msg);
+		output_notl("`b`&%s`0`b`n",$msg);
 		output("`b`\$You have slain %s!`0`b`n",$badguy['creaturename']);
 		$count++;
 		// If any creature did damage, we have no flawless fight. Easy as that.
@@ -37,18 +37,18 @@ function forestvictory($enemies,$denyflawless=false){
 		if (!$denyflawless && isset($badguy['denyflawless']) && $badguy['denyflawless']>"") {
 			$denyflawless = $badguy['denyflawless'];
 		}
-		$expbonus += round(($badguy['creatureexp'] * (1 + .25 * ($badguy['creaturelevel']-$session['user']['level']))) - $badguy['creatureexp'],0);
+		$expbonus += round((($badguy['creatureexp'] * (1 + .25 * ($badguy['creaturelevel']-$session['user']['level']))) - $badguy['creatureexp']) * (1 / pow(4/3,$index)),0);
 	}
 	$multibonus = $count>1?1:0;
-	$expbonus += $session['user']['dragonkills'] * $session['user']['level'] * $multibonus;
+	$expbonus += round($session['user']['dragonkills']*.44,0) * $session['user']['level'] * $multibonus;
 	$totalexp = 0;
 	foreach ($options['experience'] as $index=>$experience) {
-		$totalexp += $experience;
+		$totalexp += round($experience * (1 / pow(4/3,$index)),0);
 	}
 	// We now have the total experience which should have been gained during the fight.
 	// Now we will calculate the average exp per enemy.
-	$exp = round($totalexp / $count);
-	$gold = e_rand(round($gold/$count),round($gold/$count)*round(($count+1)*pow(1.2, $count-1),0));
+	$exp = $totalexp;
+	$gold = e_rand(round($gold/$count),round($gold/$count)*round((min(6,$count+1))*pow(1.05, min(4,$count-1)),0));
 	$expbonus = round ($expbonus/$count,0);
 
 	if ($gold) {
@@ -89,7 +89,7 @@ function forestvictory($enemies,$denyflawless=false){
 			$expbonus = -$exp+1;
 		}
 		if ($expbonus>0){
-			$expbonus = round($expbonus * pow(1+(getsetting("addexp", 5)/100), $count-1),0);
+			$expbonus = round($expbonus * pow(1+(getsetting("addexp", 5)/100), max(0,$count-2)),0);
 			output("`#***Because of the difficult nature of this fight, you are awarded an additional `^%s`# experience! `n(%s + %s = %s) ",$expbonus,$exp,abs($expbonus),$exp+$expbonus);
 		} elseif ($expbonus<0){
 			output("`#***Because of the simplistic nature of this fight, you are penalized `^%s`# experience! `n(%s - %s = %s) ",abs($expbonus),$exp,abs($expbonus),$exp+$expbonus);
@@ -132,18 +132,16 @@ function forestdefeat($enemies,$where="in the forest"){
 	$killer = false;
 	foreach ($enemies as $index=>$badguy) {
 		$names[] = $badguy['creaturename'];
-		if (isset($badguy['killedplayer']) && $badguy['killedplayer'] == true) $killer = $badguy;
+		if (isset($badguy['killedplayer']) && $badguy['killedplayer'] == true) $killer = $badguy['creaturename'];
 		if (isset($badguy['creaturewin']) && $badguy['creaturewin'] > "") {
 			$msg = translate_inline($badguy['creaturewin'],"battle");
 			output_notl("`b`&%s`0`b`n",$msg);
 		}
 	}
-	if($killer) $badguy = $killer;
-	elseif(!isset($badguy['creaturename'])) $badguy = $enemies[0];
 	if (count($names) > 1) $lastname = array_pop($names);
 	$enemystring = join(", ", $names);
 	$and = translate_inline("and");
-	if (isset($lastname) && $lastname > "") $enemystring = "$enemystring $and $lastname";
+	if ($lastname > "") $enemystring = "$enemystring $and $lastname";
 	$taunt = select_taunt_array();
 	if (is_array($where)) {
 		$where=sprintf_translate($where);
@@ -151,7 +149,7 @@ function forestdefeat($enemies,$where="in the forest"){
 		$where=translate_inline($where);
 	}
 	addnews("`%%s`5 has been slain %s by %s.`n%s",$session['user']['name'],$where,$badguy['creaturename'],$taunt);
-	$session['user']['alive']=false;
+	$session['user']['alive']=0;
 	debuglog("lost gold when they were slain $where",false,false,"forestlose",-$session['user']['gold']);
 	$session['user']['gold']=0;
 	$session['user']['hitpoints']=0;
@@ -169,7 +167,7 @@ function buffbadguy($badguy){
 	if ($dk === false) {
 		//make badguys get harder as you advance in dragon kills.
 		$dk = 0;
-		while(list($key, $val)=each($session['user']['dragonpoints'])) {
+		foreach ($session['user']['dragonpoints'] as $key=>$val) {
 			if ($val=="at" || $val=="de") $dk++;
 		}
 		$dk += (int)(($session['user']['maxhitpoints']-($session['user']['level']*10))/5);
@@ -198,10 +196,14 @@ function buffbadguy($badguy){
 	}
 
 	$badguy = modulehook("creatureencounter",$badguy);
-	debug("DEBUG: $dk modification points total.");
-	debug("DEBUG: +$atkflux allocated to attack.");
-	debug("DEBUG: +$defflux allocated to defense.");
-	debug("DEBUG: +".($hpflux/5)."*5 to hitpoints.");
-	return modulehook("buffbadguy",$badguy);
+	if (isset($badguy['handled']) && $badguy['handled'] == true) {
+		return NULL;
+	} else {
+		debug("DEBUG: $dk modification points total.");
+		debug("DEBUG: +$atkflux allocated to attack.");
+		debug("DEBUG: +$defflux allocated to defense.");
+		debug("DEBUG: +".($hpflux/5)."*5 to hitpoints.");
+		return modulehook("buffbadguy",$badguy);
+	}
 }
 ?>

@@ -3,6 +3,7 @@ if (file_exists("dbconnect.php")){
 	$success=true;
 	$initial=false;
 }else{
+	$success=false;
 	$initial = true;
 	output("`@`c`bWriting your dbconnect.php file`b`c");
 	output("`2I'm attempting to write a file named 'dbconnect.php' to your site root.");
@@ -10,14 +11,15 @@ if (file_exists("dbconnect.php")){
 	$dbconnect =
 	"<?php\n"
 	."//This file automatically created by installer.php on ".date("M d, Y h:i a")."\n"
-	."\$DB_HOST = '{$session['dbinfo']['DB_HOST']}';\n"
-	."\$DB_USER = '{$session['dbinfo']['DB_USER']}';\n"
-	."\$DB_PASS = '{$session['dbinfo']['DB_PASS']}';\n"
-	."\$DB_NAME = '{$session['dbinfo']['DB_NAME']}';\n"
-	."\$DB_PREFIX = '{$session['dbinfo']['DB_PREFIX']}';\n"
+	."\$DB_HOST = \"{$session['dbinfo']['DB_HOST']}\";\n"
+	."\$DB_USER = \"{$session['dbinfo']['DB_USER']}\";\n"
+	."\$DB_PASS = \"{$session['dbinfo']['DB_PASS']}\";\n"
+	."\$DB_NAME = \"{$session['dbinfo']['DB_NAME']}\";\n"
+	."\$DB_PREFIX = \"{$session['dbinfo']['DB_PREFIX']}\";\n"
 	."\$DB_USEDATACACHE = ". ((int)$session['dbinfo']['DB_USEDATACACHE']) .";\n"
-	."\$DB_DATACACHEPATH = '{$session['dbinfo']['DB_DATACACHEPATH']}';\n"
+	."\$DB_DATACACHEPATH = \"{$session['dbinfo']['DB_DATACACHEPATH']}\";\n"
 	."?>\n";
+	$failure=false;
 	$fp = @fopen("dbconnect.php","w+");
 	if ($fp){
 		if (fwrite($fp, $dbconnect)!==false){
@@ -69,13 +71,13 @@ if ($success && !$initial){
 		$dbconnect =
 			"<?php\n"
 			."//This file automatically created by installer.php on ".date("M d, Y h:i a")."\n"
-			."\$DB_HOST = '{$DB_HOST}';\n"
-			."\$DB_USER = '{$DB_USER}';\n"
-			."\$DB_PASS = '{$DB_PASS}';\n"
-			."\$DB_NAME = '{$DB_NAME}';\n"
-			."\$DB_PREFIX = '{$DB_PREFIX}';\n"
+			."\$DB_HOST = \"{$DB_HOST}\";\n"
+			."\$DB_USER = \"{$DB_USER}\";\n"
+			."\$DB_PASS = \"{$DB_PASS}\";\n"
+			."\$DB_NAME = \"{$DB_NAME}\";\n"
+			."\$DB_PREFIX = \"{$DB_PREFIX}\";\n"
 			."\$DB_USEDATACACHE = ". ((int)$DB_USEDATACACHE).";\n"
-			."\$DB_DATACACHEPATH = '".addslashes($DB_DATACACHEPATH)."'';\n"
+			."\$DB_DATACACHEPATH = \"".addslashes($DB_DATACACHEPATH)."\";\n"
 			."?>\n";
 		// Check if the file is writeable for us. If yes, we will change the file and notice the admin
 		// if not, they have to change the file themselves...

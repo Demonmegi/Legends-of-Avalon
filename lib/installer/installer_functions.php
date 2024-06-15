@@ -36,7 +36,8 @@ function descriptors($prefix=""){
 	require_once("lib/all_tables.php");
 	$array = get_all_tables();
 	$out = array();
-	while (list($key,$val)=each($array)){
+	foreach($array as $key=>$val) {
+	//while (list($key,$val)=each($array)){
 		$out[$prefix.$key]=$val;
 	}
 	return $out;
@@ -45,7 +46,8 @@ function descriptors($prefix=""){
 //This function is borrowed from the php manual.
 function return_bytes($val) {
 	$val = trim($val);
-	$last = strtolower($val{strlen($val)-1});
+	$last = strtolower(substr($val,-1));
+	$val = intval($val);
 	switch($last) {
 		// The 'G' modifier is available since PHP 5.1.0
 		case 'g':
@@ -54,6 +56,12 @@ function return_bytes($val) {
 		$val *= 1024;
 		case 'k':
 		$val *= 1024;
+		case 'G':
+		$val *= 1024;
+		case 'M':
+		$val *= 1024;
+		case 'K':
+		$val *= 1024;			
 	}
 	return $val;
 }

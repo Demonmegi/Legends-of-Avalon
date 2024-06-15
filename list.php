@@ -2,7 +2,7 @@
 // addnews ready
 // translator ready
 // mail ready
-define("ALLOW_ANONYMOUS",true);
+if (!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",true);
 require_once("common.php");
 require_once("lib/http.php");
 require_once("lib/villagenav.php");
@@ -72,7 +72,7 @@ for ($i=0;$i<$totalplayers;$i+=$playersperpage){
 // wouldn't show up
 if ($page=="" && $op==""){
 	$title = translate_inline("Warriors Currently Online");
-	$sql = "SELECT acctid,name,login,alive,location,race,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY level DESC, dragonkills DESC, login ASC";
+	$sql = "SELECT acctid,name,login,alive,location,race,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY alive DESC, location ASC, level DESC"; //ORDER BY level DESC, dragonkills DESC, login ASC";
 	$result = db_query_cached($sql,"list.php-warsonline");
 }elseif($op=='clan'){
 	$title = translate_inline("Clan Members Online");
@@ -167,12 +167,5 @@ for($i=0;$i<$max;$i++){
 }
 rawoutput("</table>");
 output_notl("`c");
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/list.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

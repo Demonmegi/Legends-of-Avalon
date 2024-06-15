@@ -69,7 +69,7 @@ default: //if there is any other mode, i.e. "" go on and display what's necessar
 	//rawoutput("<input type='submit' class='button' name='dummy' value='". translate_inline("Show") ."'>"); //no longer necessary
 	output_notl("`n");
 	rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
-	rawoutput("<tr class='trhead'><td>". translate_inline("Ops") ."</td><td>". translate_inline("Text") ."</td><td>".translate_inline("Actions")."</td></tr>");
+	rawoutput("<tr class='trhead'><td>". translate_inline("Ops") ."</td><td width=400>". translate_inline("Text") ."</td><td>".translate_inline("Actions")."</td></tr>");
 	$sql = "SELECT * FROM " . db_prefix("untranslated") . " WHERE language='".$languageschema."' AND namespace='".$namespace."'";
 	$result = db_query($sql);
 	if (db_num_rows($result)>0){

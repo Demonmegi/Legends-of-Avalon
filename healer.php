@@ -56,7 +56,6 @@ if ($op==""){
 		debuglog("spent gold on healing",false,false,"healing",$newcost);
 		$diff = round(($session['user']['maxhitpoints']-$session['user']['hitpoints'])*$pct/100,0);
 		$session['user']['hitpoints'] += $diff;
-		output("`3With a grimace, you up-end the potion the creature hands you, and despite the foul flavor, you feel a warmth spreading through your veins as your muscles knit back together.");
 		if($newcost){
 			output("`3With a grimace, you up-end the potion the creature hands you, and despite the foul flavor, you feel a warmth spreading through your veins as your muscles knit back together.");
 			output("Staggering some, you hand it your gold and are ready to be out of here.");
@@ -131,12 +130,5 @@ if ($return==""){
 }
 tlschema();
 output_notl("`0");
-
-// Display the image with center alignment
-$imageOutput = '<div style="text-align: center;">';
-$imageOutput .= '<img src="images/healer.jpg" alt="Image description" style="display: block; margin: auto;">';
-$imageOutput .= '</div>';
-echo $imageOutput;
-
 page_footer();
 ?>

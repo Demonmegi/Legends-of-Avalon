@@ -5,7 +5,7 @@ case "superuser":
 	if ($session['user']['superuser'] & SU_IS_TRANSLATOR) {
 		addnav("Actions");
 		addnav("Translation Wizard","runmodule.php?module=translationwizard&op=list");
-		if (get_module_setting(blocktrans)) blocknav("untranslated.php");
+		if (get_module_setting("blocktrans")) blocknav("untranslated.php");
 	}
 	break;
 	

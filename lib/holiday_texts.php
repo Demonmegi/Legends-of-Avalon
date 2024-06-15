@@ -6,10 +6,12 @@ require_once("lib/modules.php");
 
 function holidayize($text,$type='unknown'){
 	global $session;
-	if (!isset($session['user']['prefs']['ihavenocheer']))
-		$session['user']['prefs']['ihavenocheer'] = 0;
-	if ($session['user']['prefs']['ihavenocheer']) {
-		return $text;
+	if($session['user']['loggedin']){
+		if (!isset($session['user']['prefs']['ihavenocheer']))
+			$session['user']['prefs']['ihavenocheer'] = 0;
+		if ($session['user']['prefs']['ihavenocheer']) {
+			return $text;
+		}
 	}
 
 	$args = array('text'=>$text,'type'=>$type);

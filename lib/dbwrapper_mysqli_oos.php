@@ -7,6 +7,11 @@ function db_query($sql, $die=true){
  	if (defined("DB_NODB") && !defined("LINK")) return array();
 	global $session,$dbinfo,$mysqli_resource;
 	$dbinfo['queriesthishit']++;
+	if (!isset($dbinfo['querytime'])) {
+		$dbinfo['querytime'] = 0;
+	}
+
+	$mysqli_resource->set_charset("latin1");
 	// $fname = DBTYPE."_query";
 	$starttime = getmicrotime();
 	//$r = $fname($sql);
@@ -82,10 +87,9 @@ function db_error(){
 function db_fetch_assoc(&$result){
 	if (is_array($result)){
 		//cached data
-		if (list($key,$val)=each($result))
-			return $val;
-		else
-			return false;
+		$val = current($result);
+		next($result);
+		return $val;
 	}else{
 		//$fname = DBTYPE."_fetch_assoc";
 		//$r = $fname($result);
@@ -178,10 +182,11 @@ function db_free_result($result){
 }
 
 function db_table_exists($tablename){
-  global $mysqli_resource;
+	global $mysqli_resource;
  	if (defined("DB_NODB") && !defined("LINK")) return false;
-	$exists = $mysqli_resource->Query("SELECT 1 FROM `$tablename` LIMIT 0");
-	if ($exists) return true;
+	$sql = "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = '" . VALIDDB_NAME . "' AND TABLE_TYPE LIKE 'BASE TABLE' AND TABLE_NAME = '" . $tablename . "'";
+	$result = $mysqli_resource->Query($sql);
+	if ($result->num_rows==1) return true;
 	return false;
 }
 

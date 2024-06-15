@@ -126,11 +126,16 @@ td.noborder {
 table.noborder {
 	border: none;
 }
-input {
+input, textarea {
 	background-color: #015D01;
 	border: 1px solid #013901;
 	color: #CCCCCC;
 }
+
+textarea {
+	resize: none;
+}
+
 .button {
 font-family: verdana,arial,helvetica,sans-serif;  
 	 font-size: 12px;  
@@ -267,8 +272,9 @@ div.debug {
 .colLtRust { color: #B07878; }
 .colMdBlue { color: #0000F0; }
 .colMdGrey { color: #DDDDDD; }
-.colburlywood { color: #DEB887; }
 .trhead  { background-color:#006600; color:#FFFFFF; }
 .trlight { background-color:#004000; }
 .trdark  { background-color:#003000; }
 .trhilight { background-color: #333333; }
+.colMedRed { color: #780000; }
+.colburlywood { color: #DEB887; }

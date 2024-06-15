@@ -27,7 +27,6 @@ if (!$link){
 	output("`2This means that the database server address, database username, and database password you provided were probably accurate, and that your database server is running and accepting connections.`n");
 	output("`nI'm now going to attempt to connect to the LoGD database you provided.`n");
 	if (httpget("op")=="trycreate"){
-		require_once 'lib/installer/installer_functions.php';
 		create_db($session['dbinfo']['DB_NAME']);
 	}
 	if (!db_select_db($session['dbinfo']['DB_NAME'])){
